@@ -35,19 +35,22 @@ Each skill is a self-contained package containing:
 
 ## Skills Catalog
 
-The repository currently provides 9 curated skills:
+The repository currently provides curated skills across the software lifecycle:
 
 | Skill | Purpose | Key Capabilities |
 | :--- | :--- | :--- |
 | **[`writing-specs`](skills/writing-specs/)** | Specification & Architecture Design | Collaborative requirements elicitation, bounded context isolation, deep module design, and verifiable acceptance criteria before coding. |
 | **[`writing-plans`](skills/writing-plans/)** | Implementation Planning | Decomposes approved specifications into ordered, bite-sized tasks with explicit TDD steps and verification checkpoints. |
 | **[`executing-plans`](skills/executing-plans/)** | Plan Execution & TDD | Guides task-by-task plan execution with pragmatic red-green-refactor loops, multi-scale reviews, and verification gates. Supports both inline and subagent execution. |
+| **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
+| **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales. |
 | **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) to inspect pull requests, perform comprehensive multi-scale code reviews, and post structured, actionable review feedback. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests focusing on observable outcomes, user requirements, and technical boundaries. |
 | **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Authoring | Generates reproducible, structured bug reports and regression investigations without dictating internal implementation details. |
+| **[`simple-english`](skills/simple-english/)** | ASD-STE100 Technical English | Enforces Simplified Technical English rules to eliminate AI slop, ambiguity, and complex clauses for global clarity. |
 
 ---
 
@@ -106,6 +109,16 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── skills/                    # Canonical source definitions for each skill
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
+│   ├── diagnosing-bugs/
+│   │   ├── SKILL.md
+│   │   ├── condition-based-waiting.md
+│   │   ├── defense-in-depth.md
+│   │   ├── root-cause-tracing.md
+│   │   ├── examples/
+│   │   │   └── condition-based-waiting-example.ts
+│   │   └── scripts/
+│   │       ├── find-polluter.sh
+│   │       └── hitl-loop.template.sh
 │   ├── executing-plans/
 │   │   └── SKILL.md
 │   ├── replaying-file-revisions/
@@ -114,6 +127,12 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── reviewing-github-prs/
 │   │   └── SKILL.md
+│   ├── simple-english/
+│   │   └── SKILL.md
+│   ├── test-driven-development/
+│   │   ├── SKILL.md
+│   │   ├── mocking-guidelines.md
+│   │   └── testing-anti-patterns.md
 │   ├── writing-github-issues-for-bugs/
 │   │   └── SKILL.md
 │   ├── writing-github-issues-for-features/

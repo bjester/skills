@@ -5,7 +5,7 @@ INSTALL_DIR = $(HOME)/.vibe/
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
-REFERENCE_SKILLS := writing-specs writing-plans executing-plans writing-github-issues-for-features writing-github-issues-for-bugs reviewing-code reviewing-github-prs
+REFERENCE_SKILLS := writing-specs writing-plans executing-plans writing-github-issues-for-features writing-github-issues-for-bugs reviewing-code reviewing-github-prs diagnosing-bugs test-driven-development
 writing-specs_REFERENCES := software-engineering.md
 writing-plans_REFERENCES := software-engineering.md
 executing-plans_REFERENCES := software-engineering.md code-review-guidelines.md
@@ -13,6 +13,8 @@ writing-github-issues-for-features_REFERENCES := github-issue-guidelines.md soft
 writing-github-issues-for-bugs_REFERENCES := github-issue-guidelines.md software-engineering.md
 reviewing-code_REFERENCES := software-engineering.md code-review-guidelines.md learning-equality-guidelines.md
 reviewing-github-prs_REFERENCES := software-engineering.md code-review-guidelines.md learning-equality-guidelines.md
+diagnosing-bugs_REFERENCES := software-engineering.md
+test-driven-development_REFERENCES := software-engineering.md
 
 REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skills/$(skill)/references/,$($(skill)_REFERENCES)))
 
@@ -31,7 +33,7 @@ install: build
 
 sources:
 	mkdir -p sources/
-	$(MAKE) sources/agent-rules-books sources/agent-skills sources/le-skills sources/SimpleEnglish sources/superpowers
+	$(MAKE) sources/agent-rules-books sources/agent-skills sources/le-skills sources/mattpocock-skills sources/SimpleEnglish sources/superpowers
 
 sources/agent-rules-books:
 	git clone git@github.com:ciembor/agent-rules-books.git sources/agent-rules-books
@@ -41,6 +43,9 @@ sources/agent-skills:
 
 sources/le-skills:
 	git clone git@github.com:learningequality/le-skills.git sources/le-skills
+
+sources/mattpocock-skills:
+	git clone git@github.com:mattpocock/skills.git sources/mattpocock-skills
 
 sources/SimpleEnglish:
 	git clone git@github.com:AminBlg/SimpleEnglish.git sources/SimpleEnglish
