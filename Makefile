@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 INSTALL_DIR = $(HOME)/.vibe/
 
-.PHONY: clean copy-references build install
+.PHONY: clean copy-references build install sources
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
@@ -31,11 +31,22 @@ install: build
 
 sources:
 	mkdir -p sources/
-	git clone git@github.com:ciembor/agent-rules-books.git sources/agent-rules-books
-	git clone git@github.com:addyosmani/agent-skills.git sources/agent-skills
-	git clone git@github.com:learningequality/le-skills.git sources/le-skills
-	git clone git@github.com:obra/superpowers.git sources/superpowers
+	$(MAKE) sources/agent-rules-books sources/agent-skills sources/le-skills sources/SimpleEnglish sources/superpowers
 
+sources/agent-rules-books:
+	git clone git@github.com:ciembor/agent-rules-books.git sources/agent-rules-books
+
+sources/agent-skills:
+	git clone git@github.com:addyosmani/agent-skills.git sources/agent-skills
+
+sources/le-skills:
+	git clone git@github.com:learningequality/le-skills.git sources/le-skills
+
+sources/SimpleEnglish:
+	git clone git@github.com:AminBlg/SimpleEnglish.git sources/SimpleEnglish
+
+sources/superpowers:
+	git clone git@github.com:obra/superpowers.git sources/superpowers
 
 define MAKE_REFERENCE_RULE
 output/skills/$(1)/references/$(2): references/$(2)

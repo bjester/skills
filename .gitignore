@@ -3,6 +3,7 @@
 .claude/
 .codex/
 .idea/
+.envrc
 
 sources/
 output/
