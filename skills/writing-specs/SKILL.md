@@ -24,7 +24,8 @@ Purpose: Turn ideas and requirements into robust, fully formed technical specifi
 - **Never code without an approved spec**: Code written without a specification is guessing. Writing a spec forces you to examine the problem, manage cognitive load, isolate failure modes, and surface implicit assumptions before writing code.
 - **Manage cognitive load & complexity**: Complexity is the enemy (manifested through change amplification, cognitive load, and unknown unknowns). A good spec isolates bounded contexts, establishes deep modules, and adheres to strict inward dependency rules.
 - **Reference Shared Software Engineering Invariants**: Always consult `references/software-engineering.md` for architectural patterns, boundary definitions (Clean/Hexagonal, DDD), defensive design, resilience strategies, and testing invariants.
-- **Living Document**: The specification is version-controlled and maintained alongside code. Update the spec whenever requirements, architecture, or scope change.
+- **Living Document, Authoritative State**: The specification is version-controlled and maintained alongside code. It defines the current, authoritative target state—not a historical audit log or changelog.
+- **Memorialize Reasoning, Not Revisions**: When iterating through feedback loops, changes must **fully replace** existing instructions instead of appending revision markers, strikethroughs, or historical notes. Retaining superseded instructions creates detractors and conflicting context that degrade downstream LLM and engineer performance. Record the *reasoning* behind trade-offs and decisions (e.g., in Context or Alternate Solutions Considered), but keep all active operational requirements, schemas, and boundaries strictly singular and clean. Git preserves the edit history.
 
 ---
 
@@ -70,6 +71,8 @@ If splitting is required:
 2. **Get User Confirmation**: Ask the user: *"This initiative spans multiple independent subsystems. I recommend splitting this into [N] separate specs. Should we focus on Spec 1: [<Name>] first?"*
 3. **Execute Spec 1 Only**: Complete the full `writing-specs` → `writing-plans` lifecycle for Spec 1 before initiating Spec 2.
 4. **Declare Subsequent Phases as Non-Goals**: Record Sub-projects 2 & 3 explicitly in Spec 1's `Non-Goals / Out of Scope` section to prevent scope creep.
+5. **Register Phase Labels in the Glossary**: Explicitly define every coined phase or spec label (e.g., `Spec 2`, `Phase 3`) in Spec 1's Glossary. Specify its concrete referent, dependencies, and status (`planned` vs. `hypothetical`). Never assume numbered or named phases are self-explanatory.
+6. **Explicitly Tag Inherited Constraints**: When decisions or boundaries in Spec 1 constrain a downstream phase, explicitly document the constraint and name the target phase (e.g., "Constraints inherited by Phase 2"). Avoid burying cross-phase constraints in local implementation details.
 
 ---
 
@@ -118,13 +121,22 @@ Before presenting the completed spec for final sign-off, evaluate the draft crit
    - Is error handling explicit without silent failures or empty catches?
    - Are test levels (Unit, Integration, Contract) clearly allocated?
 4. **Boundary Clarity**: Ensure the three-tier operational boundary (Always / Ask First / Never) is populated.
-5. **Scope & Ambiguity Check**: Resolve any ambiguous statement into a concrete, deterministic rule. Fix issues inline.
+5. **Coined-Label & Glossary Audit**: Audit all coined identifiers (phase/spec labels, named components, synthetic artifacts, and capitalized/backticked non-code terms). Ensure every label is registered in the Glossary with a clear referent and status. Flag any term mentioned without definition or defined only via passing inline context.
+6. **Scope & Ambiguity Check**: Resolve any ambiguous statement into a concrete, deterministic rule. Fix issues inline.
+7. **Detractor & Superseded Content Scan**: Confirm revisions have cleanly overwritten older instructions. Verify there are no lingering strikethroughs, inline revision markers ("Updated in v2: ..."), or contradictory guidance between newly modified sections and untouched sections.
 
-### 5. User Review Gate
+### 5. User Review Gate & Feedback Iteration
 Present the specification to the user:
 > "The technical specification has been drafted and saved to `<path>`. Please review it and let me know if you would like any adjustments or if you approve proceeding to implementation planning."
 
-Wait for explicit approval. If changes are requested, adjust the document and re-verify before proceeding.
+Wait for explicit approval.
+
+#### Incorporating User Feedback
+When the user requests changes or iterations during the review loop:
+- **Cleanly Overwrite, Do Not Append**: Fully replace invalidated requirements, schemas, contracts, and acceptance criteria in-place. Write the updated text as if it were the plan from the beginning.
+- **Eliminate Detractors**: Never leave obsolete directives, strikethroughs, or historical revision logs (e.g., "Note: previously we considered X, but per feedback we do Y") inside operational sections. Obsolete text confuses downstream LLMs during planning and implementation.
+- **Memorialize Reasoning in Strategic Sections**: If feedback altered a core architectural choice, capture the *why* in Section 2 (`Context & Motivation`) or Section 4 (`Alternate Solutions Considered` / rejected options). The *reasoning* is preserved for posterity, while operational sections remain clean and unambiguous.
+- **Re-Verify Consistency**: Run the self-review loop across the entire document to ensure changes didn't introduce subtle contradictions with untouched sections before re-presenting to the user.
 
 ### 6. Terminal Transition: Implementation Planning
 Once the spec is approved:
@@ -146,11 +158,14 @@ Adapt the sections below based on project scale (small features use a lean subse
 - **Date**: [YYYY-MM-DD]
 - **Last Updated**: [YYYY-MM-DD]
 - **Issue/Ticket Reference**: [#123 / URL]
+*(Do NOT add an in-document Changelog or Revision History table; git tracks document history).*
 
 ## 2. Introduction & Strategic Context
 - **Overview / Problem Statement**: Summary of the user problem and the proposed solution.
 - **Context & Motivation**: Why solve this now? How does this align with strategic goals and system architecture?
-- **Ubiquitous Language & Glossary**: Rigorous domain terms defined within this Bounded Context.
+- **Ubiquitous Language & Glossary**: Define domain terms and coined spec labels:
+  - *Domain Terms*: Rigorous business and domain vocabulary within this Bounded Context.
+  - *Coined Document & System Labels*: Every synthetic identifier introduced by this spec (e.g., `Phase 2`, `Spec 2`, `the Ingestion Worker`, `the Probe Suite`). For each, specify its concrete referent, dependencies, and lifecycle status (`existing`, `planned`, or `hypothetical`).
 - **Goals**: Concrete user and technical outcomes.
 - **Non-Goals / Out of Scope**: Explicitly excluded requirements and features to prevent scope creep.
 - **Assumptions**: Environmental, organizational, or architectural preconditions.
@@ -175,7 +190,7 @@ Adapt the sections below based on project scale (small features use a lean subse
   - Fallback strategies with structured observability (no silent error suppression).
   - Concurrency controls (optimistic locking, transaction isolation levels).
 - **Security & Privacy Considerations**: Input validation at boundaries (barricades), authentication/authorization, data protection.
-- **Alternate Solutions Considered**: 2–3 rejected approaches and why they were discarded.
+- **Alternate Solutions Considered**: 2–3 rejected approaches and why they were discarded. (Memorialize the reasoning behind discarded designs and feedback-driven shifts here, rather than cluttering operational sections with revision history).
 
 ## 5. Verification & Testing Strategy
 - **Test Pyramid Plan**:
@@ -211,5 +226,6 @@ Adapt the sections below based on project scale (small features use a lean subse
 1. **Be Strategic, Not Purely Tactical**: Invest 10–20% of effort upfront in clean interface definitions and dependency decoupling to avoid compounding complexity debt.
 2. **Prioritize Reader Cognitive Load**: Write clear, precise, and concise specs. Omit boilerplate; emphasize non-obvious invariants, schemas, and edge cases.
 3. **Never Skip the Review Gate**: Always obtain explicit confirmation before handing off to `writing-plans`.
+4. **Memorialize Reasoning, Not Revisions**: When revising a spec, always completely replace superseded instructions. Downstream coding agents treat every statement in a spec as an active invariant; leaving invalidated instructions or revision commentary creates detractors that derail execution. Capture the rationale for shifts in "Alternate Solutions Considered" or "Context & Motivation", but ensure all specifications define a single, authoritative target state.
 
 
