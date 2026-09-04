@@ -5,12 +5,12 @@ INSTALL_DIR = $(HOME)/.vibe/
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
-REFERENCE_SKILLS := executing-plans writing-github-issues-for-features writing-github-issues-for-bugs reviewing-code reviewing-github-prs
-executing-plans_REFERENCES := code-review-guidelines.md
+REFERENCE_SKILLS := writing-github-issues-for-features writing-github-issues-for-bugs reviewing-code reviewing-github-prs
 writing-github-issues-for-features_REFERENCES := github-issue-guidelines.md
 writing-github-issues-for-bugs_REFERENCES := github-issue-guidelines.md
-reviewing-code_REFERENCES := code-review-guidelines.md learning-equality-guidelines.md
-reviewing-github-prs_REFERENCES := code-review-guidelines.md learning-equality-guidelines.md
+reviewing-code_REFERENCES := learning-equality-guidelines.md
+reviewing-github-prs_REFERENCES := learning-equality-guidelines.md
+
 
 
 REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skills/$(skill)/references/,$($(skill)_REFERENCES)))

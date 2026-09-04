@@ -27,7 +27,7 @@ Purpose: Guide the execution of an approved implementation plan task-by-task, su
 - **Approved Plan Required**: You MUST have an approved implementation plan (typically created via `writing-plans`). If requirements or the plan are ambiguous, resolve them before touching code.
 - **Reference Software Engineering & Review Invariants**: Always consult:
   - The `software-engineering` skill for architectural boundaries, defensive error semantics, resilience patterns, refactoring recipes, and testing invariants (F.I.R.S.T.).
-  - `references/code-review-guidelines.md` for multi-scale code review checklists and the subagent review prompt template.
+  - The `reviewing-code` skill for multi-scale code review checklists and the subagent review prompt template.
 - **Announce at Start**: "I'm using the executing-plans skill to implement this plan."
 
 ---
@@ -104,7 +104,7 @@ When subagent capabilities (`invoke_subagent`) are available:
    - Subagent applies Contextual TDD, modifies files, and runs verification commands.
    - Subagent reports status (`DONE`, `DONE_WITH_CONCERNS`, or `BLOCKED`) with test output evidence.
 3. **Task Review Gate (Early Code Review)**:
-   - Perform a thorough code review against the 4 scales in `references/code-review-guidelines.md` (optionally dispatching a dedicated review subagent using the Subagent Review Prompt template).
+   - Perform a thorough code review against the 4 scales in the `reviewing-code` skill (optionally dispatching a dedicated review subagent using the Subagent Review Prompt template).
    - Check for: invariant breaches, missing timeouts/circuit breakers, shallow wrappers, error swallowing, or over-mocked tests.
    - If findings or regressions exist, re-dispatch fix cycles to the implementer before proceeding to dependent tasks.
 
@@ -117,7 +117,7 @@ When executing inline in the current session:
    - Step 3: Write minimal implementation adhering to Clean Architecture & Deep Module principles.
    - Step 4: Run test command to confirm pass.
    - Step 5: Run project build/lint checks.
-3. **Checkpoints & Self-Review**: Mark review checkpoints after each logical task. Run a quick 4-scale self-review check against `references/code-review-guidelines.md` to ensure no complexity or resilience debt was introduced before beginning the next task.
+3. **Checkpoints & Self-Review**: Mark review checkpoints after each logical task. Run a quick 4-scale self-review check against the `reviewing-code` skill to ensure no complexity or resilience debt was introduced before beginning the next task.
 
 ---
 
@@ -151,7 +151,7 @@ After each task (and at the completion of all tasks), execute the verification s
 - [ ] Repository test suite passes
 - [ ] Type checking / linter passes without errors
 - [ ] Build succeeds cleanly
-- [ ] 4-Scale Code Review check passed (no 🚨 Blockers or ⚠️ Architecture debt per code-review-guidelines.md)
+- [ ] 4-Scale Code Review check passed (no 🚨 Blockers or ⚠️ Architecture debt per the reviewing-code skill)
 ```
 
 ---

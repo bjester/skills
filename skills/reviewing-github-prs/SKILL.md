@@ -23,7 +23,7 @@ Purpose: Conduct thorough, constructive, and principle-grounded GitHub Pull Requ
 
 ## Prerequisites & Shared Guidelines
 
-- **Consult Shared Guidelines**: Always refer to `references/code-review-guidelines.md` for the 4 scales of code review, principle checklists, finding taxonomies, Delta reviews, Dependabot workflows, and the standard review template.
+- **Consult Review Guidelines**: Always refer to the `reviewing-code` skill for the 4 scales of code review, principle checklists, finding taxonomies, Delta reviews, Dependabot workflows, and the standard review template.
 - **Reference Software Engineering Invariants**: Consult the `software-engineering` skill for foundational architectural rules, modular depth, defensive error handling, and testing disciplines.
 - **Organization-Specific Guidelines**: Check if the repository belongs to a recognized organization:
   ```bash
@@ -59,8 +59,8 @@ gh pr view <pr-number-or-url> --comments
 gh issue view <issue-number> --json title,body,labels
 ```
 
-- **Dependabot / Dependency PRs**: If the author is `app/dependabot` or a bot, follow the **Dependabot & Dependency Update Reviews** workflow in `references/code-review-guidelines.md`. Check freshness first; do not read lockfiles line-by-line.
-- **Re-reviews (Delta Reviews)**: If you have already reviewed this PR and new commits were pushed, apply the **Delta Review** procedure in `references/code-review-guidelines.md` to classify prior findings (`RESOLVED`, `CONTESTED`, `ACKNOWLEDGED`, `UNADDRESSED`).
+- **Dependabot / Dependency PRs**: If the author is `app/dependabot` or a bot, follow the **Dependabot & Dependency Update Reviews** workflow in the `reviewing-code` skill. Check freshness first; do not read lockfiles line-by-line.
+- **Re-reviews (Delta Reviews)**: If you have already reviewed this PR and new commits were pushed, apply the **Delta Review** procedure in the `reviewing-code` skill to classify prior findings (`RESOLVED`, `CONTESTED`, `ACKNOWLEDGED`, `UNADDRESSED`).
 - **Scope Check**: Compare the changed file list against the linked issue's requirements. Changes touching files or introducing features outside the stated scope should be flagged.
 
 ### Step 2: Fetch and Analyze the PR Diff
@@ -109,7 +109,7 @@ Determine review action:
 
 ### Step 5: Submit the Review via GitHub CLI
 
-Format the review using the standard report template in `references/code-review-guidelines.md` and submit:
+Format the review using the standard report template in the `reviewing-code` skill and submit:
 
 ```bash
 # Option A: Submit review from a markdown file (Recommended)

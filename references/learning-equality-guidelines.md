@@ -11,7 +11,7 @@ When reviewing a repository, determine if these guidelines apply by checking the
 git remote -v | grep -i 'learningequality'
 ```
 
-If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply the conventions below alongside `references/code-review-guidelines.md` and the repository's own `AGENTS.md`.
+If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply the conventions below alongside the `reviewing-code` skill and the repository's own `AGENTS.md`.
 
 ---
 

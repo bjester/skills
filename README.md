@@ -59,7 +59,6 @@ The repository currently provides curated skills across the software lifecycle:
 
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
-- **[`references/code-review-guidelines.md`](references/code-review-guidelines.md)**: Multi-scale review checklists, severity taxonomies (`blocker`, `warning`, `suggestion`, `question`), Delta review processes, and subagent prompt templates.
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
 - **[`references/learning-equality-guidelines.md`](references/learning-equality-guidelines.md)**: Domain-specific engineering guidelines for Learning Equality repositories (Django Values ViewSets, Kolibri permissions, frontend architecture).
 
@@ -98,7 +97,6 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
 ├── references/                # Canonical shared engineering references
-│   ├── code-review-guidelines.md
 │   ├── github-issue-guidelines.md
 │   └── learning-equality-guidelines.md
 ├── skills/                    # Canonical source definitions for each skill
