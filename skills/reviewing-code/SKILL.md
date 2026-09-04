@@ -34,7 +34,7 @@ Purpose: Perform rigorous, local code reviews across uncommitted changes, branch
   ```bash
   git remote -v
   ```
-  - If the remote points to **Learning Equality** (`github.com[:/]learningequality/`), also consult `references/learning-equality-guidelines.md` for Django values-viewsets, KDS component reuse, declarative permissions, WCAG accessibility, and RTLCSS rules.
+  - If the remote points to **Learning Equality** (`github.com[:/]learningequality/`), also consult the `learning-equality` skill for Django values-viewsets, KDS component reuse, declarative permissions, WCAG accessibility, and RTLCSS rules.
 
 ---
 
@@ -291,7 +291,7 @@ You are a Software Engineering Code Reviewer. Your task is to perform a rigorous
 
 ### Instructions:
 1. Examine the modified files and their git diff.
-2. Check for organization-specific guidelines (e.g. `git remote -v` matching learningequality -> consult references/learning-equality-guidelines.md).
+2. Check for organization-specific guidelines (e.g. `git remote -v` matching learningequality -> consult the `learning-equality` skill).
 3. Evaluate the code across the 4 Scales of Code Review:
    - Scale 1 (Macro): Remote timeouts, error swallowing, resource cleanup, concurrency safety.
    - Scale 2 (Architecture): Inward dependency flow, domain model purity, bounded contexts.

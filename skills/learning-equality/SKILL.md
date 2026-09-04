@@ -1,17 +1,39 @@
-# Learning Equality Review Guidelines
+---
+name: learning-equality
+description: |
+  Engineering guidelines and conventions for Learning Equality repositories
+  (Kolibri, Studio, KDS, ricecooker, kolibri-data-portal, le-utils), including
+  Django ValuesViewset, KolibriAuth declarative permissions, le-utils constants,
+  KDS component reuse, Vue Composition API, WCAG 2.2 AA accessibility, and
+  RTLCSS rules. Activate when designing, developing, testing, or reviewing code
+  in Learning Equality repositories.
+license: MIT - https://github.com/bjester/skills/blob/main/LICENSE
+user-invocable: true
+compatibility: Learning Equality repositories (github.com/learningequality/*)
+allowed-tools:
+  - read_file
+  - run_command
+  - grep
+  - find_by_name
+metadata:
+  author: Blaine Jester
+  version: "1.0"
+---
 
-This reference contains domain-specific review standards for repositories under the **Learning Equality** organization (https://github.com/learningequality/).
+# Learning Equality Engineering Guidelines
+
+Standards, architectural patterns, and review conventions for repositories under the **Learning Equality** organization (https://github.com/learningequality/).
 
 ## Organization Detection
 
-When reviewing a repository, determine if these guidelines apply by checking the git remote:
+When working on or reviewing a repository, determine if these guidelines apply by checking the git remote:
 
 ```bash
 # Check if any git remote points to learningequality
 git remote -v | grep -i 'learningequality'
 ```
 
-If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply the conventions below alongside the `reviewing-code` skill and the repository's own `AGENTS.md`.
+If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply these conventions alongside the `software-engineering` and `reviewing-code` skills, as well as the repository's own `AGENTS.md`.
 
 ---
 

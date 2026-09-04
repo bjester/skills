@@ -29,7 +29,7 @@ Purpose: Conduct thorough, constructive, and principle-grounded GitHub Pull Requ
   ```bash
   git remote -v
   ```
-  - If the remote points to **Learning Equality** (`github.com[:/]learningequality/`), also consult `references/learning-equality-guidelines.md` for Django values-viewsets, KDS component reuse, declarative permissions, WCAG accessibility, and RTLCSS rules.
+  - If the remote points to **Learning Equality** (`github.com[:/]learningequality/`), also consult the `learning-equality` skill for Django values-viewsets, KDS component reuse, declarative permissions, WCAG accessibility, and RTLCSS rules.
 - **Tooling Prerequisites**: Ensure the GitHub CLI (`gh`) is authenticated (`gh auth status`).
 
 ---

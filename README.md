@@ -52,6 +52,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests focusing on observable outcomes, user requirements, and technical boundaries. |
 | **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Authoring | Generates reproducible, structured bug reports and regression investigations without dictating internal implementation details. |
 | **[`simple-english`](skills/simple-english/)** | ASD-STE100 Technical English | Enforces Simplified Technical English rules to eliminate AI slop, ambiguity, and complex clauses for global clarity. |
+| **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, KDS components, Vue Composition API, WCAG 2.2 AA, and RTLCSS. |
 
 ---
 
@@ -60,7 +61,6 @@ The repository currently provides curated skills across the software lifecycle:
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
-- **[`references/learning-equality-guidelines.md`](references/learning-equality-guidelines.md)**: Domain-specific engineering guidelines for Learning Equality repositories (Django Values ViewSets, Kolibri permissions, frontend architecture).
 
 ---
 
@@ -97,8 +97,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
 ├── references/                # Canonical shared engineering references
-│   ├── github-issue-guidelines.md
-│   └── learning-equality-guidelines.md
+│   └── github-issue-guidelines.md
 ├── skills/                    # Canonical source definitions for each skill
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
@@ -113,6 +112,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │       ├── find-polluter.sh
 │   │       └── hitl-loop.template.sh
 │   ├── executing-plans/
+│   │   └── SKILL.md
+│   ├── learning-equality/
 │   │   └── SKILL.md
 │   ├── replaying-file-revisions/
 │   │   └── SKILL.md
