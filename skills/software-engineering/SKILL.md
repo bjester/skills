@@ -1,3 +1,23 @@
+---
+name: software-engineering
+description: |
+  Foundational software engineering invariants, Clean/Hexagonal architecture,
+  deep module design, defensive programming, refactoring recipes, legacy seam
+  mitigation, and production resilience. Activate when designing, writing,
+  reviewing, or refactoring code.
+license: MIT - https://github.com/bjester/skills/blob/main/LICENSE
+user-invocable: true
+compatibility: any software development project
+allowed-tools:
+  - read_file
+  - write_file
+  - grep
+  - find_by_name
+metadata:
+  author: Blaine Jester
+  version: "1.0"
+---
+
 # Software Engineering: Design, Execution, and the Evolution of Software
 
 Synthesized from 14 foundational software engineering texts to guide system design, code craftsmanship, and architecture.

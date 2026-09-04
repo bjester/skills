@@ -52,7 +52,7 @@ The ultimate purpose of code review is **managing reader and maintainer cognitiv
 
 ## Comprehensive Review Checklist by Scale
 
-Consult `references/software-engineering.md` for full definitions of these invariants:
+Consult the `software-engineering` skill for full definitions of these invariants:
 
 ### Scale 1: Macro-Scale, Resilience & Concurrency
 - [ ] **Timeouts & Deadlines**: Does every remote, network, database, or RPC call have an explicit, bounded timeout? Are deadlines propagated downstream?
@@ -209,7 +209,7 @@ You are a Software Engineering Code Reviewer. Your task is to perform a rigorous
 ### Review Context:
 - Target files: [List of modified/created files]
 - Task Requirements / Acceptance Criteria: [Summary of expected behavior]
-- Shared Invariants Reference: references/code-review-guidelines.md and references/software-engineering.md
+- Shared Invariants Reference: references/code-review-guidelines.md and the software-engineering skill
 
 ### Instructions:
 1. Examine the modified files and their git diff.

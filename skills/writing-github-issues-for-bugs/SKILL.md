@@ -23,7 +23,7 @@ Purpose: Facilitate the creation of actionable, reproducible, and well-structure
 
 - **Specify What & Why, Not How**: Clearly describe the broken behavior, reproduction path, and expected outcome. Leave internal bug-fixing mechanics to the developer.
 - **Reference Shared Issue Guidelines**: Consult `references/github-issue-guidelines.md` for writing principles, DOs/DON'Ts, and the DEEP AI disclosure framework.
-- **Incorporate Foundational Software Principles**: Consult `references/software-engineering.md` for characterization testing, legacy seams (`Sprout`/`Wrap`/`Override`), invariant preservation, and failure isolation.
+- **Incorporate Foundational Software Principles**: Consult the `software-engineering` skill for characterization testing, legacy seams (`Sprout`/`Wrap`/`Override`), invariant preservation, and failure isolation.
 
 ---
 

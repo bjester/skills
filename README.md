@@ -42,6 +42,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`writing-specs`](skills/writing-specs/)** | Specification & Architecture Design | Collaborative requirements elicitation, bounded context isolation, deep module design, and verifiable acceptance criteria before coding. |
 | **[`writing-plans`](skills/writing-plans/)** | Implementation Planning | Decomposes approved specifications into ordered, bite-sized tasks with explicit TDD steps and verification checkpoints. |
 | **[`executing-plans`](skills/executing-plans/)** | Plan Execution & TDD | Guides task-by-task plan execution with pragmatic red-green-refactor loops, multi-scale reviews, and verification gates. Supports both inline and subagent execution. |
+| **[`software-engineering`](skills/software-engineering/)** | Foundational Software Invariants | Synthesizes 14 classic software engineering texts across 4 scales: macro-resilience, strategic DDD/Clean boundaries, deep modularity, and craftsmanship. |
 | **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales. |
@@ -58,11 +59,6 @@ The repository currently provides curated skills across the software lifecycle:
 
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
-- **[`references/software-engineering.md`](references/software-engineering.md)**: A synthesis of 14 foundational software engineering texts spanning 4 architectural scales:
-  1. *Macro-Scale & Resilience* (distributed systems, failure domains, backpressure, idempotency).
-  2. *Strategic Domain & Architecture* (bounded contexts, hexagonal/clean boundaries, ubiquitous language).
-  3. *Modularity & Depth Design* (deep modules, information hiding, interface minimization).
-  4. *Micro-Craftsmanship & Safety* (clean code, error ergonomics, refactoring, test discipline).
 - **[`references/code-review-guidelines.md`](references/code-review-guidelines.md)**: Multi-scale review checklists, severity taxonomies (`blocker`, `warning`, `suggestion`, `question`), Delta review processes, and subagent prompt templates.
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
 - **[`references/learning-equality-guidelines.md`](references/learning-equality-guidelines.md)**: Domain-specific engineering guidelines for Learning Equality repositories (Django Values ViewSets, Kolibri permissions, frontend architecture).
@@ -104,8 +100,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── references/                # Canonical shared engineering references
 │   ├── code-review-guidelines.md
 │   ├── github-issue-guidelines.md
-│   ├── learning-equality-guidelines.md
-│   └── software-engineering.md
+│   └── learning-equality-guidelines.md
 ├── skills/                    # Canonical source definitions for each skill
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
@@ -128,6 +123,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── reviewing-github-prs/
 │   │   └── SKILL.md
 │   ├── simple-english/
+│   │   └── SKILL.md
+│   ├── software-engineering/
 │   │   └── SKILL.md
 │   ├── test-driven-development/
 │   │   ├── SKILL.md

@@ -24,7 +24,7 @@ Purpose: Perform rigorous, local code reviews across uncommitted changes, branch
 ## Prerequisites & Shared Guidelines
 
 - **Consult Shared Guidelines**: Always refer to `references/code-review-guidelines.md` for the 4 scales of code review, principle checklists, finding taxonomies, Test Value lens, and output report format.
-- **Reference Software Engineering Invariants**: Consult `references/software-engineering.md` for in-depth definitions of architectural rules (Clean/Hexagonal), modular depth, defensive programming, refactoring recipes, resilience patterns, and testing invariants.
+- **Reference Software Engineering Invariants**: Consult the `software-engineering` skill for in-depth definitions of architectural rules (Clean/Hexagonal), modular depth, defensive programming, refactoring recipes, resilience patterns, and testing invariants.
 - **Organization-Specific Guidelines**: Check if the repository belongs to a recognized organization:
   ```bash
   git remote -v

@@ -24,7 +24,7 @@ Purpose: Provide a rigorous, hypothesis-driven, evidence-based debugging workflo
 ## Prerequisites & Core Philosophy
 
 - **The Iron Law**: **NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST**. Quick patches and symptom masks waste time, create new defects, and compound technical debt.
-- **Reference Shared Software Engineering Guidelines**: Consult `references/software-engineering.md` for architectural boundaries, characterization testing, legacy seams (`Sprout`/`Wrap`/`Override`), and defensive error semantics.
+- **Reference Software Engineering Guidelines**: Consult the `software-engineering` skill for architectural boundaries, characterization testing, legacy seams (`Sprout`/`Wrap`/`Override`), and defensive error semantics.
 - **Announce at Start**: State clearly: *"I am using the diagnosing-bugs skill to systematically investigate and resolve this issue."*
 
 ```
@@ -161,7 +161,7 @@ Test hypotheses systematically by changing **one variable at a time**:
 
 ### 1. Regression Test Mandate
 Turn the minimized repro from Phase 2 into a permanent automated regression test at the correct architectural seam before applying the fix.
-- If modifying legacy code without tests, locate a seam (`Sprout Method`, `Wrap Method`, `Subclass and Override`) per `references/software-engineering.md`.
+- If modifying legacy code without tests, locate a seam (`Sprout Method`, `Wrap Method`, `Subclass and Override`) per the `software-engineering` skill.
 
 ### 2. Single Surgical Root-Cause Fix
 - Address the verified root trigger directly.

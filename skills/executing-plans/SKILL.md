@@ -25,8 +25,8 @@ Purpose: Guide the execution of an approved implementation plan task-by-task, su
 ## Prerequisites & Core Philosophy
 
 - **Approved Plan Required**: You MUST have an approved implementation plan (typically created via `writing-plans`). If requirements or the plan are ambiguous, resolve them before touching code.
-- **Reference Shared Software Engineering & Review Invariants**: Always consult:
-  - `references/software-engineering.md` for architectural boundaries, defensive error semantics, resilience patterns, refactoring recipes, and testing invariants (F.I.R.S.T.).
+- **Reference Software Engineering & Review Invariants**: Always consult:
+  - The `software-engineering` skill for architectural boundaries, defensive error semantics, resilience patterns, refactoring recipes, and testing invariants (F.I.R.S.T.).
   - `references/code-review-guidelines.md` for multi-scale code review checklists and the subagent review prompt template.
 - **Announce at Start**: "I'm using the executing-plans skill to implement this plan."
 

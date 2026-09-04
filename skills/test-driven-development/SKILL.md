@@ -26,7 +26,7 @@ Purpose: Guide the disciplined development of new features, bug fixes, and archi
 - **The Iron Law**: **NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST**. If you did not watch the test fail for the expected reason, you do not know if it tests the right behavior or if it passes by coincidence.
 - **Delete Unverified Code**: If production code was authored before writing its corresponding failing test, delete that production code immediately and restart test-first.
 - **Reference Shared Software Engineering Guidelines**: Always consult:
-  - `references/software-engineering.md` for F.I.R.S.T. test properties (Fast, Independent, Repeatable, Self-Validating, Timely), Clean Architecture boundaries, and legacy code seams.
+  - The `software-engineering` skill for F.I.R.S.T. test properties (Fast, Independent, Repeatable, Self-Validating, Timely), Clean Architecture boundaries, and legacy code seams.
   - `testing-anti-patterns.md` to prevent mock coupling, tautological assertions, and test pollution.
   - `mocking-guidelines.md` for boundary isolation rules and mockability design.
 - **Announce at Start**: State clearly: *"I am using the test-driven-development skill to implement this change test-first."*
