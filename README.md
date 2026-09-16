@@ -39,6 +39,7 @@ The repository currently provides curated skills across the software lifecycle:
 
 | Skill | Purpose | Key Capabilities |
 | :--- | :--- | :--- |
+| **[`auditing-security`](skills/auditing-security/)** | Defensive Security Audits & Guidance | 6-phase vulnerability discovery harness (Cloudflare): reconnaissance, coverage ledger, adversarial verifier testing, and 10 domain attack companions with zero-dependency validators. Supports both conversational guidance and full autonomous audits. |
 | **[`writing-specs`](skills/writing-specs/)** | Specification & Architecture Design | Collaborative requirements elicitation, bounded context isolation, deep module design, and verifiable acceptance criteria before coding. |
 | **[`writing-plans`](skills/writing-plans/)** | Implementation Planning | Decomposes approved specifications into ordered, bite-sized tasks with explicit TDD steps and verification checkpoints. |
 | **[`executing-plans`](skills/executing-plans/)** | Plan Execution & TDD | Guides task-by-task plan execution with pragmatic red-green-refactor loops, multi-scale reviews, and verification gates. Supports both inline and subagent execution. |
@@ -101,6 +102,16 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── github-issue-guidelines.md
 │   └── word-swaps.md
 ├── skills/                    # Canonical source definitions for each skill
+│   ├── auditing-security/
+│   │   ├── CHANGELOG.md
+│   │   ├── SKILL.md
+│   │   ├── RECONNAISSANCE.md
+│   │   ├── HUNTING.md
+│   │   ├── VALIDATION-AND-REPORTING.md
+│   │   ├── ATTACK-CLASSES.md
+│   │   ├── report-schema.json
+│   │   ├── validate-coverage-ledger.cjs
+│   │   └── ... (10 domain companions & validators)
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
 │   ├── diagnosing-bugs/
