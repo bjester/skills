@@ -5,12 +5,11 @@ INSTALL_DIR = $(HOME)/.vibe/
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
-REFERENCE_SKILLS := writing-github-issues-for-features writing-github-issues-for-bugs
+REFERENCE_SKILLS := writing-github-issues-for-features writing-github-issues-for-bugs writing-technical-docs pairing-with-adhd
 writing-github-issues-for-features_REFERENCES := github-issue-guidelines.md
 writing-github-issues-for-bugs_REFERENCES := github-issue-guidelines.md
-
-
-
+writing-technical-docs_REFERENCES := word-swaps.md
+pairing-with-adhd_REFERENCES := word-swaps.md
 
 REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skills/$(skill)/references/,$($(skill)_REFERENCES)))
 
@@ -29,7 +28,13 @@ install: build
 
 sources:
 	mkdir -p sources/
-	$(MAKE) sources/agent-rules-books sources/agent-skills sources/le-skills sources/mattpocock-skills sources/SimpleEnglish sources/superpowers
+	$(MAKE) sources/agent-rules-books \
+		sources/agent-skills \
+		sources/le-skills \
+		sources/mattpocock-skills \
+		sources/security-audit-skill \
+		sources/SimpleEnglish \
+		sources/superpowers
 
 sources/agent-rules-books:
 	git clone git@github.com:ciembor/agent-rules-books.git sources/agent-rules-books
@@ -37,11 +42,17 @@ sources/agent-rules-books:
 sources/agent-skills:
 	git clone git@github.com:addyosmani/agent-skills.git sources/agent-skills
 
+sources/i-have-adhd:
+	git clone git@github.com:ayghri/i-have-adhd.git sources/i-have-adhd
+
 sources/le-skills:
 	git clone git@github.com:learningequality/le-skills.git sources/le-skills
 
 sources/mattpocock-skills:
 	git clone git@github.com:mattpocock/skills.git sources/mattpocock-skills
+
+sources/security-audit-skill:
+	git clone git@github.com:cloudflare/security-audit-skill.git sources/security-audit-skill
 
 sources/SimpleEnglish:
 	git clone git@github.com:AminBlg/SimpleEnglish.git sources/SimpleEnglish

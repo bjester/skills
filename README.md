@@ -50,8 +50,8 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests focusing on observable outcomes, user requirements, and technical boundaries. |
-| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Authoring | Generates reproducible, structured bug reports and regression investigations without dictating internal implementation details. |
-| **[`simple-english`](skills/simple-english/)** | ASD-STE100 Technical English | Enforces Simplified Technical English rules to eliminate AI slop, ambiguity, and complex clauses for global clarity. |
+| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, and release notes to eliminate AI slop and ambiguity. |
+| **[`pairing-with-adhd`](skills/pairing-with-adhd/)** | Action-First ADHD Pairing & Dialogue | Shapes interactive AI-human communication: leads with runnable next actions, numbers tasks (max 5), restates state, and eliminates conversational filler with Plain English discipline. |
 | **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, KDS components, Vue Composition API, WCAG 2.2 AA, and RTLCSS. |
 
 ---
@@ -61,6 +61,7 @@ The repository currently provides curated skills across the software lifecycle:
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
+- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and filler replacements shared across documentation and communication skills.
 
 ---
 
@@ -97,7 +98,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
 ├── references/                # Canonical shared engineering references
-│   └── github-issue-guidelines.md
+│   ├── github-issue-guidelines.md
+│   └── word-swaps.md
 ├── skills/                    # Canonical source definitions for each skill
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
@@ -115,13 +117,14 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── learning-equality/
 │   │   └── SKILL.md
+│   ├── pairing-with-adhd/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── replaying-file-revisions/
 │   │   └── SKILL.md
 │   ├── reviewing-code/
 │   │   └── SKILL.md
 │   ├── reviewing-github-prs/
-│   │   └── SKILL.md
-│   ├── simple-english/
 │   │   └── SKILL.md
 │   ├── software-engineering/
 │   │   └── SKILL.md
@@ -135,8 +138,15 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── writing-plans/
 │   │   └── SKILL.md
-│   └── writing-specs/
-│       └── SKILL.md
+│   ├── writing-specs/
+│   │   └── SKILL.md
+│   └── writing-technical-docs/
+│       ├── CHANGELOG.md
+│       ├── SKILL.md
+│       └── references/
+│           ├── rule-catalog.md
+│           ├── strict-vocabulary.md
+│           └── use-cases.md
 ├── output/                    # Generated build output (git-ignored, disposable)
 │   └── skills/                # Packaged skills with injected references
 └── sources/                   # Upstream research repositories (git-ignored)
