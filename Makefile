@@ -30,6 +30,8 @@ sources:
 	mkdir -p sources/
 	$(MAKE) sources/agent-rules-books \
 		sources/agent-skills \
+		sources/google-skills \
+		sources/i-have-adhd \
 		sources/le-skills \
 		sources/mattpocock-skills \
 		sources/security-audit-skill \
@@ -37,28 +39,31 @@ sources:
 		sources/superpowers
 
 sources/agent-rules-books:
-	git clone git@github.com:ciembor/agent-rules-books.git sources/agent-rules-books
+	git clone git@github.com:ciembor/agent-rules-books.git $@
 
 sources/agent-skills:
-	git clone git@github.com:addyosmani/agent-skills.git sources/agent-skills
+	git clone git@github.com:addyosmani/agent-skills.git $@
+
+sources/google-skills:
+	git clone git@github.com:google/skills.git $@
 
 sources/i-have-adhd:
-	git clone git@github.com:ayghri/i-have-adhd.git sources/i-have-adhd
+	git clone git@github.com:ayghri/i-have-adhd.git $@
 
 sources/le-skills:
-	git clone git@github.com:learningequality/le-skills.git sources/le-skills
+	git clone git@github.com:learningequality/le-skills.git $@
 
 sources/mattpocock-skills:
-	git clone git@github.com:mattpocock/skills.git sources/mattpocock-skills
+	git clone git@github.com:mattpocock/skills.git $@
 
 sources/security-audit-skill:
-	git clone git@github.com:cloudflare/security-audit-skill.git sources/security-audit-skill
+	git clone git@github.com:cloudflare/security-audit-skill.git $@
 
 sources/SimpleEnglish:
-	git clone git@github.com:AminBlg/SimpleEnglish.git sources/SimpleEnglish
+	git clone git@github.com:AminBlg/SimpleEnglish.git $@
 
 sources/superpowers:
-	git clone git@github.com:obra/superpowers.git sources/superpowers
+	git clone git@github.com:obra/superpowers.git $@
 
 define MAKE_REFERENCE_RULE
 output/skills/$(1)/references/$(2): references/$(2)
