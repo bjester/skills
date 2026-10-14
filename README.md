@@ -50,6 +50,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) to inspect pull requests, perform comprehensive multi-scale code reviews, and post structured, actionable review feedback. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
+| **[`retrieving-developer-knowledge`](skills/retrieving-developer-knowledge/)** | Google Developer Knowledge Retrieval | Searches, retrieves, and synthesizes official Google documentation across Google Cloud, Gemini/AI, Android, Web, Go, and Firebase via MCP tools or REST API fallback. |
 | **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests focusing on observable outcomes, user requirements, and technical boundaries. |
 | **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, and release notes to eliminate AI slop and ambiguity. |
 | **[`pairing-with-adhd`](skills/pairing-with-adhd/)** | Action-First ADHD Pairing & Dialogue | Shapes interactive AI-human communication: leads with runnable next actions, numbers tasks (max 5), restates state, and eliminates conversational filler with Plain English discipline. |
@@ -133,6 +134,13 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── replaying-file-revisions/
 │   │   └── SKILL.md
+│   ├── retrieving-developer-knowledge/
+│   │   ├── CHANGELOG.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── api-fallback.md
+│   │       ├── mcp-usage.md
+│   │       └── supported-domains.md
 │   ├── reviewing-code/
 │   │   └── SKILL.md
 │   ├── reviewing-github-prs/
