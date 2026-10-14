@@ -16,15 +16,37 @@ the repository-owned content here; generated packages are disposable.
 
 ## Authoring skills
 
-- Give each skill a clear purpose and trigger description in `SKILL.md`.
-- Keep a skill self-contained unless a document is genuinely reusable across
-  skills. Put broadly reusable material in `references/`; keep all other
-  documents and tools with the skill that uses them.
-- Adapt upstream ideas into the curated files in this repository instead of
-  changing files under `sources/`.
-- When a skill needs a shared reference, explicitly declare it in the
-  `Makefile` using that skill's `<skill-name>_REFERENCES` variable and add the
-  skill name to `REFERENCE_SKILLS`. Reference paths are relative to
+- **Naming**: Use the gerund phrase convention (`<verb-ing>-<noun>`, e.g.,
+  `writing-specs`, `reviewing-code`, `diagnosing-bugs`, `retrieving-developer-knowledge`).
+- **Standard YAML Frontmatter**: Every `SKILL.md` must define the following
+  required metadata keys:
+  ```yaml
+  ---
+  name: <skill-name>
+  description: "<trigger conditions, scope, capabilities, and anti-patterns>"
+  license: MIT - https://github.com/bjester/skills/blob/main/LICENSE
+  user-invocable: true
+  compatibility: <target environment / tool prerequisites>
+  allowed-tools:
+    - <tool-1>
+    - <tool-2>
+  metadata:
+    author: Blaine Jester
+    version: "1.0"
+  ---
+  ```
+- **Document Anatomy**:
+  - Title: `# <Skill Name>` in title case matching the skill's role.
+  - Purpose: `Purpose: <one-sentence executive mission statement>`.
+  - Workflow: An ASCII workflow diagram visualizing phases and feedback loops.
+  - Phased Execution: Numbered, sequential steps with explicit verification gates.
+  - Visual hierarchy: Use GitHub-style alerts (`> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`).
+- **Self-Contained References**: Keep a skill self-contained unless a document is
+  genuinely reusable across skills. Put broadly reusable material in `references/`;
+  keep all other documents and tools with the skill that uses them.
+- **Shared References Wiring**: When a skill needs a shared reference, explicitly
+  declare it in the `Makefile` using that skill's `<skill-name>_REFERENCES` variable
+  and add the skill name to `REFERENCE_SKILLS`. Reference paths are relative to
   `references/` and are preserved in the built skill package.
 
 ## Vendoring and upstream tracking
@@ -33,20 +55,29 @@ When adapting or importing a skill from `sources/`:
 
 - Differentiate the destination skill name under `skills/<skill-name>/` from
   the upstream name whenever local modifications, rule loosenings, or
-  cross-skill integrations are introduced.
-- Maintain a `skills/<skill-name>/CHANGELOG.md` tracking:
-  - Upstream repository URL, commit hash, commit date, and release tag.
-  - Base state (A) of the upstream skill at that revision.
-  - Curated changes applied (A -> B), detailing modified rules, injected
-    disciplines, and reference wiring.
-  - Resulting state (B) and operational purpose.
-  - A repeatable rebase/update recipe (exact `git` commands) for future
-    agents to inspect diffs and re-apply changes when upstream updates.
-- Keep skill-specific reference files in `skills/<skill-name>/references/`,
-  and promote only cross-skill references to top-level `references/` declared
-  in the `Makefile`.
-- Update the catalog table and directory structure in `README.md` when
-  adding or renaming skills.
+  cross-skill integrations are introduced. Follow the gerund naming convention.
+- **Import & Standardization Checklist**:
+  1. **Rename**: Convert upstream name to the repository gerund phrase convention.
+  2. **Standardize Frontmatter**: Replace upstream frontmatter with the repository
+     YAML schema (`license`, `user-invocable`, `compatibility`, `allowed-tools`,
+     `metadata`).
+  3. **Structure Document**: Ensure Title `# <Name>`, `Purpose:`, ASCII workflow
+     diagram, and phased steps are present.
+  4. **Encapsulate References**: Retain skill-specific references in
+     `skills/<skill-name>/references/`; promote only cross-skill references to
+     top-level `references/` declared in `Makefile`.
+  5. **Create `CHANGELOG.md`**: Maintain `skills/<skill-name>/CHANGELOG.md` tracking:
+     - Upstream repository URL, commit hash, commit date, and release tag.
+     - Base state (A) of the upstream skill at that revision.
+     - Curated changes applied (A -> B), detailing modified rules, injected
+       disciplines, and reference wiring.
+     - Resulting state (B) and operational purpose.
+     - A repeatable rebase/update recipe (exact `git` commands) for future
+       agents to inspect diffs and re-apply changes when upstream updates.
+  6. **Update Catalog & Tree in `README.md`**: Update both the Skills Catalog
+     table and the repository structure tree in `README.md`.
+  7. **Build & Validate**: Run `make build` and confirm all files and references
+     are packaged in `output/skills/<skill-name>/`.
 
 ## Building and validating
 
