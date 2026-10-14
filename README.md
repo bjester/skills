@@ -136,6 +136,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── reviewing-code/
 │   │   └── SKILL.md
 │   ├── reviewing-github-prs/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── software-engineering/
 │   │   └── SKILL.md
