@@ -151,9 +151,13 @@ Test hypotheses systematically by changing **one variable at a time**:
 2. **Tagged Logging Discipline**:
    - Prefix every temporary log probe with a unique identifier: `[DEBUG-XXXX]` (e.g. `[DEBUG-4a8f]`).
    - Tagged logs enable 100% clean removal via a single `git grep` in Phase 6.
-3. **Performance Regressions**:
+3. **Performance Regressions & Explain the Number**:
    - Never debug performance issues with speculative print statements.
    - Establish an explicit baseline benchmark, profile CPU/memory allocations, inspect database query plans (`EXPLAIN ANALYZE`), and bisect revisions.
+   - **Explain the Number ('Why Not Double?')**: Before trusting, reporting, or acting on any measured speedup, throughput, or latency metric:
+     - *Name the Limiter*: Explicitly name the resource or code path that bounds the result (CPU core execution, lock contention, memory bandwidth, disk I/O, network RTT, or load generator limits). Derive it from a profile or OS counters taken during the run, mapped back to source lines. If you cannot explain why the number is not twice as good, you do not know what you measured.
+     - *Rule Out Non-Work Artifacts*: Systematically rule out cached data, skipped iterations, compiler dead-code elimination, noise, or benchmark harness overhead.
+     - *Record Distribution*: Always document the run count, variance/spread (p50/p95/p99), and the named limiter alongside the reported number.
 
 ---
 
@@ -174,11 +178,14 @@ Apply the 4-layer validation strategy detailed in `defense-in-depth.md`:
 - **Layer 3 (Environment Guards)**: Restrict hazardous operations outside designated contexts (e.g. test temp directories).
 - **Layer 4 (Telemetry)**: Record structured forensics when fallbacks or edge cases fire.
 
-### 4. The 3-Fix Escalation Rule
-Count the number of fix attempts:
-- If < 3 attempts: Return to Phase 1 or 3 with newly gathered evidence.
-- **If ≥ 3 fixes fail or each fix reveals new coupling/breakages**: **STOP IMMEDIATELY**.
-- 3+ failed fixes indicates an architectural design flaw, not a simple bug. Escalate to the user to deliberate architectural refactoring vs. patching symptoms.
+### 4. Attack the Premise & The 3-Fix Escalation Rule
+- **Attack the Premise (2-Fix Gate)**: When two successive fixes sharing the same underlying premise fail the verification gate, **suspect the premise, not the fixes**.
+  1. *Write the Premise Down*: Explicitly state the single unspoken assumption or belief that both failed fixes took for granted.
+  2. *Test the Premise Directly*: Devise a minimal observation or probe that yields a different outcome if the premise is false. Stop: do NOT author a third fix until the premise has been tested against runtime evidence.
+  3. *Eliminate the Condition*: If the premise is falsified, address the root condition rather than authoring compensatory cleanup code or redundant guards.
+- **The 3-Fix Escalation Rule**:
+  - If ≥ 3 fixes fail or each fix reveals new coupling/breakages: **STOP IMMEDIATELY**.
+  - 3+ failed fixes indicates an architectural design flaw or invalid system assumption, not a simple localized defect. Escalate to the user to deliberate architectural refactoring vs. patching symptoms.
 
 ---
 

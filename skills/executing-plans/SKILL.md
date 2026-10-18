@@ -138,6 +138,12 @@ Adhere to these core execution invariants during code generation:
    - Emit structured telemetry/logs when fallbacks trigger (no silent error suppression).
 4. **Rule 3: Keep It Compilable**:
    - Never leave the repository in a broken build or failing test state at the end of a task increment.
+5. **Rule 4: Build the Lever Over Manual Churn (Script the Sweep)**:
+   - When a task involves non-trivial, repetitive edits across multiple files (such as updating 10+ callsites to a new signature, mechanical structural renames, or broad schema migrations), **do not edit files manually one by one**.
+   - *Author a deterministic script or codemod*: Build the tool that performs or verifies the changes.
+   - *First-Unit Proof*: Perform the transformation manually on a single unit to establish and refine the exact recipe. Then author the script/codemod, execute it across the remaining targets, and verify that diffs match expectations.
+   - *Reviewability*: A deterministic script transforms "trust me, I edited 30 files manually" into a concise, auditable artifact that a reviewer can inspect and rerun for free.
+   - *Lever Over Fan-Out*: A single deterministic script running locally in one pass beats spawning multiple subagents to hand-apply repetitive mechanical edits.
 
 ---
 

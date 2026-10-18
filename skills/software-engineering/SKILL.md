@@ -53,6 +53,7 @@ A single meta-problem unites software engineering: **managing cognitive load in 
 - **Broken Windows Theory**: Neglected hacks or defects accelerate system-wide entropy. Fix rot immediately upon contact.
 - **Orthogonality & Reversibility**: Changes to one component must not affect unrelated components. Keep decisions reversible by decoupling business rules from volatile third-party vendors, databases, or frameworks.
 - **Defer Decisions**: Defer structural commitments (frameworks, storage engines) until domain requirements are crystalline.
+- **Redesign from First Principles**: When integrating a major requirement or capability into an existing design, avoid reflexively bolting on adapters or pass-through wrappers. First ask: *"If this system were being written from scratch today with this requirement as a foundational assumption, what would we build?"* Design the target structure holistically, then execute the transition incrementally while preserving option value.
 - **Core Guidance**: Measure design quality by cognitive load, avoid clever one-liners that obscure control flow, and eliminate architectural rot proactively.
 
 ---
@@ -216,11 +217,16 @@ A single meta-problem unites software engineering: **managing cognitive load in 
 | **Fail Fast** | Validate prerequisites immediately; abort early rather than burning compute on doomed tasks. |
 | **Shed Load & Backpressure** | Return HTTP 429/503 when buffers fill instead of queueing to an Out-Of-Memory (OOM) crash. |
 | **Steady State** | Automatic resource reclamation without manual intervention (log rotation, connection pool scavenging). |
+| **Idempotent Reconciliation** | Derive state changes from current vs. desired delta; safely converges on retries or crash recovery. |
 
 - **Concurrency & State Management**:
   - *Shared-Nothing & Immutability*: Prefer immutable data structures and message-passing over shared mutable memory.
   - *Race Hazard Mitigations*: Use transactions, optimistic locking (version fields), or atomic operations.
   - *Deadlock Prevention*: Always acquire locks in a consistent, globally deterministic order.
+  - *Operational Idempotency & Crash Reconciliation*:
+    - *Diff-Against-State*: Derive each mutating step from the state that currently exists, not from what a prior run intended to do. Compare current to desired state and apply only the difference.
+    - *Crash-Point Resilience*: If an operation halts halfway through, subsequent executions must recognize partial artifacts (temporary files, uncommitted records, half-written tables) as stale using intrinsic evidence (content hashes, atomic renames) rather than fragile timestamps.
+    - *The 3-Question Invariant*: (1) What happens if this runs twice consecutively? (2) What happens if the previous run crashed at every intermediate step? (3) Does re-execution converge deterministically to the identical end state?
 
 ---
 

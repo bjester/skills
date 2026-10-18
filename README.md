@@ -44,6 +44,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`writing-plans`](skills/writing-plans/)** | Implementation Planning | Decomposes approved specifications into ordered, bite-sized tasks with explicit TDD steps and verification checkpoints. |
 | **[`executing-plans`](skills/executing-plans/)** | Plan Execution & TDD | Guides task-by-task plan execution with pragmatic red-green-refactor loops, multi-scale reviews, and verification gates. Supports both inline and subagent execution. |
 | **[`software-engineering`](skills/software-engineering/)** | Foundational Software Invariants | Synthesizes 14 classic software engineering texts across 4 scales: macro-resilience, strategic DDD/Clean boundaries, deep modularity, and craftsmanship. |
+| **[`engineering-with-agents`](skills/engineering-with-agents/)** | Disciplines for Autonomous & Paired LLM Development | Operational guardrails for agentic software engineering: context guarding, laziness protocol, side-by-side prototyping, branded types, one-wave migrations, primary artifact verification, and two-edit behavioral tests. |
 | **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales. |
@@ -116,6 +117,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── composing-commit-history/
 │   │   └── SKILL.md
 │   ├── diagnosing-bugs/
+│   │   ├── CHANGELOG.md
 │   │   ├── SKILL.md
 │   │   ├── condition-based-waiting.md
 │   │   ├── defense-in-depth.md
@@ -125,7 +127,11 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── scripts/
 │   │       ├── find-polluter.sh
 │   │       └── hitl-loop.template.sh
+│   ├── engineering-with-agents/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── executing-plans/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── learning-equality/
 │   │   └── SKILL.md
@@ -147,6 +153,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── software-engineering/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── test-driven-development/
 │   │   ├── SKILL.md
