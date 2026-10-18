@@ -49,6 +49,7 @@ Break long noun chains with prepositions (of, on, in, for):
 | 3.7 | Describe an action with a verb, not a noun ("compress the file", not "perform compression of the file"). |
 
 **Approved modals: can, will, must. Banned: should, would, may, might, could.**
+*Exception*: Behavior-Driven Development (BDD) language and behavioral specifications (e.g., "X should do Y", "it should return 404") are permitted when specifying expected software behavior or test expectations.
 The modal ladder below routes each banned modal. This matters double for agent instructions, because models read "should" as optional.
 
 ### Section 4 — Sentences (Rules 4.1-4.5)
@@ -135,6 +136,7 @@ General recommendations: keep "that" (GR-1), primary verb first and the tool aft
 | should (requirement) | must |
 | should (recommendation) | Delete it, or state it as fact: "X is better because Y." |
 | should (inverted conditional: "should a failure occur") | if: "If a failure occurs" |
+| should (behavioral spec / BDD) | Permitted for software expectations: "The service should return 404." |
 | may / might / could (possibility) | can |
 | may (permission) | can |
 | would (hypothetical) | can, or restructure: "If X occurs, Y occurs." |

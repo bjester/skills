@@ -14,7 +14,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "2.1.0-curated"
+  version: "2.2.0-curated"
   standard: ASD-STE100 Issue 9 (2025-01-15)
 ---
 
@@ -30,7 +30,7 @@ When asked to write or rewrite documentation, apply these rules to the prose:
 2. **Never touch** code, identifiers, commands, flags, file paths, quoted errors, product names, or facts. When the source gives no number or cause, keep the general statement.
 3. **Condition before command, with a comma.** "If the build fails, read the log."
 4. **Simple tenses, active voice.** No present perfect ("has completed" → "completed"). No "-ing" verb after a comma (", making it easy" → new sentence). Name the actor: "You run the migration."
-5. **Modals: can, will, must.** Never should, would, may, might, could. A required "should" becomes "must". An optional one is deleted.
+5. **Modals: can, will, must.** Never should, would, may, might, could. A required "should" becomes "must". An optional one is deleted. *Exception*: In software engineering specifications, acceptance criteria, and test scenarios, Behavior-Driven Development (BDD) style phrasing (e.g., "X should do Y", "it should return 404") is allowed to specify expected software behavior.
 6. **Complete grammar.** No contractions, keep articles, keep "that". Short sentences, not telegraph style.
 7. **No semicolons and no em-dashes.** Write two sentences, or name the relation.
 8. **One word, one meaning, for the whole document.** Use `make sure that` for check, verify, confirm, validate, ensure. Use `configuration` for config, settings, options. Break noun chains over three words with a preposition ("the timeout value for the connection pool").
@@ -71,7 +71,7 @@ When explaining technical concepts, discussing docs, or reviewing text in chat:
 ## Self-Check Before You Deliver
 
 1. Chat: search for conversational openers/closers and em-dashes. Ensure the first sentence gives the direct answer.
-2. Document: count the words in your three longest sentences. Over 20 or 25, split. Search for `'`, `has been`, `should`, `may`, `;`, `—`, `, making`, `**`, `check`, `verify`, `config`, and any heading that covers fewer than three sentences. Fix each hit. Read each step: does it name a host, a flag, or a prior step the reader must already have? If not, add it or point to it.
+2. Document: count the words in your three longest sentences. Over 20 or 25, split. Search for `'`, `has been`, `should` (unless specifying software behavior or BDD scenarios), `may`, `;`, `—`, `, making`, `**`, `check`, `verify`, `config`, and any heading that covers fewer than three sentences. Fix each hit. Read each step: does it name a host, a flag, or a prior step the reader must already have? If not, add it or point to it.
 
 ## Modes
 

@@ -36,6 +36,14 @@ Mode: imperative subject line, descriptive body. The convention already matches 
 
 Mode: descriptive. One entry, one change, one sentence where possible. A "Breaking:" entry follows the warning pattern, command first: "Update your calls to `v2/users`. The `name` field split into `first_name` and `last_name`."
 
+## Software specifications and BDD scenarios
+
+Mode: descriptive and behavioral. Describing software behavior like "X should do Y" is standard in software engineering.
+
+- Use "should" to state observable software behavior and acceptance criteria: "The auth service should reject expired tokens."
+- Keep sentences short and clear (the 25-word limit still applies).
+- Distinguish between human procedural rules (which use "must" or imperative mood: "You must run the migration") and software behavioral expectations (which can use "should").
+
 ## Instructions for AI agents (prompts, AGENTS.md, skills)
 
 Mode: procedural. A system prompt is a procedure for a reader that cannot ask questions, which is the exact reader STE was designed for.

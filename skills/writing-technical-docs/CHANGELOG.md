@@ -2,6 +2,26 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-18] - BDD Behavioral Language Allowance for Software Engineering
+
+### 1. Motivation
+- ASD-STE100 strictly forbids ambiguous modals like "should" to prevent ambiguity in operational instructions.
+- In software engineering, describing system behaviors (e.g., "X should do Y", "it should return 404") is standard practice in specifications, acceptance criteria, and Behavior-Driven Development (BDD).
+- Distinguishing between human procedural instructions (which require imperative mood or "must") and software behavioral expectations allows engineers to express testable software behavior without violating Plain English principles.
+
+### 2. Curated Changes Applied
+- **`SKILL.md`**:
+  - Relaxed modal rule 5 under `## The Document` to explicitly permit "should" for BDD-style phrasing and behavioral specifications (e.g., "X should do Y", "it should return 404").
+  - Updated step 2 under `## Self-Check Before You Deliver` to exempt BDD behavioral specifications when auditing documents for "should".
+  - Bumped version metadata to `2.2.0-curated`.
+- **`references/rule-catalog.md`**:
+  - Documented the BDD exception under Section 3 (Modals).
+  - Added an entry to *The modal ladder* mapping `should (behavioral spec / BDD)` to permitted software expectations.
+- **`references/use-cases.md`**:
+  - Added the `Software specifications and BDD scenarios` use case defining how to apply BDD phrasing alongside short sentences and plain grammar while reserving "must" for human procedures.
+
+---
+
 ## [2026-10-18] - Enrichment of word-swaps.md from pstack unslop (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`
@@ -58,5 +78,6 @@ When upstream `sources/SimpleEnglish` is updated:
    - The skill name `writing-technical-docs`.
    - The loosened chat list and formatting rules in `## Chat Explanations & Reviews`.
    - The shared reference wiring to `references/word-swaps.md`.
+   - The allowance for BDD language ("should") in software behavioral specifications.
 5. Run `make build` to verify output packaging.
 6. Record the new upstream commit hash, date, and changes in this changelog.
