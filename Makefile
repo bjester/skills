@@ -49,6 +49,7 @@ sources:
 		sources/i-have-adhd \
 		sources/le-skills \
 		sources/mattpocock-skills \
+		sources/modern-web-guidance \
 		sources/security-audit-skill \
 		sources/SimpleEnglish \
 		sources/superpowers
@@ -73,6 +74,9 @@ sources/le-skills:
 
 sources/mattpocock-skills:
 	git clone git@github.com:mattpocock/skills.git $@
+
+sources/modern-web-guidance:
+	git clone git@github.com:GoogleChrome/modern-web-guidance-src.git $@
 
 sources/security-audit-skill:
 	git clone git@github.com:cloudflare/security-audit-skill.git $@
