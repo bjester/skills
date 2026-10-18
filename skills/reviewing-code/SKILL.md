@@ -158,9 +158,15 @@ Consult the `software-engineering` skill for full definitions of foundational in
 - [ ] **Parameter & Argument Discipline**: Are functions limited to 0–2 parameters (3+ bundled into Parameter Objects)? Are boolean flag arguments avoided in favor of explicit, intention-revealing methods?
 - [ ] **Primitive Obsession**: Are domain concepts with validation/invariants (e.g., `EmailAddress`, `Money`, `OrderId`) encapsulated into Value Objects instead of raw strings/integers?
 - [ ] **Defensive Contracts**: Are preconditions validated at public system barricades? Are internal invariants asserted rather than silently patched with fake fallback values?
+- [ ] **Strict Comment Hygiene (Anti-Comment Discipline)**:
+  - Are comments reserved exclusively for *non-obvious, unchangeable external constraints* (vendor bugs, hardware quirks, wire protocol peculiarities)?
+  - Are narrative comments (`// Step 1: fetch user`, `// check if valid`) eradicated in favor of self-documenting method names and SLAP?
+  - Are workaround sermons (`// sorry about this hack, fine for now`) rejected in favor of root-cause refactoring or structural type constraints?
+  - Is commented-out dead code completely deleted?
 - [ ] **Code Smell Detection**: Are classic smells present (Bloaters, Object-Orientation Abusers, Change Preventers, Dispensables, Couplers)? Are standard refactoring recipes applied?
 
 ### Scale 5: Verification, Seams & Test Value Lens
+- [ ] **Blast Radius & Non-Grep Risks**: Does the change introduce hidden runtime breakages that symbol search (`grep`) misses (lifecycle mismatches, wire format shifts, external DB column reads)? Consult the `analyzing-blast-radius` skill for the 5-level certainty ladder.
 - [ ] **F.I.R.S.T. Properties**: Are tests fast, independent, repeatable, self-validating, and timely?
 - [ ] **Test Value & Behavior Focus**:
   - Does the test assert observable public behavior rather than asserting framework plumbing, input fixtures, or trivial declarations?
@@ -305,6 +311,24 @@ You are a Software Engineering Code Reviewer. Your task is to perform a rigorous
    - ✅ Positive Highlights
 6. Conclude with a clear status verdict: `APPROVED`, `CHANGES_REQUESTED`, or `BLOCKED`.
 ```
+
+---
+
+## Multi-Model Adversarial Review Protocol (`interrogate`)
+
+When reviewing high-risk diffs, core protocol changes, or contested architecture:
+
+1. **Model Diversity Over Personas**: Rather than prompting a single model to roleplay artificial personas, dispatch the review prompt to 2 or more distinct LLM families simultaneously (e.g., Claude, Gemini, Grok). Authentic adversarial signal emerges from model diversity.
+2. **Construct the Agreement Map**:
+   - Compare returned findings across the independent reviewer runs.
+   - **Consensus Findings**: When two or more models independently identify the exact same invariant breach or failure mode, treat it as a **high-confidence blocker** (signal is near 100%).
+   - **Divergence / Disagreement**: When one model flags an issue that another explicitly approves, treat the disagreement as a genuine architectural trade-off for human consideration.
+3. **Lead Judgment Triage**:
+   Operate as an opinionated senior lead reviewer, not a neutral aggregator. Classify every finding into:
+   - **Act On**: Real issues affecting correctness, security, or production stability that must block a PR.
+   - **Consider**: Legitimate trade-offs where cost and benefit must be weighed.
+   - **Noted**: Technically valid but low impact or premature at this stage.
+   - **Dismissed**: False alarms, nitpicks, or findings resulting from missed context.
 
 ---
 

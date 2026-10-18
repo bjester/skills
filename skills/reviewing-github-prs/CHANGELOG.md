@@ -2,6 +2,23 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-18] - Blast Radius Analysis & Multi-Model Adversarial Review from pstack (v0.15.26)
+
+- **Upstream Repository**: `git@github.com:cursor/plugins.git`
+- **Upstream Revision**: `0b8e952052d482ee6de06deebf14d590d77b1b34` (Release: `chore(pstack): bump to 0.15.26`), committed on 2026-10-18
+- **Upstream Source Paths**:
+  - `sources/cursor-plugins/pstack/skills/blast-radius/`
+  - `sources/cursor-plugins/pstack/skills/interrogate/`
+
+### 1. Curated Changes Applied
+- **Step 2 (Fetch and Analyze Diff)**:
+  - Added Blast Radius analysis check referencing `analyzing-blast-radius` to detect lifecycle issues, serialization shifts, and database column dependencies.
+  - Injected Comment Hygiene check under Micro-Craftsmanship.
+- **Step 3 (Local Checkout & Verification)**:
+  - Injected Multi-Model Adversarial PR Review (`interrogate`) option: dispatching PR diff to 2+ distinct LLM families to discover high-confidence consensus blockers.
+
+---
+
 ## [2026-10-14] - Inline Comments via GitHub API & Curation from le-skills
 
 - **Upstream Repository**: `https://github.com/learningequality/le-skills.git`

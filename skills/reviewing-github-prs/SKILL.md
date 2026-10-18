@@ -86,7 +86,8 @@ gh pr diff <pr-number-or-url>
   1. *Macro Resilience*: Remote timeouts, error swallowing, circuit breakers, resource leaks, race conditions.
   2. *Strategic Architecture*: Inward dependency rule, domain purity, ubiquitous language, ACLs.
   3. *Modularity & Depth*: Deep modules vs. shallow wrappers, information hiding, orthogonality, SRP.
-  4. *Micro-Craftsmanship & Tests*: SLAP, CQS, parameter discipline, Primitive Obsession, Test Value lens.
+  4. *Micro-Craftsmanship & Tests*: SLAP, CQS, parameter discipline, Primitive Obsession, Test Value lens, Comment Hygiene.
+- **Blast Radius Analysis**: For sensitive changes, identify the load-bearing safety fact and look where grep stops per the `analyzing-blast-radius` skill.
 
 ### Step 3: Local Checkout & Empirical Verification
 
@@ -99,6 +100,8 @@ gh pr checkout <pr-number-or-url>
 make test || pytest || npm test || cargo test
 make lint || ruff check . || npm run lint
 ```
+
+- **Multi-Model Adversarial Check (`interrogate`)**: For high-stakes or contested PRs, dispatch the PR diff to 2+ distinct LLM families. High-agreement findings across diverse models serve as high-confidence blockers in Step 4.
 
 ### Step 4: Partition Findings into Inline Comments & Summary Body
 

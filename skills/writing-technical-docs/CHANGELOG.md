@@ -2,6 +2,19 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-18] - Enrichment of word-swaps.md from pstack unslop (v0.15.26)
+
+- **Upstream Repository**: `git@github.com:cursor/plugins.git`
+- **Upstream Revision**: `0b8e952052d482ee6de06deebf14d590d77b1b34` (Release: `chore(pstack): bump to 0.15.26`), committed on 2026-10-18
+- **Upstream Source Path**: `sources/cursor-plugins/pstack/skills/unslop/`
+
+### 1. Curated Changes Applied
+- **Enriched Shared Reference `references/word-swaps.md`**:
+  - Injected abstract AI metaphor nouns (`substrate`, `vector`, `locus`, `nexus`, `primitive`, `bedrock`, `modality`, `gold-plating`, `evacuate`, `flywheel`).
+  - Codified 7 syntactic and stylistic AI tell eradication rules: em-dash elimination (`—`), colon-as-connector bans, superficial -ing participial phrases, vague attributions, false ranges, chatbot pleasantries/sycophancy, and "say what it does, not how it feels".
+
+---
+
 ## [2026-09-16] - Curation from SimpleEnglish v2.1.0
 
 - **Upstream Repository**: `https://github.com/AminBlg/SimpleEnglish.git`

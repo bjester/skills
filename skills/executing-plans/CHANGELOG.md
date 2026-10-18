@@ -19,9 +19,15 @@ Tracks upstream sources, imported commit revisions, and curated repository modif
     - Codified the **First-Unit Proof** protocol: perform the transformation manually on a single unit to refine the recipe, author the script/codemod, run it, and confirm diff equivalence before executing across all targets.
     - Articulated reviewability value: a script turns *"trust me, I edited 30 files manually"* into an auditable artifact that human reviewers can rerun.
     - Enforced that a deterministic local script running in one pass beats spawning multiple subagents to hand-apply mechanical changes.
+  - Injected **Rule 5: Keep a Decision Ledger for Multi-Phase or Unattended Runs (`show-me-your-work`)**:
+    - Established an append-only TSV decision ledger at `.plans/decisions.tsv` based on `references/decision-log-template.tsv`.
+    - Enforced pointer-based evidence (commits, line numbers, test outputs) over prose summaries.
+    - Added mandatory end-of-run transcript auditing to verify that logged decisions reflect actual execution.
+- **Shared Reference Wiring**:
+  - Wired `references/decision-log-template.tsv` via `Makefile` into `output/skills/executing-plans/references/`.
 
 ### 3. Resulting State (B)
-- A robust plan execution harness that prioritizes deterministic automation and verifiable tooling over manual repetitive file edits.
+- A robust plan execution harness that prioritizes deterministic automation, verifiable tooling, and transparent append-only decision ledgers over manual repetitive file edits and unreviewable autonomous runs.
 
 ### 4. Re-sync / Update Recipe
 When upstream `sources/cursor-plugins` updates `pstack`:

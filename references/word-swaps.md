@@ -56,3 +56,42 @@ This table maps words that AI-generated text overuses to plain replacements. If 
 | bustling | busy |
 | that being said, notwithstanding | but |
 | I hope this helps, let's dive in | (delete) |
+| substrate | base |
+| wedge, wedge in | add, insert |
+| vector (metaphorical) | way, method |
+| locus, nexus | center, connection |
+| primitive (as a noun) | basic type, building block |
+| bedrock, scaffolding (metaphorical) | foundation, structure |
+| modality | mode, form |
+| gold-plating | over-engineering, unnecessary extras |
+| evacuate (for code) | move out, migrate |
+| endgame | final phase, goal |
+| north star, flywheel | goal, momentum (or delete) |
+| stands as, serves as | is |
+| not just X, but Y | (state the point directly) |
+
+---
+
+## Syntactic & Stylistic AI Tells (De-slopping Rules)
+
+1. **Em Dash Elimination (`—`)**:
+   - Avoid em dashes entirely. Em dashes are the most recognizable syntactic marker of AI text.
+   - If a thought needs separation, end the sentence with a period and start a fresh sentence.
+   - If joining dependent clauses, use a comma with a concrete conjunction (*"because"*, *"but"*, *"so"*).
+2. **Colon-as-Connector Ban**:
+   - Colons belong before a vertical list or explicit code example.
+   - Do NOT use colons as mid-sentence connectors between clauses (e.g. *"If tests pass: the deployment begins"* $\rightarrow$ *"When tests pass, deployment begins"*).
+3. **Superficial -ing Participles**:
+   - Eliminate dangling trailing participial phrases (*"...highlighting key components"*, *"...ensuring high performance"*, *"...reflecting best practices"*).
+   - State the actor and direct action as a complete sentence or clause.
+4. **Vague Attributions**:
+   - Eliminate *"industry reports suggest"*, *"experts believe"*, *"some critics argue"*.
+   - Name the concrete source, or delete the claim.
+5. **False Ranges**:
+   - Avoid *"ranging from X to Y"* unless X and Y exist on a meaningful quantitative or scalar continuum. List topics directly.
+6. **Chatbot Pleasantries & Sycophancy**:
+   - Delete *"Of course!"*, *"Certainly!"*, *"Great question!"*, *"You're absolutely right!"*, *"Found the smoking gun!"*.
+   - Respond directly with technical substance without conversational buffering.
+7. **Say What It Does, Not How It Feels**:
+   - Replace emotive feeling words (*"the database stays close at hand"*, *"SQL you can love"*) with concrete mechanisms and numbers (*"`.toSQL()` returns the exact string sent to PostgreSQL"*, *"column renames fail compilation"*).
+   - If a sentence could appear unchanged in another completely unrelated repository's documentation, it says nothing about this one—delete it.

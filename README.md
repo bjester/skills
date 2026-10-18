@@ -40,6 +40,9 @@ The repository currently provides curated skills across the software lifecycle:
 | Skill | Purpose | Key Capabilities |
 | :--- | :--- | :--- |
 | **[`auditing-security`](skills/auditing-security/)** | Defensive Security Audits & Guidance | 6-phase vulnerability discovery harness (Cloudflare): reconnaissance, coverage ledger, adversarial verifier testing, and 10 domain attack companions with zero-dependency validators. Supports both conversational guidance and full autonomous audits. |
+| **[`analyzing-blast-radius`](skills/analyzing-blast-radius/)** | Hidden Breakage & Blast Radius Analysis | Discovers lifecycle, wire format, and runtime hazards beyond symbol search (`grep`). Isolates the single load-bearing safety fact and ascends the 5-level certainty ladder to executable proof. |
+| **[`investigating-code-lineage`](skills/investigating-code-lineage/)** | Codebase Archaeology & Intent Discovery | Discovers historical intent and incident scar tissue behind defensive/unintuitive code across 7 evidence sources (git, issues, docs, chat, traces) with strict epistemic confidence. |
+| **[`generating-verification-harnesses`](skills/generating-verification-harnesses/)** | Autonomous Verification Driver Generator | Inspects unfamiliar codebases to generate project-local headless verification drivers (`verify-<app>`) with Launch, Doctor, Drive, Evidence, and living Feature Maps. |
 | **[`writing-specs`](skills/writing-specs/)** | Specification & Architecture Design | Collaborative requirements elicitation, bounded context isolation, deep module design, and verifiable acceptance criteria before coding. |
 | **[`writing-plans`](skills/writing-plans/)** | Implementation Planning | Decomposes approved specifications into ordered, bite-sized tasks with explicit TDD steps and verification checkpoints. |
 | **[`executing-plans`](skills/executing-plans/)** | Plan Execution & TDD | Guides task-by-task plan execution with pragmatic red-green-refactor loops, multi-scale reviews, and verification gates. Supports both inline and subagent execution. |
@@ -47,7 +50,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`engineering-with-agents`](skills/engineering-with-agents/)** | Disciplines for Autonomous & Paired LLM Development | Operational guardrails for agentic software engineering: context guarding, laziness protocol, side-by-side prototyping, branded types, one-wave migrations, primary artifact verification, and two-edit behavioral tests. |
 | **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
-| **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales. |
+| **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales with multi-model adversarial review. |
 | **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) to inspect pull requests, perform comprehensive multi-scale code reviews, and post structured, actionable review feedback. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
@@ -63,8 +66,9 @@ The repository currently provides curated skills across the software lifecycle:
 
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
+- **[`references/decision-log-template.tsv`](references/decision-log-template.tsv)**: Append-only decision ledger schema (`ts`, `phase`, `decision`, `why`, `evidence`, `result`) for multi-phase and unattended agent plan execution.
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
-- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and filler replacements shared across documentation and communication skills.
+- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation and communication skills.
 
 ---
 
@@ -101,9 +105,13 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
 ├── references/                # Canonical shared engineering references
+│   ├── decision-log-template.tsv
 │   ├── github-issue-guidelines.md
 │   └── word-swaps.md
 ├── skills/                    # Canonical source definitions for each skill
+│   ├── analyzing-blast-radius/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── auditing-security/
 │   │   ├── CHANGELOG.md
 │   │   ├── SKILL.md
@@ -133,6 +141,12 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── executing-plans/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
+│   ├── generating-verification-harnesses/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
+│   ├── investigating-code-lineage/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── learning-equality/
 │   │   └── SKILL.md
 │   ├── pairing-with-adhd/
@@ -148,6 +162,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │       ├── mcp-usage.md
 │   │       └── supported-domains.md
 │   ├── reviewing-code/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── reviewing-github-prs/
 │   │   ├── CHANGELOG.md

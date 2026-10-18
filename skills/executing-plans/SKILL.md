@@ -144,6 +144,14 @@ Adhere to these core execution invariants during code generation:
    - *First-Unit Proof*: Perform the transformation manually on a single unit to establish and refine the exact recipe. Then author the script/codemod, execute it across the remaining targets, and verify that diffs match expectations.
    - *Reviewability*: A deterministic script transforms "trust me, I edited 30 files manually" into a concise, auditable artifact that a reviewer can inspect and rerun for free.
    - *Lever Over Fan-Out*: A single deterministic script running locally in one pass beats spawning multiple subagents to hand-apply repetitive mechanical edits.
+6. **Rule 5: Keep a Decision Ledger for Multi-Phase or Unattended Runs**:
+   - For complex, multi-phase, or unattended executions, maintain a single canonical, append-only TSV decision log at `.plans/decisions.tsv` (or `.audit/<plan-slug>.tsv`) using the schema from `references/decision-log-template.tsv`:
+     ```tsv
+     ts	phase	decision	why	evidence	result
+     ```
+   - *Pointer-Based Evidence*: Log significant forks, completed task increments, and verification outcomes. Evidence must be an exact pointer (`commit SHA`, `file:line`, test command output, or artifact path)—never speculative prose.
+   - *Append-Only History*: Never edit or erase prior history. If an approach is reverted or modified, append a new row recording the pivot, the trigger, and the resulting state.
+   - *End-of-Run Transcript Audit*: Before handing back, audit the log against the actual session actions to ensure all entries reflect real, verified execution without missing forks or unproven assertions.
 
 ---
 
