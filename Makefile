@@ -1,5 +1,15 @@
 SHELL := /bin/bash
-INSTALL_DIR = $(HOME)/.vibe/
+
+INSTALL_DIRS ?= \
+	$(HOME)/.claude/ \
+	$(HOME)/.codex/ \
+	$(HOME)/.gemini/antigravity-cli/ \
+	$(HOME)/.vibe/
+
+# Preserve the original single-directory command-line override.
+ifneq ($(origin INSTALL_DIR), undefined)
+INSTALL_DIRS := $(INSTALL_DIR)
+endif
 
 .PHONY: clean copy-references build install sources
 
@@ -25,7 +35,10 @@ build: clean
 	$(MAKE) copy-references
 
 install: build
-	rsync --progress -ah output/ "$(INSTALL_DIR)"
+	set -e; \
+	for install_dir in $(INSTALL_DIRS); do \
+		rsync --progress -ah output/ "$$install_dir"; \
+	done
 
 sources:
 	mkdir -p sources/

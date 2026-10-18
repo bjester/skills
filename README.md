@@ -82,7 +82,7 @@ The repository uses GNU `make` to manage packaging, dependency injection, and in
 | :--- | :--- |
 | `make build` | Cleans `output/`, copies skills to `output/skills/`, and packages declared shared references into each skill's `references/` directory. |
 | `make copy-references` | Resolves and copies shared references declared in `Makefile` into the packaged skill folders. |
-| `make install` | Builds the distribution packages and synchronizes them to `$(INSTALL_DIR)` (`~/.vibe/` by default) via `rsync`. |
+| `make install` | Builds the distribution packages and synchronizes them via `rsync` to every directory in `$(INSTALL_DIRS)` (`~/.claude/`, `~/.codex/`, `~/.gemini/antigravity-cli/`, and `~/.vibe/` by default). |
 | `make clean` | Removes generated files in `output/`. |
 | `make sources` | Clones upstream open-source inspiration repositories into `sources/` (git-ignored). |
 
@@ -222,11 +222,14 @@ Build and install skills to the local agent environment:
 # Build packaged output
 make build
 
-# Install to default location (~/.vibe/)
+# Install to all default agent directories
 make install
 
-# Install to a custom directory
+# Install to one custom directory (legacy override)
 make install INSTALL_DIR=/path/to/target/
+
+# Install to a custom set of directories
+make install INSTALL_DIRS="/path/to/first/ /path/to/second/"
 ```
 
 ---
