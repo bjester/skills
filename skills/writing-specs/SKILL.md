@@ -23,7 +23,7 @@ Purpose: Turn ideas and requirements into robust, fully formed technical specifi
 
 - **Never code without an approved spec**: Code written without a specification is guessing. Writing a spec forces you to examine the problem, manage cognitive load, isolate failure modes, and surface implicit assumptions before writing code.
 - **Manage cognitive load & complexity**: Complexity is the enemy (manifested through change amplification, cognitive load, and unknown unknowns). A good spec isolates bounded contexts, establishes deep modules, and adheres to strict inward dependency rules.
-- **Reference Software Engineering Invariants**: Always adhere to the `software-engineering` skill for architectural patterns, boundary definitions (Clean/Hexagonal, DDD), defensive design, resilience strategies, and testing invariants.
+- **Reference Software Engineering Invariants**: Always adhere to the `engineering-software` skill for architectural patterns, boundary definitions (Clean/Hexagonal, DDD), defensive design, resilience strategies, and testing invariants.
 - **Living Document, Authoritative State**: The specification is version-controlled and maintained alongside code. It defines the current, authoritative target state—not a historical audit log or changelog.
 - **Memorialize Reasoning, Not Revisions**: When iterating through feedback loops, changes must **fully replace** existing instructions instead of appending revision markers, strikethroughs, or historical notes. Retaining superseded instructions creates detractors and conflicting context that degrade downstream LLM and engineer performance. Record the *reasoning* behind trade-offs and decisions (e.g., in Context or Alternate Solutions Considered), but keep all active operational requirements, schemas, and boundaries strictly singular and clean. Git preserves the edit history.
 
@@ -99,7 +99,7 @@ If splitting is required:
 
 ### 2. Propose & Deliberate Approaches
 - Propose **2–3 distinct architectural approaches** with explicit trade-offs.
-- For each approach, consider the principles in the `software-engineering` skill:
+- For each approach, consider the principles in the `engineering-software` skill:
   - **Module Depth & Cohesion**: Prefer deep modules (simple, minimal interfaces encapsulating complex logic) over shallow pass-through layers.
   - **Business Logic Archetype**: Choose appropriately (Transaction Script for simple CRUD vs. Domain Model / Aggregates for complex business invariants).
   - **Reversibility & Orthogonality**: Defer volatile framework/vendor lock-in where possible.

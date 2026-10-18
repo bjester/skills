@@ -1,6 +1,13 @@
-# Changelog & Provenance: software-engineering
+# Changelog & Provenance: engineering-software
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
+
+## [2026-10-18] - Renamed to Gerund Convention (`engineering-software`)
+
+- Renamed skill from `software-engineering` to `engineering-software` to adhere to repository gerund phrase conventions (`<verb-ing>-<noun>`).
+- Updated skill frontmatter, title, and cross-skill references across the repository.
+
+---
 
 ## [2026-10-18] - Operational Idempotency & First-Principles Redesign from pstack (v0.15.26)
 
@@ -39,6 +46,6 @@ When upstream `sources/cursor-plugins` updates `pstack`:
    git -C sources/cursor-plugins diff 0b8e952..HEAD -- pstack/skills/principle-make-operations-idempotent/ pstack/skills/principle-redesign-from-first-principles/
    ```
 3. Evaluate updates to idempotency formulas or first-principles reasoning.
-4. Port valuable additions into `skills/software-engineering/SKILL.md` while preserving the 4-scale structure and foundational text synthesis.
+4. Port valuable additions into `skills/engineering-software/SKILL.md` while preserving the 4-scale structure and foundational text synthesis.
 5. Run `make build` to verify packaging.
 6. Record the new upstream commit hash, date, and changes in this changelog.

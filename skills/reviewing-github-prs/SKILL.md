@@ -24,7 +24,7 @@ Purpose: Conduct thorough, constructive, and principle-grounded GitHub Pull Requ
 ## Prerequisites & Shared Guidelines
 
 - **Consult Review Guidelines**: Always refer to the `reviewing-code` skill for the 4 scales of code review, principle checklists, finding taxonomies, Delta reviews, Dependabot workflows, and the standard review template.
-- **Reference Software Engineering Invariants**: Consult the `software-engineering` skill for foundational architectural rules, modular depth, defensive error handling, and testing disciplines.
+- **Reference Software Engineering Invariants**: Consult the `engineering-software` skill for foundational architectural rules, modular depth, defensive error handling, and testing disciplines.
 - **Organization-Specific Guidelines**: Check if the repository belongs to a recognized organization:
   ```bash
   git remote -v

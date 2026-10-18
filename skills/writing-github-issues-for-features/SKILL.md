@@ -23,7 +23,7 @@ Purpose: Facilitate the creation of actionable, well-structured GitHub issues fo
 
 - **Specify What & Why, Not How**: Describe the desired behavior, user outcomes, and technical boundaries. Leave the concrete implementation choices to the developer.
 - **Reference Shared Issue Guidelines**: Consult `references/github-issue-guidelines.md` for writing principles, DOs/DON'Ts, and the DEEP AI disclosure framework.
-- **Incorporate Foundational Software Principles**: Consult the `software-engineering` skill for architectural boundaries (DDD bounded contexts, deep modules, schema evolution, and resilience).
+- **Incorporate Foundational Software Principles**: Consult the `engineering-software` skill for architectural boundaries (DDD bounded contexts, deep modules, schema evolution, and resilience).
 
 ---
 

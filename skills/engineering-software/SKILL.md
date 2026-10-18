@@ -1,5 +1,5 @@
 ---
-name: software-engineering
+name: engineering-software
 description: |
   Foundational software engineering invariants, Clean/Hexagonal architecture,
   deep module design, defensive programming, refactoring recipes, legacy seam
@@ -18,7 +18,7 @@ metadata:
   version: "1.0"
 ---
 
-# Software Engineering: Design, Execution, and the Evolution of Software
+# Engineering Software: Design, Execution, and the Evolution of Software
 
 Synthesized from 14 foundational software engineering texts to guide system design, code craftsmanship, and architecture.
 

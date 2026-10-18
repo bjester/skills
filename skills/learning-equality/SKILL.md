@@ -33,7 +33,7 @@ When working on or reviewing a repository, determine if these guidelines apply b
 git remote -v | grep -i 'learningequality'
 ```
 
-If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply these conventions alongside the `software-engineering` and `reviewing-code` skills, as well as the repository's own `AGENTS.md`.
+If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply these conventions alongside the `engineering-software` and `reviewing-code` skills, as well as the repository's own `AGENTS.md`.
 
 ---
 

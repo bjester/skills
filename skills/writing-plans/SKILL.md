@@ -22,7 +22,7 @@ Purpose: Guide an LLM agent to decompose an approved specification or requiremen
 ## Prerequisites & Core Philosophy
 
 - **Approved Spec Required**: You MUST have a validated specification or approved requirements document (e.g. created via `writing-specs` or provided by the user). If requirements are ambiguous or incomplete, do not write a plan—direct the user to `writing-specs` first.
-- **Reference Software Engineering Invariants**: Always adhere to the `software-engineering` skill for architectural boundaries (Clean/Hexagonal), deep module interface design, defensive contracts, and testing disciplines.
+- **Reference Software Engineering Invariants**: Always adhere to the `engineering-software` skill for architectural boundaries (Clean/Hexagonal), deep module interface design, defensive contracts, and testing disciplines.
 - **Code Conciseness Invariant (Avoid Verbatim Code Dumps)**: Do NOT write complete production code implementations verbatim in the plan document. Describe the change precisely in prose, specifying exact `file:line` locations, function signatures, data shapes, and test assertions. Include short code blocks ONLY for genuinely novel, tricky, or non-obvious algorithms and assertions.
 - **Save Location**: Save plans to `.plans/YYYY-MM-DD-<feature-name>.md` (or a user-specified directory).
 - **Announce at Start**: "I'm using the writing-plans skill to create the implementation plan."

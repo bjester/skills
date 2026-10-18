@@ -29,7 +29,7 @@ Purpose: Perform rigorous, local code reviews across uncommitted changes, branch
   3. *Question-Driven Analysis & Evidence Bar*: Ground all findings in concrete codebase evidence (reading surrounding callers, models, and tests—not just the diff hunk). If a behavior cannot be conclusively confirmed, phrase it as a question or suggestion rather than an assertive blocker.
   4. *Actionable & Constructive*: Every finding must explain *why* (citing the engineering invariant or failure mode) and offer a specific remediation or refactoring recipe.
   5. *Be Strategic, Not Dogmatic*: Understand the difference between critical invariant violations and subjective stylistic preferences.
-- **Reference Software Engineering Invariants**: Consult the `software-engineering` skill for foundational architectural rules (Clean/Hexagonal), modular depth, defensive programming, refactoring recipes, resilience patterns, and testing invariants.
+- **Reference Software Engineering Invariants**: Consult the `engineering-software` skill for foundational architectural rules (Clean/Hexagonal), modular depth, defensive programming, refactoring recipes, resilience patterns, and testing invariants.
 - **Organization-Specific Guidelines**: Check if the repository belongs to a recognized organization:
   ```bash
   git remote -v
@@ -130,7 +130,7 @@ Run the repository's verification tools to gather hard evidence before finalizin
 
 ## Comprehensive Review Checklist by Scale
 
-Consult the `software-engineering` skill for full definitions of foundational invariants:
+Consult the `engineering-software` skill for full definitions of foundational invariants:
 
 ### Scale 1: Macro-Scale, Resilience & Concurrency
 - [ ] **Timeouts & Deadlines**: Does every remote, network, database, or RPC call have an explicit, bounded timeout? Are deadlines propagated downstream?
@@ -293,7 +293,7 @@ You are a Software Engineering Code Reviewer. Your task is to perform a rigorous
 ### Review Context:
 - Target files: [List of modified/created files]
 - Task Requirements / Acceptance Criteria: [Summary of expected behavior]
-- Review Standards: Follow the reviewing-code and software-engineering skills.
+- Review Standards: Follow the reviewing-code and engineering-software skills.
 
 ### Instructions:
 1. Examine the modified files and their git diff.

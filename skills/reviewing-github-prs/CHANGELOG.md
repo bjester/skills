@@ -35,7 +35,7 @@ Tracks upstream sources, imported commit revisions, and curated repository modif
 - **Standardized Metadata**:
   - Configured repository-standard YAML frontmatter in `SKILL.md`: `license: MIT`, `user-invocable: true`, `compatibility`, `allowed-tools`, and `metadata`.
 - **Integrated Multi-Scale Engineering Taxonomy**:
-  - Replaced upstream terse-writing gate and bespoke severity labels with this repository's 4-scale software engineering review philosophy (`software-engineering` and `reviewing-code`) and standard 4-tier finding taxonomy (`🚨 Blocker (Must-Fix)`, `⚠️ Architecture & Design (Should-Fix)`, `💡 Tactical Suggestion (Optional)`, `✅ Positive Highlights`).
+  - Replaced upstream terse-writing gate and bespoke severity labels with this repository's 4-scale software engineering review philosophy (`engineering-software` and `reviewing-code`) and standard 4-tier finding taxonomy (`🚨 Blocker (Must-Fix)`, `⚠️ Architecture & Design (Should-Fix)`, `💡 Tactical Suggestion (Optional)`, `✅ Positive Highlights`).
 - **Inline Comment Drafting & Diff Hunk Verification**:
   - Replaced single-comment `gh pr review --body-file` submission with structured inline comment drafting via `gh api repos/{owner}/{repo}/pulls/<pr-number>/reviews`.
   - Added strict diff hunk verification using `gh pr diff <pr-number> -- <file>` to ensure comment lines fall within hunk bounds (`side: "RIGHT"` / `side: "LEFT"`).
@@ -60,6 +60,6 @@ When upstream `sources/le-skills` is updated:
 4. Port improvements into `skills/reviewing-github-prs/` while preserving:
    - The skill name `reviewing-github-prs` and repository frontmatter.
    - The 4-scale software engineering review integration and 4-tier finding taxonomy.
-   - Cross-skill wiring with `reviewing-code`, `software-engineering`, and `learning-equality`.
+   - Cross-skill wiring with `reviewing-code`, `engineering-software`, and `learning-equality`.
 5. Run `make build` to verify output packaging.
 6. Record the new upstream commit hash, date, and changes in this changelog.

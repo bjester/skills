@@ -37,7 +37,7 @@ Tracks upstream sources, imported commit revisions, and curated repository modif
   - Dispatched other valuable pstack principles directly into existing repository skills:
     - `attack-the-premise` and `explain-the-number` into `skills/diagnosing-bugs/`.
     - `build-the-lever` into `skills/executing-plans/`.
-    - `make-operations-idempotent` and `redesign-from-first-principles` into `skills/software-engineering/`.
+    - `make-operations-idempotent` and `redesign-from-first-principles` into `skills/engineering-software/`.
 
 ### 3. Resulting State (B)
 - A self-contained, high-signal engineering skill that equips both autonomous agents and paired human-agent sessions with actionable mental models for context budgeting, two-edit behavioral testing, primary artifact verification, one-wave refactor migrations, and structural lesson encoding.
