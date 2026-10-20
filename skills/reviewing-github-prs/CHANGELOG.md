@@ -2,6 +2,30 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-19] - Clean Review Bodies: Omit Redundant Summary Headings and Empty Sections
+
+### 1. Motivation
+- Eliminate unnecessary visual clutter and placeholder noise in PR reviews submitted to GitHub.
+- Avoid rendering empty sections with boilerplate text (such as `### Comments on Lines Outside Diff` with `(none)` or `*(None)*`).
+- Streamline GitHub review summaries by starting directly with the summary text, omitting redundant top-level `Summary` or `Executive Summary` headers since the GitHub PR review comment UI already provides clear context.
+
+### 2. Curated Changes Applied
+- **Step 4 (Partition Findings into Inline Comments & Summary Body)**:
+  - Instructed agents to omit leading `# Summary`, `## Summary`, `### Summary`, or `### Executive Summary` headings when formatting for GitHub review submission and begin directly with the summary text.
+  - Mandated that agents completely eliminate empty sections rather than printing placeholders like `(none)`, `*(None)*`, or `N/A`.
+  - Clarified that `### Comments on Lines Outside Diff` is conditional and must only appear if there are actual displaced findings on unmodified lines outside the diff hunks.
+- **Step 5 (Draft and Submit Review via GitHub API)**:
+  - Updated example review JSON payload to omit `### Executive Summary` and eliminate the empty `### Comments on Lines Outside Diff\n*(None)*` block.
+  - Updated HTTP 422 remediation instructions to note that `### Comments on Lines Outside Diff` is created dynamically only when comments are displaced.
+- **PR Review Etiquette**:
+  - Added etiquette rule 6 to omit empty sections and redundant summary headings.
+- Bumped version metadata to `1.3`.
+
+### 3. Resulting State
+- PR reviews posted to GitHub are concise and clutter-free: reviews jump directly into the summary evaluation and contain only sections with meaningful, actionable content.
+
+---
+
 ## [2026-10-18] - Trailing AI Generation Disclosure on GitHub Review Submission
 
 ### 1. Motivation
