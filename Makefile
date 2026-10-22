@@ -24,6 +24,9 @@ executing-plans_REFERENCES := decision-log-template.tsv
 
 REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skills/$(skill)/references/,$($(skill)_REFERENCES)))
 
+# Globs (relative to each skill) left out of distributable packages.
+PACKAGE_EXCLUDES := CHANGELOG.md README.md LICENSE* *.test.*
+
 clean:
 	rm -rf output
 
@@ -31,7 +34,7 @@ copy-references: $(REFERENCE_OUTPUTS)
 
 build: clean
 	mkdir -p output/skills/
-	cp -r skills/* output/skills/
+	rsync -a $(foreach pattern,$(PACKAGE_EXCLUDES),--exclude='$(pattern)') skills/ output/skills/
 	$(MAKE) copy-references
 
 install: build
