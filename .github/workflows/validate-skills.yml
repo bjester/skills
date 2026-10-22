@@ -1,0 +1,36 @@
+name: Validate Skills
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate skills
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Read pinned shinyskills version
+        id: pin
+        run: echo "version=$(make -s print-shinyskills-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore shinyskills binary
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/shinyskills
+          key: shinyskills-${{ steps.pin.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
+
+      - name: Install shinyskills
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: make install-shinyskills
+
+      - name: Build and validate skills
+        run: make validate
