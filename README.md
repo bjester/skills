@@ -80,9 +80,11 @@ The repository uses GNU `make` to manage packaging, dependency injection, and in
 
 | Command | Description |
 | :--- | :--- |
-| `make build` | Cleans `output/`, copies skills to `output/skills/`, and packages declared shared references into each skill's `references/` directory. |
+| `make build` | Cleans `output/`, copies skills to `output/skills/` via `rsync` minus `PACKAGE_EXCLUDES` (`CHANGELOG.md`, `README.md`, `LICENSE*`, `*.test.*` are left out of packages), and packages declared shared references into each skill's `references/` directory. |
 | `make copy-references` | Resolves and copies shared references declared in `Makefile` into the packaged skill folders. |
 | `make install` | Builds the distribution packages and synchronizes them via `rsync` to every directory in `$(INSTALL_DIRS)` (`~/.claude/`, `~/.codex/`, `~/.gemini/antigravity-cli/`, and `~/.vibe/` by default). |
+| `make validate` | Builds the packages, checks that the installed `shinyskills` binary matches the pinned `SHINYSKILLS_VERSION`, and validates every packaged skill. Must exit 0. |
+| `make install-shinyskills` | Installs the pinned `shinyskills` version with `cargo install --git … --tag`. |
 | `make clean` | Removes generated files in `output/`. |
 | `make sources` | Clones upstream open-source inspiration repositories into `sources/` (git-ignored). |
 
@@ -101,6 +103,10 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 
 ```
 .
+├── .github/                   # GitHub Actions workflows
+│   └── workflows/
+│       └── validate-skills.yml   # Required `Validate skills` check: runs `make validate`
+├── .shinyskills.toml          # shinyskills config: allowed frontmatter fields and ignored files
 ├── AGENTS.md                  # Instructions and packaging rules for AI agents
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
