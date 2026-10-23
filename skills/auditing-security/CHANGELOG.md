@@ -34,6 +34,7 @@ Tracks upstream sources, imported commit revisions, and curated repository modif
 - **Integrated into Build & Catalog**:
   - Added entry to catalog table and repository directory structure in `README.md`.
   - Packaged via `make build` into `output/skills/auditing-security/`.
+- **Reworded validator invocations** (2026-10-22): The commands in `VALIDATION-AND-REPORTING.md` and `RECONNAISSANCE.md` now `cd` into the skill directory and use `./` script paths so `shinyskills` can resolve them as skill-relative references. Output paths must be absolute because the commands run from the skill directory. Dev-only test files (`*.test.cjs`) are left out of distributable packages by `make build`.
 
 ### 3. Resulting State (B)
 - A complete, production-grade security auditing and guidance skill in `skills/auditing-security/`.

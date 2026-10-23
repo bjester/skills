@@ -1,0 +1,12 @@
+# Configuration for shinyskills (https://github.com/bjester/shinyskills).
+# Validation runs against packaged skills in output/skills/ via `make validate`.
+
+[validation]
+# Added to the built-in defaults (name, description, license, allowed-tools,
+# metadata, compatibility); built-in keys cannot be removed.
+allowed_fields = ["user-invocable"]
+
+# Maintenance files are stripped from packages by `make build`. They are also
+# listed here so ad-hoc runs against source skills (`shinyskills validate skills/<name>`)
+# do not report them.
+ignore_files = ["CHANGELOG.md", "README.md", "LICENSE*", "*.test.*"]

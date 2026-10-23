@@ -76,13 +76,16 @@ When adapting or importing a skill from `sources/`:
        agents to inspect diffs and re-apply changes when upstream updates.
   6. **Update Catalog & Tree in `README.md`**: Update both the Skills Catalog
      table and the repository structure tree in `README.md`.
-  7. **Build & Validate**: Run `make build` and confirm all files and references
-     are packaged in `output/skills/<skill-name>/`.
+  7. **Build & Validate**: Run `make build` **and** `make validate`. Confirm
+     all files and references are packaged in `output/skills/<skill-name>/` and
+     validation exits 0.
 
 ## Building and validating
 
 - Run `make build` after changing skills, shared references, or the
   `Makefile`. It creates a complete package under `output/skills/`.
+- Run `make validate` after changing skills, shared references,
+  `.shinyskills.toml`, or the `Makefile`; it must exit 0.
 - Run `make copy-references` to build only the explicitly declared shared
   reference copies.
 - Run `make clean` to remove generated `output/` files.

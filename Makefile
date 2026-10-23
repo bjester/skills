@@ -11,7 +11,10 @@ ifneq ($(origin INSTALL_DIR), undefined)
 INSTALL_DIRS := $(INSTALL_DIR)
 endif
 
-.PHONY: clean copy-references build install sources
+SHINYSKILLS ?= shinyskills
+SHINYSKILLS_VERSION := 0.1.0
+
+.PHONY: clean copy-references build install sources validate install-shinyskills print-shinyskills-version
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
@@ -24,6 +27,9 @@ executing-plans_REFERENCES := decision-log-template.tsv
 
 REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skills/$(skill)/references/,$($(skill)_REFERENCES)))
 
+# Globs (relative to each skill) left out of distributable packages.
+PACKAGE_EXCLUDES := CHANGELOG.md README.md LICENSE* *.test.*
+
 clean:
 	rm -rf output
 
@@ -31,7 +37,7 @@ copy-references: $(REFERENCE_OUTPUTS)
 
 build: clean
 	mkdir -p output/skills/
-	cp -r skills/* output/skills/
+	rsync -a $(foreach pattern,$(PACKAGE_EXCLUDES),--exclude='$(pattern)') skills/ output/skills/
 	$(MAKE) copy-references
 
 install: build
@@ -39,6 +45,20 @@ install: build
 	for install_dir in $(INSTALL_DIRS); do \
 		rsync --progress -ah output/ "$$install_dir"; \
 	done
+
+install-shinyskills:
+	cargo install --git https://github.com/bjester/shinyskills.git --tag v$(SHINYSKILLS_VERSION) --locked
+
+print-shinyskills-version:
+	@echo $(SHINYSKILLS_VERSION)
+
+validate: build
+	@actual="$$($(SHINYSKILLS) --version 2>/dev/null)"; \
+	if [ "$$actual" != "shinyskills $(SHINYSKILLS_VERSION)" ]; then \
+		echo "error: need shinyskills $(SHINYSKILLS_VERSION), found '$${actual:-none}'. Run: make install-shinyskills" >&2; \
+		exit 1; \
+	fi
+	$(SHINYSKILLS) validate-staged output/skills/*/SKILL.md
 
 sources:
 	mkdir -p sources/
