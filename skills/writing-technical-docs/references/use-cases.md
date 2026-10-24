@@ -18,6 +18,25 @@ Mode: procedural, with the 20-word limit enforced hard. An on-call runbook is a 
 - Every step is imperative, one instruction per step, condition first.
 - A warning comes before its step: command first, risk second.
 - An operator under pager stress reads each sentence once, so the 20-word limit is not negotiable.
+- List required access roles, CLI tools, and target cluster/environment before Step 1.
+- State the expected output that confirms each command succeeded before the operator runs the next step.
+- End with measurable recovery verification, a rollback procedure, and an escalation condition.
+
+## READMEs and onboarding guides
+
+Mode: descriptive for system overviews (25-word limit), procedural for setup steps (20-word limit).
+
+- Verify every command, script, environment variable, and default against `Makefile`, `package.json`, `pyproject.toml`, or `.env.example`—never invent flags or commands.
+- State prerequisites, required runtimes, and credential configurations before the first installation command.
+- Keep setup steps linear, copy-pasteable, and deterministic.
+
+## Architecture Decision Records (ADRs)
+
+Mode: descriptive.
+
+- Structure records into 5 standard sections: `Status`, `Context`, `Decision`, `Alternatives Considered`, and `Consequences`.
+- Apply the 25-word limit to context and rationale sentences.
+- Never delete superseded ADRs—update status and mark `Superseded by ADR-NNN`.
 
 ## Incident reports and postmortems
 
