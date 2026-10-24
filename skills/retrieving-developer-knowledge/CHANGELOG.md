@@ -2,6 +2,19 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Search Filtering, Basic Views, Version Alignment & Privacy Safeguards
+
+- **Upstream Sources**: Curated from `api-patterns`, `context7-auto-research`, and `serply-search-mcp`.
+
+### 1. Curated Changes Applied
+- **`SKILL.md`**:
+  - Surfaced domain filtering (`filter='data_source = "docs.cloud.google.com"'`) in `documents:searchDocumentChunks` REST fallback.
+  - Surfaced `view=DOCUMENT_VIEW_BASIC` query parameter in `documents:batchGet` to inspect titles and URIs efficiently prior to fetching full Markdown payloads.
+  - Added Guideline 4 (Project Dependency Version Reconciliation): reconciling latest retrieved documentation against pinned versions in `package.json`, `pyproject.toml`, `go.mod`, or `pubspec.yaml`.
+  - Added Guideline 5 (Query Privacy & Untrusted Content Boundary): stripping private project IDs, internal hostnames, credentials, and proprietary code before querying Developer Knowledge endpoints.
+
+---
+
 ## [2026-10-14] - Import and Standardization from Google Skills
 
 - **Upstream Repository**: `https://github.com/google/skills.git`

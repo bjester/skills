@@ -2,6 +2,27 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Agent Supply Chain Trust Classes & Removed Guard Blame
+
+- **Integrated Sources**:
+  - `audit-skills`
+
+### 1. Base State (A)
+- Covered MCP trust inheritance, server identity confusion, and metadata trust.
+- Did not explicitly address local supply-chain attacks via rogue agent skills, plugins, prompt bundles, or persistence hooks.
+- Wildcard git history guidance mentioned reverted fixes but lacked concrete directives to run `git log -S` or `git blame` against removed validation checks or sanitizers in scoped diffs.
+
+### 2. Curated Changes Applied (A -> B)
+- **AI & LLM Domain Attack Classes (`AI-AND-LLM.md`)**:
+  - Added "Agent skill, plugin, and prompt-bundle supply chain" attack class under MCP and sub-agent trust. Addresses capability-to-purpose mismatches, hidden instructions/payloads in bundled markdown, and local persistence hooks (`crontab`, `launchctl`, `systemd`, git hooks).
+- **Core Attack Classes (`ATTACK-CLASSES.md`)**:
+  - Expanded Wildcard git history bullet to instruct running `git log -S` / `git blame` on removed validation, auth checks, or sanitizers in scoped diffs to catch silent reversions of security fixes.
+
+### 3. Resulting State (B)
+- Enhanced defense-in-depth covering AI agent customization ecosystems and rigorous historical guard analysis during security audits.
+
+---
+
 ## [2026-09-16] - Import from Cloudflare security-audit-skill
 
 - **Upstream Repository**: `https://github.com/cloudflare/security-audit-skill.git`

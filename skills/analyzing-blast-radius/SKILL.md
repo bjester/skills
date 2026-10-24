@@ -13,7 +13,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Analyzing Blast Radius: Beyond Symbol Search to Executable Proof
@@ -79,6 +79,8 @@ Always aim to reach **Level 4** or **Level 5**. Level 4 is usually a concise scr
 1. Read the full changeset (`git diff main...HEAD` or uncommitted diff).
 2. Catalogue symbols added, modified, and deleted.
 3. Identify what the code now does differently—especially the parts the diff does not spell out (altered default parameters, shifted execution order, changed return types, side-effect timing).
+4. **Pre-Design Hypothesis Mode**: You may also run this workflow *before* coding when a spec or prompt makes an unverified claim about existing code (*"X is already side-effect-free, just expose it"*), treating that claim as the load-bearing safety fact to test.
+5. **Lineage Check on Deleted Guards (`-` Lines)**: For any removed validation check, fallback, lock, or timeout in the diff, run `git log -S '<symbol>' -p` or `git log -L :<func>:<file>` (or consult `investigating-code-lineage`) to verify it was not incident scar tissue from a past bug or security fix.
 
 ### Phase 2: Formulate the Single Load-Bearing Safety Fact
 Most changes that appear risky depend on a **single fundamental fact** to be safe:
@@ -94,6 +96,11 @@ Systematically audit the blind spots of static text search:
 2. **Lifecycle & Concurrency Realities**: Check when callbacks execute (microtasks vs. macrotasks, unmount hooks, transaction commit hooks). Does teardown cancel pending asynchronous tasks?
 3. **Cross-Boundary Schemas**: Follow data across processes—JSON APIs, IPC messages, database columns, Kafka/RabbitMQ events, and configuration files read by other services.
 4. **Feature Flags & State Combinations**: Identify what happens if this code runs with feature flag X disabled, or while a migration is halfway applied.
+5. **Duplicated Rules, Test Fixtures & Stale Agent Prompts**: Secondary config files, hardcoded fallback defaults, test fixtures encoding the old payload shape, and agent instruction files (`AGENTS.md`, `CLAUDE.md`, `SKILL.md`, runbooks) that restate the old rule in prose.
+6. **Rollout Skew & Multi-Version Coexistence**: Can an old worker, cron job, or mobile/web client run concurrently alongside the new server code against shared database/queue state during a rolling deploy?
+7. **Persisted State & Cache Keys Outliving the Deploy**: Existing database rows written under the old schema, Redis/CDN cache entries whose cache-busting key did not change, session payloads, and search indexes.
+8. **Observability & Alert Consumers**: Log parsers, metrics dashboards, and alert rules matching an altered error string, event name, or metric label.
+9. **Sibling Variant Sweep**: When fixing a defect or changing a coupled pattern in one module, generalize the pattern to check whether sibling modules contain the same broken assumption under different symbol names.
 
 ### Phase 4: Ascend to Executable Proof
 Author a minimal, deterministic script or automated test that proves or disproves the load-bearing safety fact:
@@ -131,7 +138,7 @@ Deliver the blast radius analysis in this structured format:
 | [Specific failure mode] | `path/to/file.ts:123` | High/Med/Low | High/Med/Low | [Executable check or fix] |
 
 ## 4. Cleared Risks
-- [Item audited, why it appeared risky, and the exact code/schema fact that clears it.]
+- [Item audited, why it appeared risky, and the exact code/schema fact that clears it. Record the exact negative search command and scope that cleared each risk—a search that returned zero hits is only evidence if the exact command and scope are recorded.]
 
 ## 5. Pre-Merge Verification Script
 ```bash

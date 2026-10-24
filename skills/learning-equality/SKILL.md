@@ -17,7 +17,7 @@ allowed-tools:
   - find_by_name
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Learning Equality Engineering Guidelines
@@ -49,7 +49,7 @@ If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri S
 - **List Endpoint Filtering**: List endpoints must apply the permission-scoping filter backend (e.g. `KolibriAuthPermissionsFilter`) to avoid leaking unauthorized rows.
 
 ### Querysets & Migrations
-- **Deterministic Pagination**: Sliced/paginated querysets must have deterministic ordering. Always check `Meta.ordering` on the model before flagging missing `.order_by()`.
+- **Deterministic Pagination**: Sliced/paginated querysets must have deterministic ordering. Always check `Meta.ordering` on the model before flagging missing `.order_by()`, and specify a unique tie-breaker field (e.g., `.order_by('created_at', 'id')` rather than a non-unique timestamp alone, which can duplicate or skip rows across page boundaries).
 - **N+1 Prevention**: Flag new related-field loops missing `select_related` or `prefetch_related`.
 - **Django Migrations**: Model changes require a migration. Data migrations (`RunPython`) must provide `reverse_code` and batch operations for large tables.
 - **Field Types**: Check for repo-specific field types (e.g., `DateTimeTzField`, syncable `UUIDField` primary keys).
@@ -85,6 +85,8 @@ If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri S
 - **Semantic Elements**: Never attach click handlers to generic `<div>` or `<span>` tags—use native `<button>` or `<a>`.
 - **Keyboard Navigation**: Ensure Tab navigation order is logical and modal dialogs/drawers manage and restore focus.
 - **Form Controls**: All inputs must have associated `<label for="...">` or wrapping labels, with help/error text linked via `aria-describedby`.
+- **Target Size & Focus Visibility**: Interactive pointer targets must meet WCAG 2.2 SC 2.5.8 minimum target size (`24×24` CSS px minimum, `44×44` px preferred for touch) and maintain visible `:focus-visible` outlines.
+- **Contrast, Non-Color State & Motion**: Meet WCAG AA contrast ratios (`4.5:1` normal text, `3:1` large text/UI components), never rely on color alone to convey status or errors (pair with text or `<KIcon>`), and respect `prefers-reduced-motion`.
 
 ### RTL Support (Right-to-Left)
 - **No Directional Inline Styles**: RTLCSS flips `<style>` blocks but cannot flip inline styles. Avoid `style="margin-left: 8px"` or `:style="{ marginLeft }"`. Use scoped CSS classes, CSS logical properties (`margin-inline-start`), or `isRtl`-aware computed properties.

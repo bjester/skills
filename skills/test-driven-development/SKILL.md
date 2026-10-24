@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Test-Driven Development (TDD)
@@ -79,6 +79,17 @@ When working in existing code (code lacking comprehensive tests per Michael Feat
 1. **Agree on Seams First**: Clarify the public boundary under test before writing test code.
 2. **Vertical Slicing (Tracer Bullets)**: Never write all tests upfront (horizontal slicing). Build one vertical slice at a time: **one failing test → one minimal implementation → verify green → refactor → repeat**.
 3. **Survive Refactoring**: A well-placed test reads like a specification (e.g. `test('user can checkout with valid cart')`) and continues passing cleanly when internal algorithms or helper routines are refactored.
+
+### Translating Test Friction into Design Remedies
+
+Test pain is architectural feedback. When writing a test feels agonizing, do not blame the test framework—treat the friction as a diagnostic signal indicating structural flaws in the production code:
+
+| Test Friction | Root Cause Architecture Defect | Concrete Architectural Remedy |
+| :--- | :--- | :--- |
+| **Don't know how to start test** | Unclear public interface or blurred boundary between domain logic and coordination. | Extract a minimal, cohesive interface. Write down input/output contracts before writing code. |
+| **Mocking 4+ collaborators** | Class violates Single Responsibility (SRP); acting as an orchestrator and worker simultaneously. | Split class: separate pure domain decision-making from side-effect orchestration; inject cohesive facade. |
+| **50+ lines of fixture setup** | Entity constructors require excessive contextual baggage; deep object graph coupling. | Introduce typed fixture factories with default values (spread override); use Parameter Objects or Value Objects. |
+| **Unreachable complex private helper** | Core algorithmic complexity is trapped inside private methods rather than encapsulated. | Extract helper into a standalone, pure collaborator class/module with its own direct, public test seam. |
 
 ---
 

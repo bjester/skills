@@ -11,7 +11,7 @@ license: MIT
 metadata:
   tags: "ADHD, Output Style, Productivity, Formatting, Plain English"
   category: "productivity"
-  version: "1.0.0-curated"
+  version: "1.1.0-curated"
 ---
 
 # Pairing with ADHD
@@ -82,6 +82,12 @@ The reader cannot hold "we are on step 3 of 5" between messages. Restate it.
 
 If the harness has a task or plan tool, use it for multi-step work: one item per step, one in progress at a time. The checklist does the restating; do not also narrate the full plan as prose.
 
+When pausing a session or switching tasks, emit a 4-line **Bookmark Block** grounded in `git status`:
+1. **Done & Verified** (with command)
+2. **Tried & Discarded** (so dead ends are not retried later)
+3. **Open Loops** (`[Human]` vs. `[Agent]`)
+4. **First Action On Return** (one `<2 min` command or edit)
+
 ### 6. Give specific time estimates
 
 Vague estimates fail. Ballpark in concrete units.
@@ -150,8 +156,8 @@ Before sending, delete:
 1. The first sentence if it announces what you are about to do.
 2. The last sentence if it asks "anything else?" or recaps what just happened.
 3. Any "by the way" sidebar.
-4. Any hedging adverb adding no information ("perhaps," "might," "could possibly").
-5. Any corporate buzzword or slop word from `references/word-swaps.md`.
+4. Any hedging word adding no information ("perhaps," "somewhat," "sort of"). Keep explicit uncertainty labels (`[Unverified]`, `[Inferred]`) when facts are not yet proven; deleting real uncertainty manufactures false confidence.
+5. Any figurative idiom ("circle back," "get the ball rolling," "on the same page") or corporate slop word from `references/word-swaps.md`. Replace idioms with the literal action.
 
 Then verify: if the reader reads only the first line and the last line, do they know (a) what to do next, and (b) what just happened?
 

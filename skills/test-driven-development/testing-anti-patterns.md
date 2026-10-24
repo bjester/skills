@@ -139,15 +139,35 @@ const mockUserResponse = {
 - Gives false confidence that changes are compatible with real upstream schemas.
 
 ### Remediation
-Ensure test doubles conform to the full, canonical schema (using factory functions):
+Ensure test doubles conform to the full, canonical schema using typed factory functions with spread defaults:
 ```typescript
-// ✅ GOOD: Factory generates full schema compliant doubles
-const mockUserResponse = buildUserFixture({
-  id: 'usr_123',
-  name: 'Alex',
+// Define factory with complete canonical defaults and typed Partial overrides
+interface User {
+  id: string;
+  name: string;
+  tenantId: string;
+  permissions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+const defaultUser: User = {
+  id: 'usr_default',
+  name: 'Default User',
   tenantId: 'ten_default',
-  permissions: ['read', 'write'],
+  permissions: ['read'],
   createdAt: '2026-01-01T00:00:00Z',
+  updatedAt: '2026-01-01T00:00:00Z',
+};
+
+export function buildUserFixture(overrides: Partial<User> = {}): User {
+  return { ...defaultUser, ...overrides };
+}
+
+// ✅ GOOD: Test specifies only assertion-relevant fields while guaranteeing 100% schema completeness
+const mockAdmin = buildUserFixture({
+  id: 'usr_123',
+  permissions: ['read', 'write', 'admin'],
 });
 ```
 

@@ -13,7 +13,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Investigating Code Lineage: Historical Archaeology & Intent Discovery
@@ -81,8 +81,10 @@ Before querying external sources, build an unambiguous anchor from git history:
    ```bash
    git log --follow -p -L <start>,<end>:<file>
    ```
-4. Extract PR numbers from merge commit subjects (`(#1234)`) and commit messages.
-5. If GitHub CLI (`gh`) is available, fetch the full PR body and review discussion:
+4. **Copy/Move & Whitespace-Piercing Blame**: Use `git blame -w -C -C -C -L <start>,<end> <file>` to see through formatting sweeps, indentation refactors, and file extractions to find the true original commit.
+5. **Pickaxe Search Across File Moves/Deletions (`-S` / `-G`)**: When `git log -L` stops at a file split or move, run `git log -S "<symbol_or_constant>" -p` (or `-G "<regex>"`) across the repository to locate the true origin commit where the guard or constant first appeared.
+6. Extract PR numbers from merge commit subjects (`(#1234)`) and commit messages.
+7. If GitHub CLI (`gh`) is available, fetch the full PR body and review discussion:
    ```bash
    gh pr view <pr-number> --json title,body,author,createdAt,mergedAt,comments,reviews
    ```
@@ -97,6 +99,7 @@ Inspect available environment tools and MCP servers to identify which evidence c
 Query matching sources focusing on the identified commit dates, PR numbers, author names, and key domain symbols:
 - **Defensive Logic Heuristic**: If the target code contains null checks, clamps, retries, or error catchers, specifically search for past incident reports, postmortems, or customer escalation tickets within $\pm 2$ weeks of the commit date.
 - **Avoid Recency Bias**: The most recent commit often only touched formatting or imported a new helper. Follow the trail back to the commit that originally introduced the behavior.
+- **Persisted Data & Wire Compatibility**: Check whether seemingly obsolete branches protect legacy persisted database records (e.g., dual-format password hash or serialization upgrades), cached payloads, or older client versions.
 
 ### Phase 4: Epistemic Confidence Separation
 Synthesize evidence using strict epistemic standards:
@@ -133,4 +136,5 @@ If planning to refactor or touch this code, adhere to these constraints:
 - **CHANGE**: [Accidental complexity or obsolete workarounds that are safe to update.]
 - **AVOID**: [Approaches that were tried in the past and failed.]
 - **RISK**: [The specific failure mode that will recur if this code is removed without replacement.]
+- **LOCK IN**: [When lineage archaeology uncovers a critical, previously undocumented constraint (buried only in old PRs, issues, or commit logs), recommend codifying it in a concise code constraint comment or ADR (`docs/adr/`) so future engineers and agents do not re-litigate or delete the defense.]
 ```

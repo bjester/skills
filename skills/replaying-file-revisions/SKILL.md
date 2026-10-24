@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Replaying File Revisions Into Rewritten History
@@ -68,6 +68,8 @@ git log --format='%h %s' <base>..HEAD -- <path>
 
 Tag the tip before altering history:
 
+- **Verify Clean Working Tree & No Active Rebase/Merge**: Run `git status` before tagging `pre-rewrite`. Because `git tag -f pre-rewrite HEAD` only snapshots committed state, any uncommitted or untracked working tree modifications will be lost when checking out or reverse-patching files. Commit or stash dirty changes first, and confirm no `MERGE_HEAD` or `REBASE_HEAD` is active.
+
 ```bash
 git tag -f pre-rewrite HEAD
 ```
@@ -75,6 +77,9 @@ git tag -f pre-rewrite HEAD
 ### 3. Reconstruct Historical Versions by Reverse-Patching
 
 Start from the final file state (`HEAD`) and reverse-apply subsequent patches **newest-first**:
+
+- Use an isolated scratch directory (`REV_DIR=$(mktemp -d)`) or clean `/tmp/rev` before starting.
+- Inspect `git show <sha> -- <path>` when a commit mixed an intentional iteration of `<path>` with unrelated formatting/renames.
 
 ```bash
 mkdir -p /tmp/rev

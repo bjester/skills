@@ -13,7 +13,7 @@ allowed-tools:
   - ask_user_question
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Retrieving Developer Knowledge
@@ -104,9 +104,12 @@ Where `DEVELOPERKNOWLEDGE_API_KEY` is set in the environment, pass it as a `key`
   ```
   *(If you get a 429 out of quota error, use `documents:searchDocumentChunks` instead).*
 
-- **Search Document Chunks** (use 2–5 focused keywords):
+- **Search Document Chunks** (use 2–5 focused keywords; optionally scope by domain via `filter='data_source = "docs.cloud.google.com"'`):
   ```bash
-  curl -s "https://developerknowledge.googleapis.com/v1/documents:searchDocumentChunks?query=gcloud+logging+metrics+create&key=${DEVELOPERKNOWLEDGE_API_KEY}"
+  curl -s -G "https://developerknowledge.googleapis.com/v1/documents:searchDocumentChunks" \
+    --data-urlencode "query=gcloud logging metrics create" \
+    --data-urlencode "filter=data_source = \"docs.cloud.google.com\"" \
+    --data-urlencode "key=${DEVELOPERKNOWLEDGE_API_KEY}"
   ```
 
 - **Get Document**:
@@ -114,11 +117,12 @@ Where `DEVELOPERKNOWLEDGE_API_KEY` is set in the environment, pass it as a `key`
   curl -s "https://developerknowledge.googleapis.com/v1/documents/docs.cloud.google.com/run/docs/overview/what-is-cloud-run?key=${DEVELOPERKNOWLEDGE_API_KEY}"
   ```
 
-- **Batch Get Documents** (a `GET`, with one `names` parameter per document and no request body; up to 20 per call):
+- **Batch Get Documents** (a `GET`, with one `names` parameter per document and no request body; up to 20 per call; pass `view=DOCUMENT_VIEW_BASIC` when inspecting titles/URIs before fetching full Markdown bodies):
   ```bash
   curl -s -G "https://developerknowledge.googleapis.com/v1/documents:batchGet" \
     --data-urlencode "names=documents/docs.cloud.google.com/run/docs/overview/what-is-cloud-run" \
     --data-urlencode "names=documents/docs.cloud.google.com/storage/docs/creating-buckets" \
+    --data-urlencode "view=DOCUMENT_VIEW_BASIC" \
     --data-urlencode "key=${DEVELOPERKNOWLEDGE_API_KEY}"
   ```
 
@@ -129,6 +133,8 @@ Where `DEVELOPERKNOWLEDGE_API_KEY` is set in the environment, pass it as a `key`
 1. **Grounding in Official Documentation**: Ground all solutions directly in retrieved documentation. Official documentation conventions have absolute precedence over memorized defaults.
 2. **Exact Parameter Formatting**: Format CLI flags, composite keys (e.g. `location=IP:PATH`), and IAM permission strings according to official Google specifications.
 3. **Complete Solutions in Final Response**: Always output the full, self-contained, executable technical solution (commands, configurations, or code snippets) with clear standard placeholders (e.g. `PROJECT_ID`, `SERVICE_NAME`, `REGION`) directly in your final message, even if previously referenced during internal planning.
+4. **Project Dependency Version Reconciliation**: When working inside a repository, inspect `package.json`, `pyproject.toml`, `go.mod`, or `pubspec.yaml` first. Latest retrieved documentation may target a newer SDK/CLI major version than the project has pinned—align generated code with the installed version or explicitly call out the upgrade requirement.
+5. **Query Privacy & Untrusted Content Boundary**: Strip private project IDs, internal hostnames, credentials, and proprietary code before querying `answer_query` or `search_documents`.
 
 ---
 

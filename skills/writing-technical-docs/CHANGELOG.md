@@ -2,6 +2,20 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Technical Precision, Runbook Guardrails, README & ADR Patterns
+
+- **Upstream Sources**: Curated from `tech-writing-proofread`, `runbook-creation`, `readme`, and `documentation-and-adrs`.
+
+### 1. Curated Changes Applied
+- **`SKILL.md`**:
+  - Expanded Rule 2 with proper noun casing standards (`PostgreSQL`, `GitHub`, `TypeScript`, `macOS`, `GraphQL`), backtick wrapping for commands, flags, paths, and environment variables, and explicit `[verify: confirm whether X or Y]` ambiguity markers to prevent guess-work rewrites.
+- **`references/use-cases.md`**:
+  - Expanded `Runbooks and standard operating procedures` with pre-flight environment/role declarations, command success output verification, measurable recovery validation, rollbacks, and escalation conditions.
+  - Added `READMEs and onboarding guides` use case mandating grounding of all commands, flags, scripts, and environment defaults against repo manifests (`Makefile`, `package.json`, etc.).
+  - Added `Architecture Decision Records (ADRs)` use case specifying the 5 canonical sections (`Status`, `Context`, `Decision`, `Alternatives Considered`, `Consequences`) and deprecation linking (`Superseded by ADR-NNN`).
+
+---
+
 ## [2026-10-18] - BDD Behavioral Language Allowance for Software Engineering
 
 ### 1. Motivation

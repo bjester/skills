@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Writing GitHub Issues: Features
@@ -77,6 +77,10 @@ The feature should deliver the following capabilities:
 - [Verifiable outcome or capability 2]
 - [Public interface or API contract definitions without prescribing internal implementation]
 
+### Non-Goals / Out of Scope
+- [Explicitly excluded behavior, deferred capability, or out-of-scope requirement 1]
+- [Explicitly excluded behavior 2]
+
 ### Acceptance Criteria
 - [ ] [Measurable, testable condition 1]
 - [ ] [Measurable, testable condition 2]
@@ -102,6 +106,16 @@ The feature should deliver the following capabilities:
 ## AI Usage
 [Disclose AI assistance following the DEEP framework: Disclose, Engage critically, Edit, Process sharing.]
 ````
+
+---
+
+## Decomposing a Spec or Epic into Multiple Issues (Vertical Slicing)
+
+When breaking down a broad spec or epic into discrete GitHub issues:
+
+1. **Slice Vertically (Tracer Bullets)**: Never file horizontal layer tickets (*"Ticket 1: DB schema"*, *"Ticket 2: API"*, *"Ticket 3: UI"*). Each issue must deliver a narrow, end-to-end verifiable slice (or isolate a prerequisite prefactoring step: *"Make the change easy, then make the easy change"*).
+2. **Confirm the Issue Breakdown First**: Present the numbered list of proposed issues (`Title`, `Scope summary`, `Blocked by`, `Requirements covered`) to the user for confirmation before creating tickets on GitHub.
+3. **Publish in Dependency Order**: Create foundational/blocker issues via `gh issue create --body-file` *first*, capture their real `#issue` numbers, and populate `Dependencies: Blocked by #<real-id>` in downstream tickets.
 
 ---
 

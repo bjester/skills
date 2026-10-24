@@ -2,6 +2,43 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Inline Thread Fetching, CI Inspection, Untrusted PR Safety & Deterministic Commit Binding
+
+- **Integrated Sources**:
+  - `address-github-comments`
+  - `github`
+  - `differential-review`
+  - `debate-review`
+  - `code-review-ai-ai-review`
+  - `git-pr-workflows-git-workflow`
+  - `audit-skills`
+
+### 1. Base State (A)
+- Supported PR metadata viewing, diff analysis, 4-scale review taxonomy, local verification, and `gh api` submission.
+- Did not distinguish issue-level comments from inline review threads or document fetching review discussion via API.
+- Lacked commands for inspecting CI checks and failure logs directly from the CLI.
+- Did not warn about the security risks of checking out and running build/test scripts on untrusted external PRs.
+- Did not document deterministic `commit_id` binding or multi-line comment spans in review payloads.
+
+### 2. Curated Changes Applied (A -> B)
+- **Step 1 (Inspect PR Context, Scope & Linked Issues)**:
+  - Clarified that `gh pr view --comments` only returns issue-level conversation comments, not inline review threads.
+  - Added `gh api repos/{owner}/{repo}/pulls/<pr-number>/comments` command to fetch existing inline review comment threads.
+  - Added CI check inspection commands (`gh pr checks <pr-number-or-url>` and `gh run view <run-id> --log-failed`).
+- **Step 2 (Fetch and Analyze the PR Diff)**:
+  - Added requirement to inspect removed/weakened guards (`-` lines) via `git log -S` or `git blame`.
+- **Step 3 (Local Checkout & Empirical Verification)**:
+  - Added `[!WARNING]` on untrusted PR checkouts: inspect build scripts, `Makefile`, `package.json`, and workflow diffs before executing test suites.
+- **Step 5 (Draft and Submit Review via GitHub API)**:
+  - Added `commit_id` field to review JSON payload to deterministically bind reviews to `headRefOid`.
+  - Documented `start_line` and `start_side` syntax for multi-line comment spans.
+- Bumped version metadata to `1.4`.
+
+### 3. Resulting State (B)
+- A more resilient and secure PR review workflow with complete comment visibility, CI failure inspection, untrusted code execution guards, and deterministic GitHub API review submission.
+
+---
+
 ## [2026-10-19] - Clean Review Bodies: Omit Redundant Summary Headings and Empty Sections
 
 ### 1. Motivation

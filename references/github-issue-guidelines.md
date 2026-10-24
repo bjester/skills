@@ -52,6 +52,19 @@ When drafting issues with AI assistance, always disclose AI involvement transpar
 
 ---
 
+## Pre-Submission Duplicate Check & Safe CLI Creation
+
+1. **Search for Duplicates First**: Before filing a new issue, search existing open and closed issues so duplicate reports are avoided and related issue numbers can be linked:
+   ```bash
+   gh issue list --search "<keywords>" --state all --limit 20
+   ```
+2. **Submit via `--body-file` (Never Inline `--body "..."`)**: Draft the issue Markdown to a scratch file (for example, `/tmp/issue-body.md`), present it for user confirmation when interactive, and pass `--body-file` to `gh issue create` so backticks, code blocks, and stack traces are never corrupted by shell interpolation:
+   ```bash
+   gh issue create --title "<Title>" --body-file /tmp/issue-body.md --label "<label>"
+   ```
+
+---
+
 ## Universal Checklist for Issue Quality
 
 - [ ] **Title**: Summarizes expected outcome or broken behavior (not implementation).
@@ -60,4 +73,5 @@ When drafting issues with AI assistance, always disclose AI involvement transpar
 - [ ] **Technical Pointers**: Relevant files/classes referenced without prescribing code snippets.
 - [ ] **Edge Cases & Compat**: Backwards compatibility, migrations, and environmental constraints noted.
 - [ ] **No Code Dumps**: Contains zero prescriptive implementation code or copy-pasted solutions.
+- [ ] **Duplicate Search & Safe Submission**: Checked `gh issue list --search` for duplicates and submitted via `gh issue create --body-file`.
 - [ ] **AI Disclosure**: DEEP framework statement included if AI was used.

@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Reviewing Code (Local Review)
@@ -67,6 +67,15 @@ Identify the target of the review:
   ```
 - **Specific Module / Files**:
   Inspect the specified files and their immediate callers, dependencies, and corresponding test files.
+
+#### Pre-Review Triage Rules
+
+- **Construct the Intent Packet**: Before evaluating hunks (or dispatching review subagents), state in 3 bullets:
+  1. *What behavior is meant to change?*
+  2. *What behavior must remain unchanged?*
+  3. *What compatibility or rollout constraints apply?*
+- **Triage Depth by Risk Surface, Never by Line Count**: A 3-line diff touching authentication, permissions, cryptography, concurrency, serialization, or removing a validation guard requires full adversarial scrutiny.
+- **Blame Deleted or Weakened Guards (`-` Lines)**: Reviewers naturally focus on `+` lines. Whenever a diff removes or relaxes a validation check, permission guard, timeout, lock, or error handler (`-` lines), run `git log -S` / `git blame` on the removed code (or invoke `investigating-code-lineage`) to verify it was not introduced by a past bugfix or security commit.
 
 ### Step 2: Conduct Multi-Scale Analysis
 
@@ -139,18 +148,23 @@ Consult the `engineering-software` skill for full definitions of foundational in
 - [ ] **Resource Lifecycle & Leaks**: Are sockets, file handles, DB connections, and locks strictly cleaned up via RAII, `defer`, or `try-with-resources`?
 - [ ] **Concurrency & Race Hazards**: Is shared mutable state eliminated? Are race conditions, lost updates, or deadlock hazards prevented via transactions, atomic types, or optimistic locking?
 - [ ] **No Silent Error Suppression**: Are catch blocks catching specific exceptions rather than generic `Exception`? Do fallbacks emit structured telemetry/metrics?
+- [ ] **Evidence-Grounded Performance Only**: Flag concrete algorithmic bottlenecks ($O(N^2)$ over unbounded input), N+1 queries/I/O inside loops, or missing pagination; never post data-free performance speculation (*"this loop might be slow"*).
 
 ### Scale 2: Strategic Architecture & Domain Boundaries
 - [ ] **Inward Dependency Rule**: Does core domain logic remain pure and isolated from frameworks, databases, HTTP protocols, UI, and external SDKs?
 - [ ] **Archetype Fit**: Is the logic organized appropriately for its complexity (Transaction Script for simple CRUD vs. Rich Domain Model / Aggregates for complex business rules)?
 - [ ] **Ubiquitous Language**: Does naming reflect clear, precise domain terms rather than vague generic terms (`Manager`, `Helper`, `Processor`, `Data`, `Info`)?
 - [ ] **Context Mapping & Anti-Corruption**: Are external upstream payloads translated via an Anti-Corruption Layer (ACL) rather than leaking raw third-party schemas directly into core domain entities?
+- [ ] **Repository Conformity (No Second Parallel Mechanism)**: Does the diff reuse the repository's canonical helpers, validation library, error envelope, and config pattern rather than introducing a second parallel way to solve the same problem?
 
 ### Scale 3: Modularity & Depth Design
 - [ ] **Deep Modules**: Do new classes, modules, or services provide significant functionality behind a small, simple, stable interface? Or are they "shallow wrappers" that add cognitive overhead without doing real work?
 - [ ] **Information Hiding**: Are internal implementation details, data structures, and volatile assumptions encapsulated and kept private?
 - [ ] **Orthogonality & Change Amplification**: Will a change to this module ripple across unrelated files (Shotgun Surgery), or are changes localized?
 - [ ] **Single Responsibility (SRP)**: Does each component have one clear reason to change?
+- [ ] **The Concept-Count Test (Reducing vs. Relocating Complexity)**: Does a refactor reduce the number of concepts a reader must hold in working memory (making branches, modes, or layers disappear), or merely relocate the same complexity into new wrappers/files?
+- [ ] **Semantic DRY (Same Concept vs. Same Syntax)**: Only recommend consolidating duplicated code when the copies share the same domain owner, invariant, and reason to change.
+- [ ] **Resulting File Health ("Decompose, Then Add")**: Even if a diff is small, check whether it pushes an already-bloated module past a healthy boundary or bolts a feature-specific conditional onto an unrelated shared flow.
 
 ### Scale 4: Micro-Craftsmanship, Routine Construction & Code Smells
 - [ ] **Single Level of Abstraction (SLAP)**: Does each function maintain a uniform level of abstraction, or does it mix high-level business orchestration with low-level string manipulation or raw byte juggling?
@@ -164,6 +178,8 @@ Consult the `engineering-software` skill for full definitions of foundational in
   - Are workaround sermons (`// sorry about this hack, fine for now`) rejected in favor of root-cause refactoring or structural type constraints?
   - Is commented-out dead code completely deleted?
 - [ ] **Code Smell Detection**: Are classic smells present (Bloaters, Object-Orientation Abusers, Change Preventers, Dispensables, Couplers)? Are standard refactoring recipes applied?
+- [ ] **Orphaned Dead Code & Redundant Derived State**: Did the change leave behind newly orphaned helpers, imports, or constants, or store derived state that should be computed on the fly?
+- [ ] **Observable Text & Error Contract Preservation**: Did the change alter error message strings, CLI output, or structured log/event keys that callers, tests, or monitors depend on (Hyrum's Law)?
 
 ### Scale 5: Verification, Seams & Test Value Lens
 - [ ] **Blast Radius & Non-Grep Risks**: Does the change introduce hidden runtime breakages that symbol search (`grep`) misses (lifecycle mismatches, wire format shifts, external DB column reads)? Consult the `analyzing-blast-radius` skill for the 5-level certainty ladder.
@@ -329,6 +345,7 @@ When reviewing high-risk diffs, core protocol changes, or contested architecture
    - **Consider**: Legitimate trade-offs where cost and benefit must be weighed.
    - **Noted**: Technically valid but low impact or premature at this stage.
    - **Dismissed**: False alarms, nitpicks, or findings resulting from missed context.
+4. **Central Reproduction & Root-Cause Deduplication**: Treat subagent and multi-model findings as leads; centrally verify and reproduce every high-severity finding against the codebase before reporting, and deduplicate by underlying root cause rather than surface wording.
 
 ---
 

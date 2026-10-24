@@ -2,6 +2,18 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Session Handoff Bookmark Blocks & Epistemic Uncertainty Retention
+
+- **Upstream Sources**: Curated from `session-handoff` and `ui-review`.
+
+### 1. Curated Changes Applied
+- **`SKILL.md`**:
+  - Added the 4-line **Bookmark Block** convention grounded in `git status` under Rule 5 (Restate state every turn) for task pauses and session boundaries: (1) Done & Verified, (2) Tried & Discarded, (3) Open Loops (`[Human]` vs. `[Agent]`), and (4) First Action On Return.
+  - Updated pre-send checklist item 4 to retain explicit epistemic uncertainty tags (`[Unverified]`, `[Inferred]`) while removing empty hedging words.
+  - Updated pre-send checklist item 5 to explicitly ban figurative idioms ("circle back", "get the ball rolling") in favor of literal actions alongside corporate slop words.
+
+---
+
 ## [2026-09-16] - Curation from i-have-adhd & Integration with Plain English
 
 - **Upstream Repository**: `https://github.com/ayghri/i-have-adhd.git`

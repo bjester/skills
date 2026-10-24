@@ -14,7 +14,7 @@ description: |
 license: MIT
 compatibility: claude-code cursor codex gemini-cli opencode
 metadata:
-  version: "2.2.0-curated"
+  version: "2.3.0-curated"
   standard: ASD-STE100 Issue 9 (2025-01-15)
 ---
 
@@ -27,7 +27,7 @@ Write plain English that a smart reader outside your field understands on one re
 When asked to write or rewrite documentation, apply these rules to the prose:
 
 1. **Classify each passage.** Procedural text tells the reader what to do: imperative mood, 20 words per sentence, one instruction per sentence. Descriptive text explains: simple tenses, 25 words per sentence, one topic per paragraph, six sentences per paragraph at most.
-2. **Never touch** code, identifiers, commands, flags, file paths, quoted errors, product names, or facts. When the source gives no number or cause, keep the general statement.
+2. **Never touch** code, identifiers, commands, flags, file paths, quoted errors, product names, or facts. When the source gives no number or cause, keep the general statement. Preserve official casing for proper nouns (`PostgreSQL`, `GitHub`, `TypeScript`, `macOS`, `GraphQL`) and wrap commands, flags, file paths, and environment variables in backticks. If a source sentence is technically ambiguous and rewriting it could alter the meaning, mark `[verify: confirm whether X or Y]` rather than guessing.
 3. **Condition before command, with a comma.** "If the build fails, read the log."
 4. **Simple tenses, active voice.** No present perfect ("has completed" → "completed"). No "-ing" verb after a comma (", making it easy" → new sentence). Name the actor: "You run the migration."
 5. **Modals: can, will, must.** Never should, would, may, might, could. A required "should" becomes "must". An optional one is deleted. *Exception*: In software engineering specifications, acceptance criteria, and test scenarios, Behavior-Driven Development (BDD) style phrasing (e.g., "X should do Y", "it should return 404") is allowed to specify expected software behavior.

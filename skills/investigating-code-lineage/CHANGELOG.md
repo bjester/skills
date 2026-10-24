@@ -2,6 +2,13 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Archaeology Deepening: Pickaxe, Whitespace-Piercing Blame, Wire Compatibility & Lock-In
+
+- **Sources Integrated**: `what-could-break`, `differential-review`, `variant-analysis`, `improve-codebase-architecture`, and `production-code-audit`.
+- **Git Archaeology Techniques**: Added `-w -C -C -C` blame flags for copy/move & whitespace-piercing blame, and `-S` / `-G` pickaxe search to trace origins across file splits, moves, and deletions in Phase 1.
+- **Persisted Data & Wire Compatibility**: Added check in Phase 3 for defensive branches safeguarding legacy database rows, cached payloads, or older client wire formats.
+- **LOCK IN Decision Guardrail**: Added guardrail recommendation in Section 5 to formalize critical unearthed context into code constraint comments or ADRs (`docs/adr/`) to protect incident defenses from future regressions.
+
 ## [2026-10-18] - Synthesis & Curation from pstack why (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`

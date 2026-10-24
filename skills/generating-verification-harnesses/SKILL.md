@@ -13,7 +13,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Generating Verification Harnesses: Bootstrapping Autonomous Project Drivers
@@ -60,6 +60,9 @@ Discover the application's operating mechanics directly from the codebase. Ask t
    - Mobile application (simulator / emulator)
 2. **Launch Mechanics**: How does the local environment start?
    - Inspect `package.json`, `Makefile`, `docker-compose.yml`, or `Procfile`.
+   - **Lockfile-First Toolchain Detection**: Detect the exact package manager and toolchain from lockfiles (`pnpm-lock.yaml`, `bun.lock`, `yarn.lock`, `package-lock.json`, `uv.lock`, `Cargo.lock`) rather than guessing package manager binaries.
+   - **Secret-Safe Env Discovery**: Inspect `.env.example`, sample configs, and schema files for required variables; never read or print live `.env` or `.env.local` credential files.
+   - **Build-Artifact Freshness**: If the app launches from compiled output (e.g., `dist/`, build bundles, or an Electron main bundle), mandate a pre-launch build check or watch step so the harness never verifies stale code.
    - Identify local ports, mandatory environment variables, seed data scripts, and database migrations.
    - *Requirement*: Launch must reach a fully usable state from an empty data directory.
 3. **Driving Mechanism**: How can an agent interact with it programmatically?
@@ -70,6 +73,7 @@ Discover the application's operating mechanics directly from the codebase. Ask t
    - Screenshots, terminal session recordings, response JSON, database rows, structured logs, and exit codes.
 5. **Instance Isolation**: Can multiple test instances run concurrently?
    - Check port bindings and data directories. If the app cannot run parallel instances safely, mandate single-instance exclusivity in the driver skill.
+   - **Full Data-Path Redirection**: For desktop/Electron or local-storage apps, redirecting `--user-data-dir` (`userData`) alone is insufficient if the app also writes to custom env-var paths, OS home directories, or SQLite files—redirect all writable paths to an isolated scratch profile directory.
 
 ---
 
@@ -87,23 +91,25 @@ description: "Drives <app> end-to-end to verify UI, CLI, and API behavior."
 
 ## 1. Launch
 - **Start Command**: `[exact command, e.g. npm run dev or make run]`
-- **Readiness Probe**: `[specific log output, e.g. "Server listening on port 3000"]`
-- **Teardown**: `[exact termination command, e.g. kill by PID]`
+- **Pre-Launch Port Conflict Check**: Verify target ports are completely free before launch so the harness never attaches to a zombie listener or stale daemon.
+- **Readiness Probe**: `[specific log output or rendered DOM landmark]`
+  - **UI/Hydration Readiness over `networkidle`**: Never use `networkidle` (which hangs indefinitely on SSE, WebSockets, or polling); wait for a rendered DOM landmark, health endpoint payload, or readiness log line, and pair visual checks with backend/persisted state verification.
+- **Teardown**: `[exact termination command using process groups]`
 
 ## 2. Doctor (Pre-flight Health Check)
 A single read-only probe answering: *"Is this instance currently healthy and worth driving?"*
-- Checks: Process is up, port is listening, database connection is valid, auth tokens are initialized.
+- Checks: Process is up, port is listening, database connection is valid, auth tokens are initialized, and no port conflicts exist.
 
 ## 3. Drive (Interaction Harness)
-- Harness recipes using stable identifiers (ARIA labels, data-testid, exact CLI subcommands).
-- Avoid fragile coordinates or timing sleeps; use condition polling.
+- **Selector Hierarchy & Canvas/Iframe Fallback**: Prefer accessible roles (`role=button`), labels, and `data-testid`; avoid fragile coordinates or arbitrary timing sleeps (use condition polling). Drop to compositor coordinate clicks (`Input.dispatchMouseEvent`) only for `<canvas>`, WebGL, or cross-origin iframes.
+- **Console & Dual-Process Error Capture**: Continuously capture browser `pageerror` and `console.error` streams, as well as both Electron main and renderer process logs.
 
 ## 4. Evidence (Proof Standards)
 - What artifacts to capture and where to save them (e.g. `artifacts/verification/`).
 - Standard: Must verify observable side effects (persisted records, network payloads) in addition to UI state.
 
 ## 5. Cleanup
-- Gracefully shut down spawned background processes.
+- **Process-Group Termination (`-PGID`) & Clean Exit Verification**: Gracefully shut down spawned background processes via their process group (e.g. `kill -- -PGID`) so child dev servers, compilers, or workers never leak as orphans. Verify processes have exited cleanly.
 - Remove scratch database files or temporary configs.
 - **Rule**: Never delete the captured proof artifacts during cleanup!
 ```

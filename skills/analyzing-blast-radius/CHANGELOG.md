@@ -2,6 +2,14 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Strengthening with Pre-Design Hypotheses, Deleted Guards Lineage, and Search Blind Spots
+
+- **Sources Integrated**: `what-could-break`, `differential-review`, `variant-analysis`, `improve-codebase-architecture`, and `production-code-audit`.
+- **Pre-Design Hypothesis Mode**: Added guidance in Phase 1 to test unverified spec or prompt assertions against existing code before writing code, treating claims as load-bearing safety facts.
+- **Lineage Check on Deleted Guards**: Mandated checking removed validation checks, fallbacks, locks, or timeouts (`-` lines) via `git log -S` or `investigating-code-lineage` to ensure they are not incident scar tissue from past bug/security fixes.
+- **Where Grep Stops Expansion**: Expanded Phase 3 with 5 concrete blind spots: duplicated rules/fixtures/stale agent prompts, rollout skew & multi-version coexistence, persisted state & cache keys outliving deploy, observability & alert consumers, and sibling variant sweeps.
+- **Negative Search Command Rigor**: Required recording the exact negative search command and scope in Cleared Risks report sections.
+
 ## [2026-10-18] - Synthesis & Curation from pstack blast-radius (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`

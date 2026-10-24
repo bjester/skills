@@ -64,6 +64,7 @@ sources:
 	mkdir -p sources/
 	$(MAKE) sources/agent-rules-books \
 		sources/agent-skills \
+		sources/agentic-awesome-skills \
 		sources/cursor-plugins \
 		sources/google-skills \
 		sources/i-have-adhd \
@@ -79,6 +80,9 @@ sources/agent-rules-books:
 
 sources/agent-skills:
 	git clone git@github.com:addyosmani/agent-skills.git $@
+
+sources/agentic-awesome-skills:
+	git clone git@github.com:sickn33/agentic-awesome-skills.git $@
 
 sources/cursor-plugins:
 	git clone git@github.com:cursor/plugins.git $@

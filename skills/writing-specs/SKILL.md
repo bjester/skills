@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Writing Specifications
@@ -85,6 +85,8 @@ If splitting is required:
   - Ask **one question at a time** per message to avoid overwhelming the user.
   - Prefer multiple-choice options with clear recommendations when possible.
   - Focus on understanding: problem origin, user persona, business constraints, non-goals, and concrete success criteria.
+  - **Attach a Codebase-Grounded Hypothesis (`Q:` + `Hypothesis:`)**: Pair each clarifying question with your best reasoned guess based on the repository (`Hypothesis: Based on <file>, I expect X because Y`). Users correct a concrete hypothesis with far less friction than answering a blank-slate question, and it surfaces hidden assumptions immediately.
+  - **Unpack Sophistication-Signaling Buzzwords**: When requirements include vague quality adjectives (*"scalable"*, *"enterprise-grade"*, *"real-time"*, *"flexible"*), probe whether they represent a concrete v1 constraint (ask for the specific throughput ceiling, latency target, or failure cost) or can be declared a Non-Driver for v1.
 - **Surface assumptions early and explicitly**:
   ```markdown
   ASSUMPTIONS I'M MAKING:
@@ -104,6 +106,7 @@ If splitting is required:
   - **Business Logic Archetype**: Choose appropriately (Transaction Script for simple CRUD vs. Domain Model / Aggregates for complex business invariants).
   - **Reversibility & Orthogonality**: Defer volatile framework/vendor lock-in where possible.
 - **Ruthless YAGNI**: Strip out unnecessary features, premature abstractions, and speculative genericity from all proposed options.
+- **Steelman Rejected Options**: State (a) what the rejected approach would have bought, (b) why that benefit is outweighed by its cost/complexity under current constraints, and (c) the Exit Trigger (what measurable future threshold—such as write contention, payload size, or team boundary—would justify revisiting that option).
 - Lead with your recommended option and clearly articulate why.
 
 ### 3. Draft the Specification Document
@@ -167,11 +170,12 @@ Adapt the sections below based on project scale (small features use a lean subse
   - *Domain Terms*: Rigorous business and domain vocabulary within this Bounded Context.
   - *Coined Document & System Labels*: Every synthetic identifier introduced by this spec (e.g., `Phase 2`, `Spec 2`, `the Ingestion Worker`, `the Probe Suite`). For each, specify its concrete referent, dependencies, and lifecycle status (`existing`, `planned`, or `hypothetical`).
 - **Goals**: Concrete user and technical outcomes.
-- **Non-Goals / Out of Scope**: Explicitly excluded requirements and features to prevent scope creep.
+- **Non-Goals / Out of Scope**: Explicitly excluded requirements and features to prevent scope creep, including **Architectural Non-Drivers** (scale, latency, or deployment dimensions deliberately *not* optimized for in this phase, e.g., multi-region active-active or `>100` RPS, preventing speculative over-engineering).
 - **Assumptions**: Environmental, organizational, or architectural preconditions.
 
 ## 3. Proposed Architecture & Solution Design
 - **Architecture Overview**: Subsystems, component boundaries, and inward dependency flow.
+- **Mechanical Boundary Enforcement & Exit Triggers**: Specify how inward dependency rules and contracts will be enforced mechanically (linter rules, import boundary checks, contract tests) and the measurable exit trigger for any deliberately simplified v1 component.
 - **Data Models & Schema Changes**:
   - Entity / Value Object definitions and Aggregate consistency boundaries.
   - Schema migrations (SQL/NoSQL/Protobuf/Avro) with backward-compatibility & tag immutability rules.
@@ -190,7 +194,7 @@ Adapt the sections below based on project scale (small features use a lean subse
   - Fallback strategies with structured observability (no silent error suppression).
   - Concurrency controls (optimistic locking, transaction isolation levels).
 - **Security & Privacy Considerations**: Input validation at boundaries (barricades), authentication/authorization, data protection.
-- **Alternate Solutions Considered**: 2–3 rejected approaches and why they were discarded. (Memorialize the reasoning behind discarded designs and feedback-driven shifts here, rather than cluttering operational sections with revision history).
+- **Alternate Solutions Considered**: 2–3 rejected approaches and why they were discarded. Steelman each rejected option: (a) what it would have bought, (b) why the benefit is outweighed under current constraints, and (c) the Exit Trigger (measurable threshold justifying revisiting). (Memorialize the reasoning behind discarded designs and feedback-driven shifts here, rather than cluttering operational sections with revision history).
 
 ## 5. Verification & Testing Strategy
 - **Test Pyramid Plan**:

@@ -59,6 +59,9 @@ Calls or results are routed by attacker-influenceable server names, tool names, 
 **MCP metadata and schema as policy**
 Tool descriptions, resource metadata, prompts, completion hints, or schemas supplied by an MCP peer are trusted as policy or authorization. These fields can guide the model but cannot grant capability. Find the deterministic allowlist, server identity check, and handler authorization that remain authoritative when metadata conflicts.
 
+**Agent skill, plugin, and prompt-bundle supply chain**
+Skills, plugins, hooks, and bundled helper scripts loaded into an agent inherit local workspace or user authority. Check for capability-to-purpose mismatch (e.g., a documentation or UI skill invoking shell/network/credential-store access unrelated to its stated role), hidden instructions or encoded payloads in bundled markdown/references, and persistence hooks (`crontab`, `launchctl`, `systemd`, git hooks).
+
 ## Output and disclosure attack classes (subagent_type: `general`)
 
 **Insecure output rendering**

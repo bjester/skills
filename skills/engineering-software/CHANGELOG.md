@@ -2,6 +2,45 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Classical Contracts, Wrong-Abstraction Inlining & Dependency Tension Curation
+
+- **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills.git`
+- **Upstream Revision**: `6d4ea183` (Release: `v20.0.0`), committed on 2026-10-24
+- **Upstream Source Paths**:
+  - `sources/agentic-awesome-skills/invariant-guard/`
+  - `sources/agentic-awesome-skills/clean-code-guard/`
+
+### 1. Base State (A)
+- DbC taxonomy codified preconditions, postconditions, and class invariants, but lacked loop invariants and termination variant guarantees.
+- Refactoring guidelines included the Rule of Three, preparatory refactoring, and code smells, but did not distinguish domain knowledge DRY from incidental code duplication, nor define wrong-abstraction re-inlining and cognitive complexity limits.
+- Architectural tensions addressed Clean Code vs. deep modules, DDD vs. transaction scripts, and fail-fast vs. degradation, but lacked an explicit tension resolving Generic Subdomain reuse against zero-dependency supply-chain resilience.
+
+### 2. Curated Changes Applied (A -> B)
+- **Section 5 (Defensive Programming, Contracts & Error Handling)**:
+  - Added *Loop Invariants & Termination Variants* to the Design by Contract (DbC) pillar (`Loop Invariant ∧ Exit Condition ⇒ Postcondition`), ensuring invariant gaps in complex multi-pass algorithms are explicitly closed.
+- **Section 6 (Refactoring Disciplines & Code Smell Taxonomy)**:
+  - Added **Knowledge DRY vs. The Wrong Abstraction (Sandi Metz Corollary)**: distinguishing knowledge/intent duplication from textual coincidence, codifying re-inlining of bloated abstractions, and setting cyclomatic complexity `≤ 10` and nesting depth `≤ 5`.
+- **Section 11 (Resolving Architectural Tensions & Trade-Offs)**:
+  - Added **Tension 4: Generic Subdomain Reuse (Avoid NIH) vs. Supply-Chain & Maintenance Surface (Zero-Dependency Bias)**, favoring native standard libraries for mechanics `< 15` lines and third-party dependencies strictly for deep domain/protocol complexity.
+
+### 3. Resulting State (B)
+- A rigorously hardened engineering foundation incorporating classical Hoare-Dijkstra contract verification, Sandi Metz abstraction pragmatism, and supply-chain risk balancing while keeping all LLM-specific operational rituals encapsulated in `engineering-with-agents`.
+
+### 4. Re-sync / Update Recipe
+When upstream `sources/agentic-awesome-skills` updates:
+1. Fetch latest changes in upstream:
+   ```bash
+   git -C sources/agentic-awesome-skills pull
+   ```
+2. Diff upstream skills against base commit `6d4ea183`:
+   ```bash
+   git -C sources/agentic-awesome-skills diff 6d4ea183..HEAD -- invariant-guard/ clean-code-guard/
+   ```
+3. Evaluate updates to invariant assertions, refactoring heuristics, or complexity bounds.
+4. Port timeless software engineering principles into `skills/engineering-software/SKILL.md` while routing LLM-specific guardrails to `skills/engineering-with-agents/SKILL.md`.
+
+---
+
 ## [2026-10-18] - Renamed to Gerund Convention (`engineering-software`)
 
 - Renamed skill from `software-engineering` to `engineering-software` to adhere to repository gerund phrase conventions (`<verb-ing>-<noun>`).
