@@ -15,7 +15,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Executing Plans
@@ -25,6 +25,7 @@ Purpose: Guide the execution of an approved implementation plan task-by-task, su
 ## Prerequisites & Core Philosophy
 
 - **Approved Plan Required**: You MUST have an approved implementation plan (typically created via `writing-plans`). If requirements or the plan are ambiguous, resolve them before touching code.
+- **Pre-Flight Critical Plan Audit**: Before starting Task 1, audit the plan's referenced file paths, symbols, interfaces, and environmental assumptions against the live codebase to catch drift, stale assumptions, or contradictions upfront.
 - **Reference Software Engineering & Review Invariants**: Always consult:
   - The `engineering-software` skill for architectural boundaries, defensive error semantics, resilience patterns, refactoring recipes, and testing invariants (F.I.R.S.T.).
   - The `reviewing-code` skill for multi-scale code review checklists and the subagent review prompt template.
@@ -63,6 +64,7 @@ TDD is a design tool and safety net, but its application must be pragmatic based
 - **Red-Green-Refactor**:
   1. Write a failing unit test asserting specific invariant behavior (e.g. edge-case calculation, validation rejection, state transition).
   2. Run the test to confirm it fails for the expected reason (Red).
+     - **Red-Phase Unexpected-Pass Halt**: If a newly written test passes on the first run before implementation, **HALT immediately**—either the test assertion is tautological/misconfigured or the behavior already exists.
   3. Write the minimal code to satisfy the invariant (Green).
   4. Refactor if needed while keeping tests green.
 - **Test Observable Behavior**: Avoid test-induced damage (over-mocking). Test public contract behavior and state rather than internal private method calls.
@@ -103,9 +105,10 @@ When subagent capabilities (`invoke_subagent`) are available:
 2. **Implementer Execution**:
    - Subagent applies Contextual TDD, modifies files, and runs verification commands.
    - Subagent reports status (`DONE`, `DONE_WITH_CONCERNS`, or `BLOCKED`) with test output evidence.
-3. **Task Review Gate (Early Code Review)**:
-   - Perform a thorough code review against the 4 scales in the `reviewing-code` skill (optionally dispatching a dedicated review subagent using the Subagent Review Prompt template).
-   - Check for: invariant breaches, missing timeouts/circuit breakers, shallow wrappers, error swallowing, or over-mocked tests.
+3. **Task Review Gate (Early Code Review & Two-Stage Review Ordering)**:
+   - **Distrust the Subagent's Self-Report**: Never accept a subagent's claim of completion at face value. Inspect the actual `git diff` and changed file list directly.
+   - **Stage 1 — Spec Compliance & Deterministic Gates**: Verify every task requirement is met, zero out-of-scope files or unrequested features were added, and fast deterministic gates (tests, typecheck, linter) pass *before* evaluating architecture or style.
+   - **Stage 2 — Four-Scale Code Review**: Perform a thorough code review against the 4 scales in the `reviewing-code` skill (optionally dispatching a dedicated review subagent using the Subagent Review Prompt template). Check for: invariant breaches, missing timeouts/circuit breakers, shallow wrappers, error swallowing, or over-mocked tests.
    - If findings or regressions exist, re-dispatch fix cycles to the implementer before proceeding to dependent tasks.
 
 ### Path 2: Primary-Agent Inline Execution (Direct Session)
@@ -151,6 +154,7 @@ Adhere to these core execution invariants during code generation:
      ```
    - *Pointer-Based Evidence*: Log significant forks, completed task increments, and verification outcomes. Evidence must be an exact pointer (`commit SHA`, `file:line`, test command output, or artifact path)—never speculative prose.
    - *Append-Only History*: Never edit or erase prior history. If an approach is reverted or modified, append a new row recording the pivot, the trigger, and the resulting state.
+   - *Paused Session Resumption*: When resuming an interrupted plan, reconcile `.plans/decisions.tsv` against `git status` and `git diff` to verify whether the last logged task finished cleanly or left partial uncommitted state.
    - *End-of-Run Transcript Audit*: Before handing back, audit the log against the actual session actions to ensure all entries reflect real, verified execution without missing forks or unproven assertions.
 
 ---

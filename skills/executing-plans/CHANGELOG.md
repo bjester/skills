@@ -2,6 +2,49 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Two-Stage Review Ordering, Red-Phase Halt & Pre-Flight Audits
+
+- **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills.git`
+- **Upstream Revision**: `6d4ea183` (Release: `v20.0.0`), committed on 2026-10-24
+- **Upstream Source Paths**:
+  - `sources/agentic-awesome-skills/conductor-implement/`
+  - `sources/agentic-awesome-skills/subagent-driven-development/`
+  - `sources/agentic-awesome-skills/executing-plans/`
+
+### 1. Base State (A)
+- Execution pathways allowed subagent delegation or inline execution with 4-scale code review checkpoints, but lacked an adversarial audit gate against subagent self-reports.
+- Strict TDD outlined red-green-refactor steps, but did not mandate halting when a new test passed prematurely.
+- Prerequisites required an approved plan, but lacked a pre-flight code audit step to check for live drift before starting Task 1.
+- Decision ledger protocol lacked explicit guidance on reconciling uncommitted state when resuming interrupted sessions.
+
+### 2. Curated Changes Applied (A -> B)
+- **Prerequisites & Core Philosophy**:
+  - Added **Pre-Flight Critical Plan Audit**: audit file paths, symbols, interfaces, and environmental assumptions against the live repository before beginning Task 1.
+- **Section 1 (Contextual TDD)**:
+  - Added **Red-Phase Unexpected-Pass Halt** to Strict TDD: immediately halt and investigate if a newly written test passes on the first run before implementation.
+- **Section 2 (Execution Pathways - Path 1 Subagent-Driven Execution)**:
+  - Enforced **Two-Stage Review Ordering**: (1) distrust subagent self-reports and inspect `git diff` directly; (2) verify Stage 1 (spec compliance and fast deterministic test/lint gates) before evaluating Stage 2 (4-scale code review).
+- **Section 3 (Incremental Implementation Rules - Rule 5 Decision Ledger)**:
+  - Added **Paused Session Resumption**: reconcile `.plans/decisions.tsv` against `git status` and `git diff` when resuming an interrupted execution.
+
+### 3. Resulting State (B)
+- A hardened plan execution protocol that catches plan drift before execution begins, stops invalid TDD cycles early, rigorously audits subagent diffs via two-stage gates, and seamlessly recovers interrupted sessions.
+
+### 4. Re-sync / Update Recipe
+When upstream `sources/agentic-awesome-skills` updates:
+1. Fetch latest changes in upstream:
+   ```bash
+   git -C sources/agentic-awesome-skills pull
+   ```
+2. Diff upstream skills against base commit `6d4ea183`:
+   ```bash
+   git -C sources/agentic-awesome-skills diff 6d4ea183..HEAD -- conductor-implement/ subagent-driven-development/ executing-plans/
+   ```
+3. Evaluate updates to review gates, TDD controls, or recovery protocols.
+4. Integrate relevant additions into `skills/executing-plans/SKILL.md`.
+
+---
+
 ## [2026-10-18] - Build the Lever from pstack (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`
