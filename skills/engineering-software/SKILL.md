@@ -15,7 +15,7 @@ allowed-tools:
   - find_by_name
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Engineering Software: Design, Execution, and the Evolution of Software
@@ -143,6 +143,7 @@ A single meta-problem unites software engineering: **managing cognitive load in 
   - *Preconditions*: What must hold true before routine execution (caller responsibility).
   - *Postconditions*: What the routine guarantees upon completion.
   - *Class Invariants*: Conditions that remain true before and after every public operation.
+  - *Loop Invariants & Termination Variants*: A loop invariant holds before the loop and after every iteration; a termination variant (measure) strictly decreases toward a bound on every iteration or recursive call to guarantee termination. Ensure `Loop Invariant ∧ Exit Condition ⇒ Postcondition`—when a loop invariant alone is strictly weaker than the routine's postcondition (e.g., Boyer-Moore majority vote, leftmost duplicate binary search, or cycle-start detection), a verification or boundary pass is required to close the postcondition gap.
 - **Define Semantics, Not Suppressions**:
   - Redesign APIs so edge conditions become natural domain outcomes (e.g. idempotent delete, slice bounds clipping). Never catch unexpected exceptions to silently return fake or empty objects.
   - *Observability Invariant*: Fallbacks and default states must never be silent. Emit structured telemetry when fallbacks activate.
@@ -166,6 +167,10 @@ A single meta-problem unites software engineering: **managing cognitive load in 
   - *Rule of Three*: 1st time write it; 2nd time notice duplication; 3rd time refactor.
   - *Preparatory Refactoring*: Make the change easy before making the easy change.
   - *Comprehension Refactoring*: Refactor while reading unfamiliar code to solidify understanding.
+- **Knowledge DRY vs. The Wrong Abstraction (Sandi Metz Corollary)**:
+  - *Knowledge vs. Text Duplication*: Hunt & Thomas DRY targets duplicated *domain knowledge and intent*, not two functions in separate bounded contexts that happen to look textually similar. Follow the **Rule of Three** before extracting shared helpers.
+  - *Re-Inlining the Wrong Abstraction*: When an existing shared helper has accumulated boolean flag parameters and per-caller special-case branches, duplication is cheaper than the wrong abstraction—re-inline the logic into each caller, delete the dead branches, and re-extract only the genuinely shared core.
+  - *Cognitive Complexity Ceiling*: Keep per-function cognitive/cyclomatic complexity `≤ 10` and nesting depth `≤ 5` using guard clauses and early returns.
 
 ### Code Smell & Treatment Index
 
@@ -310,3 +315,7 @@ Synthesizing 14 classic software engineering texts reveals apparent tensions tha
 - *The Resolution*:
   - *Programming bugs & broken domain invariants* $\rightarrow$ **Fail Fast & Crash Early** (prevents silent data corruption).
   - *External network, environmental, or upstream dependency failures* $\rightarrow$ **Isolate, Circuit Break, and Degrade Gracefully** (preserves user functionality).
+
+### Tension 4: Generic Subdomain Reuse (Avoid NIH) vs. Supply-Chain & Maintenance Surface (Zero-Dependency Bias)
+- *The Conflict*: DDD's *Generic Subdomains* (Section 2) advise importing off-the-shelf packages rather than reinventing wheels, whereas modern supply-chain resilience favors minimizing external dependencies.
+- *The Resolution*: Prefer the language standard library, native platform capabilities, or a `<15`-line local function for simple mechanics. Introduce a third-party dependency only when it encapsulates deep, non-trivial domain or protocol complexity (cryptography, parsers, timezone/locale databases, accessibility-hardened UI primitives) that would be hazardous to maintain in-house.
