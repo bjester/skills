@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Writing Plans
@@ -61,6 +61,8 @@ Map the dependency graph bottom-up, then slice features vertically into bite-siz
   - Target **S to M** task sizing (touching 1–4 files, completable in a single focused session).
   - Split any task touching >5 files or containing multiple compound steps ("and" in the title).
   - Fold configuration, setup, and scaffolding directly into the task that requires them.
+- **Sequential vs. Parallel Task Tagging & Disjoint File Ownership**: Explicitly declare task dependencies (`Depends on: Task N`). Tasks marked eligible for parallel subagent execution after foundational schemas/contracts land must have **strictly disjoint file ownership** (zero overlapping modified files).
+- **Cold-Start Self-Contained Task Briefs**: Write each task's `Files` and `Interfaces & Data Shapes` (`Consumes`/`Produces`) so a fresh subagent (`executing-plans` Path 1) can execute the task without needing prior chat history.
 
 ---
 
@@ -79,7 +81,7 @@ Draft and present the plan to the user **incrementally**:
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** Execute this plan task-by-task. Each task ends with a verification step and a review checkpoint.
+> **For agentic workers:** Execute this plan task-by-task following the **`executing-plans`** skill (choosing between **Path 1: Subagent-Driven Execution** or **Path 2: Primary-Agent Inline Execution**). Each task ends with a verification step and a review checkpoint.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -106,13 +108,14 @@ Draft and present the plan to the user **incrementally**:
 ### Phase 1: Data Model & Schema Foundations
 
 #### Task 1: [Data Model / Schema / Migrations]
+**Execution:** Sequential | Parallel-eligible (Depends on: Task N)
 **Files:**
 - Create: `src/models/user_account.py`
 - Modify: `alembic/versions/xxxx_add_user_account.py`
 - Test: `tests/models/test_user_account.py`
 
 **Interfaces & Data Shapes:**
-- Consumes: [Existing types/tables relied upon]
+- Consumes: [Existing types/tables relied upon; self-contained context for fresh subagents]
 - Produces: [New schemas, Entity/Value Object signatures, validation rules]
 
 **Steps:**
@@ -197,6 +200,10 @@ Before finalizing the plan, check:
 
 ## 7. Execution Handoff
 
-After the user approves the plan:
-> "Implementation plan complete and saved to `<path>`. Ready to proceed with implementation task-by-task."
+After the user approves the plan, hand off execution to the **`executing-plans`** skill:
+- Choose **Path 1: Subagent-Driven Execution** for larger plans where fresh subagents can execute tasks against strictly disjoint file sets with two-stage review gates.
+- Choose **Path 2: Primary-Agent Inline Execution** for smaller, tightly coupled plans where tasks share continuous context.
+
+Notify the user:
+> "Implementation plan complete and saved to `<path>`. Ready to proceed with execution via `executing-plans` (Path 1: Subagent-Driven or Path 2: Primary-Agent Inline) task-by-task."
 
