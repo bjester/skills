@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Writing GitHub Issues: Bugs
@@ -69,6 +69,7 @@ State the **broken or missing behavior/invariant**, not the code flaw:
 ### Minimal Reproduction Environment / Conditions
 - **Version / Branch / Commit**: [e.g. `v0.17.2` or `develop@abc1234`]
 - **Configuration / Environment**: [e.g. PostgreSQL 15, Python 3.11, Docker container]
+- **Preserving Epistemic Uncertainty**: Never fabricate unverified reproduction steps or environment versions when synthesizing an issue from partial logs or user reports; mark unverified details explicitly as `(unconfirmed)`.
 
 ## Errors, Logs & Telemetry
 ```
@@ -89,7 +90,7 @@ State the **broken or missing behavior/invariant**, not the code flaw:
 - **Backward Compatibility**: [Compatibility considerations with older clients or serialized models]
 
 ## Metadata
-**Severity / Priority**: [P0 (Blocker) | P1 (High) | P2 (Medium)]  
+**Severity / Priority**: [P0 (Blocker: data corruption, security exposure, or crash with no workaround) | P1 (High: core workflow broken with no workaround) | P2 (Medium: impaired behavior with a viable workaround)]  
 **Area**: `bug`, `area:sync` (optional)
 
 ## AI Usage
@@ -106,4 +107,5 @@ State the **broken or missing behavior/invariant**, not the code flaw:
 - [ ] **Regression Test Mandated**: Is a regression test explicitly required in deliverables?
 - [ ] **No Prescriptive Code Rewrites**: Are technical pointers provided without dictating specific inline code changes?
 - [ ] **AI Disclosure Included**: Is AI involvement stated transparently?
+- [ ] **Duplicate Search & Safe CLI Creation**: Did you search existing issues (`gh issue list --search "<keywords>"`) to avoid duplicates and prepare `--body-file` submission per `references/github-issue-guidelines.md`?
 
