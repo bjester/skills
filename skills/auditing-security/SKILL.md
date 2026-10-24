@@ -19,7 +19,7 @@ allowed-tools:
   - task
 metadata:
   upstream: https://github.com/cloudflare/security-audit-skill
-  version: "1.0.0-curated"
+  version: "1.1.0-curated"
 ---
 
 # Auditing Security
