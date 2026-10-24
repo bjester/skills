@@ -52,11 +52,16 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales with multi-model adversarial review. |
 | **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) to inspect pull requests, perform comprehensive multi-scale code reviews, and post structured, actionable review feedback. |
+| **[`resolving-github-pr-feedback`](skills/resolving-github-pr-feedback/)** | GitHub PR Review Resolution | Author-side PR resolution workflow: fetches unresolved inline review threads via `gh api`/GraphQL, classifies items (`fix-now`, `clarify`, `defer`), applies surgical fixes, verifies against `HEAD`, and replies with commit/test evidence. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`retrieving-developer-knowledge`](skills/retrieving-developer-knowledge/)** | Google Developer Knowledge Retrieval | Searches, retrieves, and synthesizes official Google documentation across Google Cloud, Gemini/AI, Android, Web, Go, and Firebase via MCP tools or REST API fallback. |
-| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests focusing on observable outcomes, user requirements, and technical boundaries. |
-| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, and release notes to eliminate AI slop and ambiguity. |
+| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, and root-cause pointers. |
+| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes and boundaries. |
+| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, READMEs, ADRs, and release notes to eliminate AI slop and ambiguity. |
+| **[`authoring-skills`](skills/authoring-skills/)** | Agent Skill Authoring & Auditing | Guides authoring, refactoring, packaging, and capability-to-purpose security auditing of `SKILL.md` packages with 3-level progressive disclosure and routing hygiene. |
+| **[`handing-off-sessions`](skills/handing-off-sessions/)** | Cross-Session State Handoff & Restore | Snapshots and restores verified state across `/compact`, `/clear`, or multi-day boundaries with dead-end tracking, `[Unverified]` markers, and `HEAD` SHA reconciliation. |
+| **[`analyzing-agent-sessions`](skills/analyzing-agent-sessions/)** | Post-Mortem Agent Session Analysis | Forensically analyzes agent transcripts and artifacts to classify rework shapes, scope drift, and root causes (`SPEC_AMBIGUITY`, `REPO_FRAGILITY`, `AGENT_ARCHITECTURAL_ERROR`, `VERIFICATION_CHURN`). |
 | **[`pairing-with-adhd`](skills/pairing-with-adhd/)** | Action-First ADHD Pairing & Dialogue | Shapes interactive AI-human communication: leads with runnable next actions, numbers tasks (max 5), restates state, and eliminates conversational filler with Plain English discipline. |
 | **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, KDS components, Vue Composition API, WCAG 2.2 AA, and RTLCSS. |
 
@@ -115,6 +120,9 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── github-issue-guidelines.md
 │   └── word-swaps.md
 ├── skills/                    # Canonical source definitions for each skill
+│   ├── analyzing-agent-sessions/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── analyzing-blast-radius/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
@@ -128,7 +136,11 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── report-schema.json
 │   │   ├── validate-coverage-ledger.cjs
 │   │   └── ... (10 domain companions & validators)
+│   ├── authoring-skills/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── composing-commit-history/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── diagnosing-bugs/
 │   │   ├── CHANGELOG.md
@@ -153,15 +165,23 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── generating-verification-harnesses/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
+│   ├── handing-off-sessions/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
 │   ├── investigating-code-lineage/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── learning-equality/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── pairing-with-adhd/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── replaying-file-revisions/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
+│   ├── resolving-github-pr-feedback/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── retrieving-developer-knowledge/
 │   │   ├── CHANGELOG.md
@@ -177,16 +197,21 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── test-driven-development/
+│   │   ├── CHANGELOG.md
 │   │   ├── SKILL.md
 │   │   ├── mocking-guidelines.md
 │   │   └── testing-anti-patterns.md
 │   ├── writing-github-issues-for-bugs/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-github-issues-for-features/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-plans/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-specs/
+│   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   └── writing-technical-docs/
 │       ├── CHANGELOG.md
