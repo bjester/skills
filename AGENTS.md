@@ -48,6 +48,17 @@ the repository-owned content here; generated packages are disposable.
   declare it in the `Makefile` using that skill's `<skill-name>_REFERENCES` variable
   and add the skill name to `REFERENCE_SKILLS`. Reference paths are relative to
   `references/` and are preserved in the built skill package.
+- **`engineering-software` vs. `engineering-with-agents` Boundary**:
+  - `engineering-software` captures timeless, human-relatable software engineering
+    principles, architectural invariants, Design by Contract, and refactoring
+    disciplines that apply equally to human and agent engineers.
+  - `engineering-with-agents` captures LLM-specific behavioral guardrails,
+    prompt-level rituals, context hygiene, and countermeasures against
+    autoregressive agent pathologies (e.g., proxy verification, pattern-matching
+    drift, cognitive debt).
+  - When curating or adapting guidance that blends both, split the timeless
+    computer science principle into `engineering-software` and the agent-specific
+    procedural guardrail into `engineering-with-agents`.
 
 ## Vendoring and upstream tracking
 
