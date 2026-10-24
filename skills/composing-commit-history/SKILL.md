@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Composing & Cleaning Up Commit History
@@ -51,6 +51,11 @@ Purpose: Compose clean, review-ready commit history using `git reset --soft` and
    `git reset            /tmp/before.patch                          units                (`diff -u`)
    --soft <base>`
 ```
+
+### 0. Pre-Flight Branch & Untracked File Hygiene
+
+1. **Protected Branch Check**: Run `git branch --show-current` and confirm you are on a feature/topic branch (never rewrite `main`/`master` or shared public history).
+2. **Clean Untracked Scratch Files & Secrets Before `git add -A`**: Inspect `git status --short` before Step 2. Because Step 2 runs `git add -A` to capture `/tmp/before-history.patch`, any untracked scratch scripts, debug logs, build outputs, or `.env` files left in the working tree will be locked into the baseline patch and forced into your commits to pass Step 5's `diff -u` check. Delete or `.gitignore` untracked artifacts first.
 
 ### 1. Collapse Existing Commits into Working State
 
@@ -131,6 +136,9 @@ diff -u /tmp/before-history.patch /tmp/after-history.patch
 
 - **Imperative Mood**: Use concise, imperative verbs in the subject line (*"Add feature"*, *"Fix edge case"*, *"Refactor parser"*, not *"Added"* or *"Fixing"*).
 - **Match Repository Style**: Inspect `git log --oneline -10 <base>` to match project casing, prefixes, or conventional commit tags (e.g. `feat:`, `fix:`).
+- **Strip AI & Template Slop**: Never start with *"This commit..."*, *"This change..."*, *"We are..."*, or *"I have..."*. Purge filler words (*comprehensive, robust, enhance, leverage, seamless, holistic, streamline*).
+- **Subject Line Precision**: Keep subject lines `≤ 50` characters (hard cap `72`), omit trailing periods, and do not repeat the module/file name if `<type>(<scope>):` already names it.
+- **When to Write vs. Omit a Body**: Omit the body when the subject line is self-sufficient. Always include a body explaining *why* (and contrasting with prior behavior) for breaking changes, security fixes, data migrations, and reverts.
 - **Explain What & Why**: Focus the commit message on the technical intent and domain rationale, not the trial-and-error development steps.
 - **Do Not Reference Cleanup**: Do not mention staging artifacts, soft resets, or commit reordering in the message.
 
