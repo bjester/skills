@@ -2,6 +2,15 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Toolchain Detection, Port Checks, Hydration Probes, and Process Group Cleanup
+
+- **Sources Integrated**: `diagnosing-bugs`, `systematic-debugging`, `debugging-and-error-recovery`, `electron-drive-skill`, `webapp-testing`, `agents-generator`, and `browser-harness`.
+- **Phase 1 Interview Hardening**: Added Lockfile-First Toolchain Detection (`pnpm-lock.yaml`, `bun.lock`, `uv.lock`, etc.), Secret-Safe Env Discovery (`.env.example` only), Build-Artifact Freshness checks, and Full Data-Path Redirection for desktop/Electron/SQLite profiles.
+- **Phase 2 Driver Authoring**:
+  - Injected Pre-Launch Port Conflict checks and UI/Hydration Readiness over `networkidle` (DOM landmarks/health endpoints).
+  - Added Selector Hierarchy with Canvas/Iframe fallback coordinates and Console/Dual-Process error capture.
+  - Mandated Process-Group Termination (`-PGID`) and clean exit verification during Cleanup to prevent leaked orphan processes.
+
 ## [2026-10-18] - Synthesis & Curation from pstack create-verification-skill (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`
