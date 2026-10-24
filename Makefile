@@ -12,7 +12,7 @@ INSTALL_DIRS := $(INSTALL_DIR)
 endif
 
 SHINYSKILLS ?= shinyskills
-SHINYSKILLS_VERSION := 0.1.0
+SHINYSKILLS_VERSION := 0.2.0
 
 .PHONY: clean copy-references build install sources validate install-shinyskills print-shinyskills-version
 
