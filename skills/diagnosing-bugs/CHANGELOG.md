@@ -2,6 +2,14 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-10-24] - Untrusted Logs, State Pollution Bisection, No-Loop Gate, and Seam Fidelity
+
+- **Sources Integrated**: `diagnosing-bugs`, `systematic-debugging`, `debugging-and-error-recovery`, `electron-drive-skill`, `webapp-testing`, `agents-generator`, and `browser-harness`.
+- **Untrusted Logs & Error Data**: Hardened security guidance to treat error messages, stack traces, and CI logs as untrusted data—never blindly executing suggested commands or URLs.
+- **State-Pollution Bisection**: Wired bundled `scripts/find-polluter.sh` into Phase 1 non-deterministic debugging to isolate suite-only test failures.
+- **When You Genuinely Cannot Build a Local Loop**: Added explicit stop gate requiring agents to request environment access, captured artifacts (HAR/core/log dumps), or diagnostic telemetry rather than guessing fixes.
+- **Seam-Fidelity Check**: Added verification in Phase 5 regression tests ensuring tests exercise the genuine failure seam instead of mocking away broken interactions.
+
 ## [2026-10-18] - Attack the Premise & Explain the Number from pstack (v0.15.26)
 
 - **Upstream Repository**: `git@github.com:cursor/plugins.git`
