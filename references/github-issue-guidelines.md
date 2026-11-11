@@ -6,11 +6,12 @@ This reference outlines universal principles, quality standards, and shared conv
 
 ## Core Philosophy: Specify What & Why, Not How
 
-A GitHub issue exists to define **requirements, intent, scope, and acceptance criteria**. It is a contract of expected behavior between product, triage, and engineering—not an implementation script.
+A GitHub issue exists to define **requirements, intent, scope, and acceptance criteria**. It is a contract of expected behavior between product, triage, and engineering, not an implementation script.
 
 1. **Describe Observable Behavior**: State what the system does now and what it should do instead.
 2. **Leave Implementation to the Developer**: Do not dictate code changes, internal algorithm mechanics, private variable names, or specific `if` checks.
 3. **Provide Technical Orientation Without Prescriptions**: Point to relevant modules, interfaces, and known patterns (`file:line`, class names) to accelerate orientation without restricting the developer's solution space.
+4. **Plain Technical Prose & De-Slopping**: Apply the `writing-technical-docs` skill (Plain mode) and `references/word-swaps.md`. Write short active sentences with concrete verbs, zero em-dashes, zero negative parallelisms (*"not just X, it's Y"*), and zero trailing `, -ing` participial fluff.
 
 ---
 
@@ -42,7 +43,7 @@ When drafting issues with AI assistance, always disclose AI involvement transpar
 
 - **D - Disclose**: Explicitly state that AI was used to draft or refine the issue.
 - **E - Engage Critically**: Question generated assertions; verify code references and claims against the actual repository.
-- **E - Edit**: Refine and tighten output—remove hallucinations, boilerplate, and robotic repetition.
+- **E - Edit**: Refine and tighten output: remove hallucinations, boilerplate, and robotic repetition.
 - **P - Process Sharing**: Briefly describe how AI was prompted/used.
 
 ### Example Disclosures:
@@ -73,5 +74,6 @@ When drafting issues with AI assistance, always disclose AI involvement transpar
 - [ ] **Technical Pointers**: Relevant files/classes referenced without prescribing code snippets.
 - [ ] **Edge Cases & Compat**: Backwards compatibility, migrations, and environmental constraints noted.
 - [ ] **No Code Dumps**: Contains zero prescriptive implementation code or copy-pasted solutions.
+- [ ] **Plain Prose & De-Slop Scan**: Verified against `writing-technical-docs` and `references/word-swaps.md` (zero em-dashes, zero negative parallelisms, zero AI filler).
 - [ ] **Duplicate Search & Safe Submission**: Checked `gh issue list --search` for duplicates and submitted via `gh issue create --body-file`.
 - [ ] **AI Disclosure**: DEEP framework statement included if AI was used.

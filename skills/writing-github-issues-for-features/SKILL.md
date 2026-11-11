@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Writing GitHub Issues: Features
@@ -23,6 +23,7 @@ Purpose: Facilitate the creation of actionable, well-structured GitHub issues fo
 
 - **Specify What & Why, Not How**: Describe the desired behavior, user outcomes, and technical boundaries. Leave the concrete implementation choices to the developer.
 - **Reference Shared Issue Guidelines**: Consult `references/github-issue-guidelines.md` for writing principles, DOs/DON'Ts, and the DEEP AI disclosure framework.
+- **Apply Plain Technical Prose**: Load the `writing-technical-docs` skill (Plain mode) and consult `references/word-swaps.md` to write clear, active sentences with zero em-dashes, negative parallelisms, or AI filler.
 - **Incorporate Foundational Software Principles**: Consult the `engineering-software` skill for architectural boundaries (DDD bounded contexts, deep modules, schema evolution, and resilience).
 
 ---
@@ -125,5 +126,6 @@ When breaking down a broad spec or epic into discrete GitHub issues:
 - [ ] **No Implementation Prescriptions**: Are deliverables phrased as behaviors and public contracts without copy-pasting internal algorithms or classes?
 - [ ] **Measurable Acceptance Criteria**: Can QA or an engineer write tests directly from the criteria?
 - [ ] **Technical Orientation Provided**: Are pertinent modules and precedent patterns cited?
+- [ ] **Zero AI Slop (`writing-technical-docs`)**: Verified against `writing-technical-docs` and `references/word-swaps.md` (zero em-dashes, negative parallelisms, or trailing `, -ing` fluff)?
 - [ ] **AI Disclosure Included**: Is AI involvement stated transparently?
 
