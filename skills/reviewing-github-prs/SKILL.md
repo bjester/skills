@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Reviewing GitHub Pull Requests
@@ -159,6 +159,7 @@ Partition output into two destinations:
    - Format:
      - Start comment body with one of the five distinct inline badges: `🚨 **Blocker (Must-Fix)**:`, `⚠️ **Architecture & Design (Should-Fix)**:`, `💡 **Tactical Suggestion (Optional)**:`, `❓ **Question**:`, or `🧹 **Nit**:`.
      - State the violated invariant, risk, or question concisely.
+     - **Prose & Tone Discipline (`writing-technical-docs`)**: Apply the `Chat Explanations, Code Reviews & PR Discussions` register from `writing-technical-docs` to all inline comments and summary prose (state the concrete fault or answer in the opening sentence; zero em-dashes, zero negative parallelisms, zero sycophantic filler).
      - Provide a caller- and contract-verified remediation snippet (applying `Rename-Over-Comment` and engine/spec checks from `reviewing-code`).
 2. **Review Summary Body** (`body` string in API payload):
    - **Lead Directly with Summary Content (No Heading)**: Omit leading `# Code Review`, `## Principle-Grounded Findings`, `# Summary`, `## Summary`, `### Summary`, or `### Executive Summary` headings when formatting for GitHub review submission. Jump straight into the summary assessment.
@@ -169,7 +170,7 @@ Partition output into two destinations:
    - **Comments on Lines Outside Diff (Conditional)**: If and only if a finding refers to a file or line outside the PR's diff hunks (which GitHub API rejects as an inline comment with HTTP 422), displace those findings into a dedicated section of the summary body:
      ```markdown
      ### Comments on Lines Outside Diff
-     - **path/to/file.ext:L123** — 🚨 **Blocker**: [Finding explanation and remediation]
+     - **path/to/file.ext:L123**: 🚨 **Blocker**: [Finding explanation and remediation]
      ```
      If there are no displaced findings on lines outside the diff hunks, completely omit this section.
    - **Generation Disclosure (GitHub Submission Only)**: When submitting the review to GitHub, the review summary must include a trailing message in italics disclosing how it was generated:

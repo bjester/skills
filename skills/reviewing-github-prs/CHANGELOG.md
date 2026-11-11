@@ -2,6 +2,13 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Plain Prose & De-Slop Register Routing (`writing-technical-docs`)
+
+### 1. Curated Changes Applied
+- **`SKILL.md` (`1.5` -> `1.6`)**: Added **Prose & Tone Discipline (`writing-technical-docs`)** under Step 4 (`Partition Findings into Inline Comments & Summary Body`) routing review prose through the conversational Plain register (direct opening sentence, zero em-dashes, zero negative parallelisms, zero sycophantic filler).
+
+---
+
 ## [2026-11-11] - Reviewer Identity Gate, Strict Approval Gate, Rebase-Safe Deltas & Distinct Inline Badges
 
 ### 1. Base State (A)
