@@ -63,7 +63,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`handing-off-sessions`](skills/handing-off-sessions/)** | Cross-Session State Handoff & Restore | Snapshots and restores verified state across `/compact`, `/clear`, or multi-day boundaries with dead-end tracking, `[Unverified]` markers, and `HEAD` SHA reconciliation. |
 | **[`analyzing-agent-sessions`](skills/analyzing-agent-sessions/)** | Post-Mortem Agent Session Analysis | Forensically analyzes agent transcripts and artifacts to classify rework shapes, scope drift, and root causes (`SPEC_AMBIGUITY`, `REPO_FRAGILITY`, `AGENT_ARCHITECTURAL_ERROR`, `VERIFICATION_CHURN`). |
 | **[`pairing-with-adhd`](skills/pairing-with-adhd/)** | Action-First ADHD Pairing & Dialogue | Shapes interactive AI-human communication: leads with runnable next actions, numbers tasks (max 5), restates state, and eliminates conversational filler with Plain English discipline. |
-| **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, KDS components, Vue Composition API, WCAG 2.2 AA, and RTLCSS. |
+| **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines and on-demand ecosystem references for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, Morango multi-DB sync & SQLite/PostgreSQL rules, KDS components, `RootVue` lifecycles, WCAG 2.2 AA, RTLCSS, and `kolibri` workspace packaging. |
 
 ---
 
@@ -173,7 +173,10 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── learning-equality/
 │   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── frontend-and-packaging.md
+│   │       └── sync-and-databases.md
 │   ├── pairing-with-adhd/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
