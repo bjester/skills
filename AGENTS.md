@@ -9,6 +9,8 @@ the repository-owned content here; generated packages are disposable.
 - `skills/<skill-name>/` contains a skill. Its `SKILL.md` is the skill's
   entrypoint; keep skill-specific assets, changelogs, and tools beside it.
 - `references/` contains reference documents shared by more than one skill.
+- `docs/` contains repository-local maintenance guides and calibration runbooks
+  (not packaged into `output/skills/`).
 - `sources/` contains read-only upstream projects used for research and
   inspiration. Do not modify, package, or treat their contents as this
   repository's maintained skill definitions.
@@ -102,3 +104,9 @@ When adapting or importing a skill from `sources/`:
 - Run `make clean` to remove generated `output/` files.
 - Confirm a changed shared reference appears at
   `output/skills/<skill-name>/references/<reference-path>` after packaging.
+
+## Calibrating skills from PR reviews
+
+- When asked to audit PR review history (for example, `bjesterbot` reviews) and
+  calibrate or harden skills from peer-review outcomes, read and follow
+  `docs/pr-review-calibration-runbook.md`.

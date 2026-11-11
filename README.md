@@ -19,6 +19,7 @@ This repository equips AI coding assistants and autonomous agents with structure
   - [Adding a New Skill](#adding-a-new-skill)
   - [Wiring Shared References](#wiring-shared-references)
   - [Packaging & Deployment](#packaging--deployment)
+  - [Calibrating Skills from PR Reviews](#calibrating-skills-from-pr-reviews)
 - [License](#license)
 
 ---
@@ -117,6 +118,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── AGENTS.md                  # Instructions and packaging rules for AI agents
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
+├── docs/                      # Repo-local maintenance guides & runbooks (not packaged)
+│   └── pr-review-calibration-runbook.md
 ├── references/                # Canonical shared engineering references
 │   ├── decision-log-template.tsv
 │   ├── github-issue-guidelines.md
@@ -275,6 +278,10 @@ make install INSTALL_DIR=/path/to/target/
 # Install to a custom set of directories
 make install INSTALL_DIRS="/path/to/first/ /path/to/second/"
 ```
+
+### Calibrating Skills from PR Reviews
+
+To audit an AI reviewer's multi-reviewer GitHub PR history, extract recurring blind spots, and turn verified peer-review lessons into atomic skill updates, follow [`docs/pr-review-calibration-runbook.md`](docs/pr-review-calibration-runbook.md).
 
 ---
 
