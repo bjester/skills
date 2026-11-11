@@ -56,9 +56,10 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`retrieving-developer-knowledge`](skills/retrieving-developer-knowledge/)** | Google Developer Knowledge Retrieval | Searches, retrieves, and synthesizes official Google documentation across Google Cloud, Gemini/AI, Android, Web, Go, and Firebase via MCP tools or REST API fallback. |
-| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, and root-cause pointers. |
-| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes and boundaries. |
-| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, READMEs, ADRs, and release notes to eliminate AI slop and ambiguity. |
+| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, root-cause pointers, and anti-slop Plain prose. |
+| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes, boundaries, and anti-slop Plain prose. |
+| **[`writing-github-prs`](skills/writing-github-prs/)** | GitHub PR Description Authoring | Authors template-first, slop-free GitHub PR titles and descriptions grounded in diffs and linked issues, enforcing pre-flight `gh` author identity checks, DEEP AI disclosure, and `--body-file` submission. |
+| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces verifiable Plain English and optional Strict ASD-STE100 rules across documentation, PR descriptions, GitHub issues, code reviews, specifications, runbooks, READMEs, ADRs, and release notes. |
 | **[`authoring-skills`](skills/authoring-skills/)** | Agent Skill Authoring & Auditing | Guides authoring, refactoring, packaging, and capability-to-purpose security auditing of `SKILL.md` packages with 3-level progressive disclosure and routing hygiene. |
 | **[`handing-off-sessions`](skills/handing-off-sessions/)** | Cross-Session State Handoff & Restore | Snapshots and restores verified state across `/compact`, `/clear`, or multi-day boundaries with dead-end tracking, `[Unverified]` markers, and `HEAD` SHA reconciliation. |
 | **[`analyzing-agent-sessions`](skills/analyzing-agent-sessions/)** | Post-Mortem Agent Session Analysis | Forensically analyzes agent transcripts and artifacts to classify rework shapes, scope drift, and root causes (`SPEC_AMBIGUITY`, `REPO_FRAGILITY`, `AGENT_ARCHITECTURAL_ERROR`, `VERIFICATION_CHURN`). |
@@ -73,7 +74,7 @@ Shared references located in `references/` provide deep domain context and cross
 
 - **[`references/decision-log-template.tsv`](references/decision-log-template.tsv)**: Append-only decision ledger schema (`ts`, `phase`, `decision`, `why`, `evidence`, `result`) for multi-phase and unattended agent plan execution.
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
-- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation and communication skills.
+- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation, PR/issue authoring, and communication skills.
 
 ---
 
@@ -208,6 +209,9 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-github-issues-for-features/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
+│   ├── writing-github-prs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-plans/
