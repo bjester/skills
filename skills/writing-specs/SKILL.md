@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Writing Specifications
@@ -24,7 +24,8 @@ Purpose: Turn ideas and requirements into robust, fully formed technical specifi
 - **Never code without an approved spec**: Code written without a specification is guessing. Writing a spec forces you to examine the problem, manage cognitive load, isolate failure modes, and surface implicit assumptions before writing code.
 - **Manage cognitive load & complexity**: Complexity is the enemy (manifested through change amplification, cognitive load, and unknown unknowns). A good spec isolates bounded contexts, establishes deep modules, and adheres to strict inward dependency rules.
 - **Reference Software Engineering Invariants**: Always adhere to the `engineering-software` skill for architectural patterns, boundary definitions (Clean/Hexagonal, DDD), defensive design, resilience strategies, and testing invariants.
-- **Living Document, Authoritative State**: The specification is version-controlled and maintained alongside code. It defines the current, authoritative target state—not a historical audit log or changelog.
+- **Plain Technical Prose (`writing-technical-docs`)**: Load and apply the `writing-technical-docs` skill (Plain mode) when drafting specifications: write clear active sentences with concrete mechanisms, zero em-dashes, zero negative parallelisms, and zero AI filler.
+- **Living Document, Authoritative State**: The specification is version-controlled and maintained alongside code. It defines the current, authoritative target state, not a historical audit log or changelog.
 - **Memorialize Reasoning, Not Revisions**: When iterating through feedback loops, changes must **fully replace** existing instructions instead of appending revision markers, strikethroughs, or historical notes. Retaining superseded instructions creates detractors and conflicting context that degrade downstream LLM and engineer performance. Record the *reasoning* behind trade-offs and decisions (e.g., in Context or Alternate Solutions Considered), but keep all active operational requirements, schemas, and boundaries strictly singular and clean. Git preserves the edit history.
 
 ---
@@ -127,6 +128,7 @@ Before presenting the completed spec for final sign-off, evaluate the draft crit
 5. **Coined-Label & Glossary Audit**: Audit all coined identifiers (phase/spec labels, named components, synthetic artifacts, and capitalized/backticked non-code terms). Ensure every label is registered in the Glossary with a clear referent and status. Flag any term mentioned without definition or defined only via passing inline context.
 6. **Scope & Ambiguity Check**: Resolve any ambiguous statement into a concrete, deterministic rule. Fix issues inline.
 7. **Detractor & Superseded Content Scan**: Confirm revisions have cleanly overwritten older instructions. Verify there are no lingering strikethroughs, inline revision markers ("Updated in v2: ..."), or contradictory guidance between newly modified sections and untouched sections.
+8. **Plain Technical Prose & De-Slop Scan**: Verify the specification conforms to `writing-technical-docs` (Plain mode: active voice, concrete verbs, zero em-dashes, zero negative parallelisms, and durable policy over volatile code pins).
 
 ### 5. User Review Gate & Feedback Iteration
 Present the specification to the user:

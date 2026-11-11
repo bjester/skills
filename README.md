@@ -19,6 +19,7 @@ This repository equips AI coding assistants and autonomous agents with structure
   - [Adding a New Skill](#adding-a-new-skill)
   - [Wiring Shared References](#wiring-shared-references)
   - [Packaging & Deployment](#packaging--deployment)
+  - [Calibrating Skills from PR Reviews](#calibrating-skills-from-pr-reviews)
 - [License](#license)
 
 ---
@@ -40,7 +41,7 @@ The repository currently provides curated skills across the software lifecycle:
 | Skill | Purpose | Key Capabilities |
 | :--- | :--- | :--- |
 | **[`auditing-security`](skills/auditing-security/)** | Defensive Security Audits & Guidance | 6-phase vulnerability discovery harness (Cloudflare): reconnaissance, coverage ledger, adversarial verifier testing, and 10 domain attack companions with zero-dependency validators. Supports both conversational guidance and full autonomous audits. |
-| **[`analyzing-blast-radius`](skills/analyzing-blast-radius/)** | Hidden Breakage & Blast Radius Analysis | Discovers lifecycle, wire format, and runtime hazards beyond symbol search (`grep`). Isolates the single load-bearing safety fact and ascends the 5-level certainty ladder to executable proof. |
+| **[`analyzing-blast-radius`](skills/analyzing-blast-radius/)** | Hidden Breakage & Blast Radius Analysis | Discovers lifecycle, root-wrapper, minimum matrix floor, sibling-repo consumer, and wire-format hazards beyond symbol search (`grep`). Isolates the single load-bearing safety fact and ascends the 5-level certainty ladder to executable proof. |
 | **[`investigating-code-lineage`](skills/investigating-code-lineage/)** | Codebase Archaeology & Intent Discovery | Discovers historical intent and incident scar tissue behind defensive/unintuitive code across 7 evidence sources (git, issues, docs, chat, traces) with strict epistemic confidence. |
 | **[`generating-verification-harnesses`](skills/generating-verification-harnesses/)** | Autonomous Verification Driver Generator | Inspects unfamiliar codebases to generate project-local headless verification drivers (`verify-<app>`) with Launch, Doctor, Drive, Evidence, and living Feature Maps. |
 | **[`writing-specs`](skills/writing-specs/)** | Specification & Architecture Design | Collaborative requirements elicitation, bounded context isolation, deep module design, and verifiable acceptance criteria before coding. |
@@ -50,20 +51,22 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`engineering-with-agents`](skills/engineering-with-agents/)** | Disciplines for Autonomous & Paired LLM Development | Operational guardrails for agentic software engineering: context guarding, laziness protocol, side-by-side prototyping, branded types, one-wave migrations, primary artifact verification, and two-edit behavioral tests. |
 | **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
-| **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches against foundational software engineering invariants across 4 architectural scales with multi-model adversarial review. |
-| **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) to inspect pull requests, perform comprehensive multi-scale code reviews, and post structured, actionable review feedback. |
-| **[`resolving-github-pr-feedback`](skills/resolving-github-pr-feedback/)** | GitHub PR Review Resolution | Author-side PR resolution workflow: fetches unresolved inline review threads via `gh api`/GraphQL, classifies items (`fix-now`, `clarify`, `defer`), applies surgical fixes, verifies against `HEAD`, and replies with commit/test evidence. |
+| **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches across 4 architectural scales with counterfactual test mutation, caller-verified remediations (`Rename-Over-Comment`), calibrated comment/doc hygiene, and multi-model adversarial review. |
+| **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) with pre-flight reviewer identity checks, commit/stack scope gates, strict approval gates, and rebase-safe delta diffing (`git range-diff`) to submit structured PR reviews via the GitHub API. |
+| **[`verifying-prs-in-browser`](skills/verifying-prs-in-browser/)** | Live Browser PR Verification | Conditional, profile-isolated browser and devserver verification using bundled `drive-browser.py` (standalone Playwright + axe-core WCAG AA) or Chrome DevTools MCP, with multimodal screenshot inspection, PR defect attribution, and non-blocking graceful fallback. |
+| **[`resolving-github-pr-feedback`](skills/resolving-github-pr-feedback/)** | GitHub PR Review Resolution | Author-side PR resolution workflow: enforces pre-flight author identity matching, fetches unresolved inline review threads via GraphQL, classifies items (`fix-now`, `clarify`, `defer`), verifies against `HEAD`, and replies with commit/test evidence. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`retrieving-developer-knowledge`](skills/retrieving-developer-knowledge/)** | Google Developer Knowledge Retrieval | Searches, retrieves, and synthesizes official Google documentation across Google Cloud, Gemini/AI, Android, Web, Go, and Firebase via MCP tools or REST API fallback. |
-| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, and root-cause pointers. |
-| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes and boundaries. |
-| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces Simplified Technical English and plain English rules for documentation, specifications, runbooks, READMEs, ADRs, and release notes to eliminate AI slop and ambiguity. |
+| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, root-cause pointers, and anti-slop Plain prose. |
+| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes, boundaries, and anti-slop Plain prose. |
+| **[`writing-github-prs`](skills/writing-github-prs/)** | GitHub PR Description Authoring | Authors template-first, slop-free GitHub PR titles and descriptions grounded in diffs and linked issues, enforcing pre-flight `gh` author identity checks, DEEP AI disclosure, and `--body-file` submission. |
+| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces verifiable Plain English and optional Strict ASD-STE100 rules across documentation, PR descriptions, GitHub issues, code reviews, specifications, runbooks, READMEs, ADRs, and release notes. |
 | **[`authoring-skills`](skills/authoring-skills/)** | Agent Skill Authoring & Auditing | Guides authoring, refactoring, packaging, and capability-to-purpose security auditing of `SKILL.md` packages with 3-level progressive disclosure and routing hygiene. |
 | **[`handing-off-sessions`](skills/handing-off-sessions/)** | Cross-Session State Handoff & Restore | Snapshots and restores verified state across `/compact`, `/clear`, or multi-day boundaries with dead-end tracking, `[Unverified]` markers, and `HEAD` SHA reconciliation. |
 | **[`analyzing-agent-sessions`](skills/analyzing-agent-sessions/)** | Post-Mortem Agent Session Analysis | Forensically analyzes agent transcripts and artifacts to classify rework shapes, scope drift, and root causes (`SPEC_AMBIGUITY`, `REPO_FRAGILITY`, `AGENT_ARCHITECTURAL_ERROR`, `VERIFICATION_CHURN`). |
 | **[`pairing-with-adhd`](skills/pairing-with-adhd/)** | Action-First ADHD Pairing & Dialogue | Shapes interactive AI-human communication: leads with runnable next actions, numbers tasks (max 5), restates state, and eliminates conversational filler with Plain English discipline. |
-| **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, KDS components, Vue Composition API, WCAG 2.2 AA, and RTLCSS. |
+| **[`learning-equality`](skills/learning-equality/)** | Learning Equality Conventions | Engineering guidelines and on-demand ecosystem references for Learning Equality repositories: Django Values ViewSets, KolibriAuth permissions, Morango multi-DB sync & SQLite/PostgreSQL rules, KDS components, `RootVue` lifecycles, WCAG 2.2 AA, RTLCSS, and `kolibri` workspace packaging. |
 
 ---
 
@@ -73,7 +76,7 @@ Shared references located in `references/` provide deep domain context and cross
 
 - **[`references/decision-log-template.tsv`](references/decision-log-template.tsv)**: Append-only decision ledger schema (`ts`, `phase`, `decision`, `why`, `evidence`, `result`) for multi-phase and unattended agent plan execution.
 - **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
-- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation and communication skills.
+- **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation, PR/issue authoring, and communication skills.
 
 ---
 
@@ -115,6 +118,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 ├── AGENTS.md                  # Instructions and packaging rules for AI agents
 ├── Makefile                   # Build automation, packaging, and install targets
 ├── README.md                  # Repository documentation and catalog
+├── docs/                      # Repo-local maintenance guides & runbooks (not packaged)
+│   └── pr-review-calibration-runbook.md
 ├── references/                # Canonical shared engineering references
 │   ├── decision-log-template.tsv
 │   ├── github-issue-guidelines.md
@@ -173,7 +178,10 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   └── SKILL.md
 │   ├── learning-equality/
 │   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── frontend-and-packaging.md
+│   │       └── sync-and-databases.md
 │   ├── pairing-with-adhd/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
@@ -201,10 +209,18 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── SKILL.md
 │   │   ├── mocking-guidelines.md
 │   │   └── testing-anti-patterns.md
+│   ├── verifying-prs-in-browser/
+│   │   ├── CHANGELOG.md
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       └── drive-browser.py
 │   ├── writing-github-issues-for-bugs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-github-issues-for-features/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
+│   ├── writing-github-prs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-plans/
@@ -262,6 +278,10 @@ make install INSTALL_DIR=/path/to/target/
 # Install to a custom set of directories
 make install INSTALL_DIRS="/path/to/first/ /path/to/second/"
 ```
+
+### Calibrating Skills from PR Reviews
+
+To audit an AI reviewer's multi-reviewer GitHub PR history, extract recurring blind spots, and turn verified peer-review lessons into atomic skill updates, follow [`docs/pr-review-calibration-runbook.md`](docs/pr-review-calibration-runbook.md).
 
 ---
 

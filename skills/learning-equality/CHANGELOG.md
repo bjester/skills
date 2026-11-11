@@ -2,6 +2,23 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - On-Demand Sync/Multi-DB and Frontend/Packaging Architectural References
+
+- **Provenance**: Curated from forensic audit of Learning Equality PR reviews across `morango`, `kolibri-data-portal`, `kolibri`, and `nutritionfacts`.
+
+### 1. Base State (A)
+- `SKILL.md` (`v1.1`) covered core Django `ValuesViewset`, `KolibriAuth`, `le-utils`, KDS, Vue Composition API, WCAG 2.2 AA, and RTLCSS conventions inline, without on-demand references for Morango/multi-DB/legacy SQLite traps or multi-bundle `RootVue`/telemetry/workspace packaging rules.
+
+### 2. Curated Changes Applied (A -> B)
+- **`references/sync-and-databases.md`** *(added)*: Documented legacy Python/Django compatibility floors and SQLite < 3.32's 999 bound-variable ceiling, SQLite vs. PostgreSQL deferred-FK (`TransactionTestCase`), `execute_wrapper` vs. `in_atomic_block`, and single-table expression index rules, thread-local `django.db.connections[alias]` and `DATABASE_ROUTERS=[]` testing, and `Scope` partition ordering plus sibling-repo `CHANGELOG.md` contracts.
+- **`references/frontend-and-packaging.md`** *(added)*: Documented multi-bundle `RootVue` `session.user_id` redirects vs. `router.afterEach` phantom pageviews, plain-object constant maps vs. `Object.freeze` on mutating SDK options, immutable analytics string-literal tests and defensive browser hooks, and pairing `"kolibri"` with `"kolibri-*"` in `pnpm-workspace.yaml` / `.github/dependabot.yml` plus built `.whl` metadata checks.
+- **`SKILL.md`**: Added `Purpose:` statement, included `morango` and `nutritionfacts` in repository scope, wired conditional progressive-disclosure triggers under `## On-Demand Architectural References`, and bumped `metadata.version` to `1.2`.
+
+### 3. Resulting State (B)
+- Modular Learning Equality guidance (`v1.2`) keeping base activation compact while loading deep sync/database or frontend/packaging ecosystem traps on demand.
+
+---
+
 ## [2026-10-24] - Tie-Breaker Deterministic Pagination & WCAG 2.2 AA Target/Contrast/Motion Rules
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills`

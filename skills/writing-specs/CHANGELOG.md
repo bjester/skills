@@ -2,6 +2,13 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Plain Technical Prose & De-Slop Gate (`writing-technical-docs`)
+
+### 1. Curated Changes Applied
+- **`SKILL.md` (`1.1` -> `1.2`)**: Added `writing-technical-docs` (Plain mode) routing to `Prerequisites & Core Philosophy` and added item `8. Plain Technical Prose & De-Slop Scan` to `Self-Review`.
+
+---
+
 ## [2026-10-24] - Hypothesis-Attached Questions, Steelmanned Alternatives, Non-Drivers & Exit Triggers
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills`

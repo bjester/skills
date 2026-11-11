@@ -12,7 +12,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Writing GitHub Issues: Bugs
@@ -23,6 +23,7 @@ Purpose: Facilitate the creation of actionable, reproducible, and well-structure
 
 - **Specify What & Why, Not How**: Clearly describe the broken behavior, reproduction path, and expected outcome. Leave internal bug-fixing mechanics to the developer.
 - **Reference Shared Issue Guidelines**: Consult `references/github-issue-guidelines.md` for writing principles, DOs/DON'Ts, and the DEEP AI disclosure framework.
+- **Apply Plain Technical Prose**: Load the `writing-technical-docs` skill (Plain mode) and consult `references/word-swaps.md` to write clear, active sentences with zero em-dashes, negative parallelisms, or AI filler.
 - **Incorporate Foundational Software Principles**: Consult the `engineering-software` skill for characterization testing, legacy seams (`Sprout`/`Wrap`/`Override`), invariant preservation, and failure isolation.
 
 ---
@@ -106,6 +107,7 @@ State the **broken or missing behavior/invariant**, not the code flaw:
 - [ ] **Sanitized Logs & Error Outputs**: Are relevant stack traces included and sensitive tokens/secrets scrubbed?
 - [ ] **Regression Test Mandated**: Is a regression test explicitly required in deliverables?
 - [ ] **No Prescriptive Code Rewrites**: Are technical pointers provided without dictating specific inline code changes?
+- [ ] **Zero AI Slop (`writing-technical-docs`)**: Verified against `writing-technical-docs` and `references/word-swaps.md` (zero em-dashes, negative parallelisms, or trailing `, -ing` fluff)?
 - [ ] **AI Disclosure Included**: Is AI involvement stated transparently?
 - [ ] **Duplicate Search & Safe CLI Creation**: Did you search existing issues (`gh issue list --search "<keywords>"`) to avoid duplicates and prepare `--body-file` submission per `references/github-issue-guidelines.md`?
 

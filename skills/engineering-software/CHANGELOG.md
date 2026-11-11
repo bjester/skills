@@ -2,6 +2,24 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Batch-to-Stream Preconditions & Durable Documentation Intent
+
+### 1. Base State (A)
+- Loop invariants in Section 5 covered single-loop postcondition gaps, but did not capture precondition tightening when multi-pass dependency-ordered batch loops are refactored into partitioned streams.
+- Section 6 (`Knowledge DRY`) covered code duplication vs. wrong abstractions, without extending single-source-of-truth rules to prose documentation duplicating code-owned pins or narrating temporary WIP states.
+
+### 2. Curated Changes Applied (A -> B)
+- **Section 5 (Defensive Programming, Contracts & Error Handling)**:
+  - Added *Batch-to-Stream Ordering Preconditions* under `Design by Contract (DbC)` to highlight cross-partition reference hazards when inverting `entity_type -> partition` loops into `partition -> entity_type` streams.
+- **Section 6 (Refactoring Disciplines & Code Smell Taxonomy)**:
+  - Added *Durable Intent Over Volatile Code Facts in Documentation* under `Knowledge DRY`, keeping exact version pins, runtime matrices, and ephemeral WIP status out of `README.md` and architecture prose.
+- Bumped version metadata to `1.2`.
+
+### 3. Resulting State (B)
+- Preserves timeless contract and DRY boundaries across both batch-to-stream algorithm migrations and long-lived repository documentation.
+
+---
+
 ## [2026-10-24] - Classical Contracts, Wrong-Abstraction Inlining & Dependency Tension Curation
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills.git`

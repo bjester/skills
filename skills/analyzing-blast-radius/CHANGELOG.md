@@ -2,6 +2,13 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Matrix Floor Ceilings, Root-Wrapper Lifecycles & Sibling-Repo Consumers
+
+- **Pinned Dependency & Matrix Floor Reality (Phase 3.1)**: Expanded dependency inspection beyond lockfiles to the minimum supported runtime, framework, and database engine versions in `pyproject.toml`, `package.json`, `tox.ini`, and CI containers (catching legacy DB variable limits and missing floor APIs).
+- **Lifecycle, Wrapper & Concurrency Realities (Phase 3.2)**: Required opening mounted root/layout components (`RootVue`, app shells) when hooking router or global lifecycle callbacks (`router.afterEach`) to trace session, redirect, and conditional rendering order.
+- **Cross-Boundary Schemas & Sibling-Repo Consumers (Phase 3.3)**: Added sibling-repo consumer checks for internal upstream libraries (including `_`-prefixed helpers, keyword arguments, and logger names).
+- Bumped version metadata to `1.2`.
+
 ## [2026-10-24] - Strengthening with Pre-Design Hypotheses, Deleted Guards Lineage, and Search Blind Spots
 
 - **Sources Integrated**: `what-could-break`, `differential-review`, `variant-analysis`, `improve-codebase-architecture`, and `production-code-audit`.

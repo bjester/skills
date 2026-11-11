@@ -2,6 +2,14 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Plain Technical Prose & De-Slop Routing (`writing-technical-docs`)
+
+### 1. Curated Changes Applied
+- **`SKILL.md` (`1.1` -> `1.2`)**: Added `writing-technical-docs` (Plain mode) and shared `references/word-swaps.md` routing to `Prerequisites & Core Philosophy` and `Self-Review Checklist Before Submitting`.
+- **`references/github-issue-guidelines.md` & `Makefile`**: Added Plain Technical Prose & De-Slopping standards and wired `references/word-swaps.md` into the packaged skill.
+
+---
+
 ## [2026-10-24] - Epistemic Uncertainty Markers, Severity Tiers & Safe CLI Submission
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills`

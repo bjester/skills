@@ -15,7 +15,7 @@ allowed-tools:
   - find_by_name
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Engineering Software: Design, Execution, and the Evolution of Software
@@ -144,6 +144,7 @@ A single meta-problem unites software engineering: **managing cognitive load in 
   - *Postconditions*: What the routine guarantees upon completion.
   - *Class Invariants*: Conditions that remain true before and after every public operation.
   - *Loop Invariants & Termination Variants*: A loop invariant holds before the loop and after every iteration; a termination variant (measure) strictly decreases toward a bound on every iteration or recursive call to guarantee termination. Ensure `Loop Invariant ∧ Exit Condition ⇒ Postcondition`—when a loop invariant alone is strictly weaker than the routine's postcondition (e.g., Boyer-Moore majority vote, leftmost duplicate binary search, or cycle-start detection), a verification or boundary pass is required to close the postcondition gap.
+  - *Batch-to-Stream Ordering Preconditions*: Replacing a multi-pass batch loop (`for entity_type_in_dependency_order -> process_all_partitions`) with a single-pass partitioned stream (`for partition -> for entity_type_in_dependency_order`) tightens input-ordering preconditions whenever cross-partition references exist. Either enforce caller partition order or buffer unresolved cross-partition references until targets arrive.
 - **Define Semantics, Not Suppressions**:
   - Redesign APIs so edge conditions become natural domain outcomes (e.g. idempotent delete, slice bounds clipping). Never catch unexpected exceptions to silently return fake or empty objects.
   - *Observability Invariant*: Fallbacks and default states must never be silent. Emit structured telemetry when fallbacks activate.
@@ -171,6 +172,7 @@ A single meta-problem unites software engineering: **managing cognitive load in 
   - *Knowledge vs. Text Duplication*: Hunt & Thomas DRY targets duplicated *domain knowledge and intent*, not two functions in separate bounded contexts that happen to look textually similar. Follow the **Rule of Three** before extracting shared helpers.
   - *Re-Inlining the Wrong Abstraction*: When an existing shared helper has accumulated boolean flag parameters and per-caller special-case branches, duplication is cheaper than the wrong abstraction—re-inline the logic into each caller, delete the dead branches, and re-extract only the genuinely shared core.
   - *Cognitive Complexity Ceiling*: Keep per-function cognitive/cyclomatic complexity `≤ 10` and nesting depth `≤ 5` using guard clauses and early returns.
+  - *Durable Intent Over Volatile Code Facts in Documentation*: Prose documentation (`README.md`, architecture guides) must capture durable architectural intent and policy. Delegate volatile, machine-enforced facts (exact version pins, supported runtime matrices, CLI flags) to their single code-owned source (`pyproject.toml`, `package.json`, CI workflows), and omit ephemeral *"not implemented yet"* status narration that rots on the next commit.
 
 ### Code Smell & Treatment Index
 

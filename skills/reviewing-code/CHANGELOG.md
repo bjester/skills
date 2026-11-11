@@ -2,6 +2,26 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Counterfactual Test Mutation, Remediation Verification & Comment/Doc Calibration
+
+### 1. Base State (A)
+- Checked general test behavior vs. over-mocking, but lacked explicit counterfactual mutation checks for tautological enum imports, unvaried temporal fields, `objectContaining` contract weakening, and non-committing `TestCase` deferred constraints.
+- Required codebase proof for bug claims while permitting unverified remediation snippets, multi-table SQL index suggestions, legacy PEP 639 classifiers, and comment-based fixes for ambiguous identifiers.
+- Applied rigid anti-comment language without explicitly protecting execution-order invariants, benchmark notes, immutable-schema warnings, and public `:param:` docstrings, while missing volatile pin duplication in `README.md`.
+
+### 2. Curated Changes Applied (A -> B)
+- **Step 1 & Scale 1**: Added *Batch-to-Stream & Deleted-Algorithm Equivalence* and database bound-parameter ceiling checks.
+- **Scale 2 & Scale 3**: Added neighbor idiom checks (2 to 3 sibling modules before tactical suggestions) and *Config Glob & Manifest Cross-Check* (`pnpm-workspace.yaml`, `dependabot.yml`, CI filters, `Dockerfile` `COPY`, `.gitignore` vs. manifests and lockfiles).
+- **Scale 4**: Added manual type-annotation verification when static type checkers are absent in CI, recalibrated *Comment & Documentation Hygiene* (preserving invariant/quirk/benchmark/docstring signal while flagging code narration and `README.md` volatile pin duplication), and added an optional domain-specific check for LLM prompts, rubrics, and translations.
+- **Scale 5**: Expanded *Counterfactual Test Mutation & Test Value* with explicit Two-Edit checks on immutable schema tables, temporal capture fields, security flags, exact `toEqual` contracts, `TransactionTestCase` commit semantics, and limitation docstrings.
+- **Multi-Model Protocol & Operational Directives**: Added *Same-Model Generator-Reviewer Trigger* and *Actionable & Verified Remediations* (all-caller tracing, issue AC / single-table index / PEP 639 verification, and *Rename-Over-Comment*).
+- Bumped version metadata to `1.3`.
+
+### 3. Resulting State (B)
+- Tightens both defect detection and remediation accuracy across static code reviews without over-policing legitimate invariant comments or repository idioms.
+
+---
+
 ## [2026-10-24] - Intent Packets, Blame on Deleted Guards, Concept-Count Test & Semantic DRY
 
 - **Integrated Sources**:

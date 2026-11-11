@@ -13,7 +13,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Analyzing Blast Radius: Beyond Symbol Search to Executable Proof
@@ -92,9 +92,9 @@ Spend primary analytical effort isolating this single load-bearing fact. If this
 
 ### Phase 3: Investigate Where Grep Stops
 Systematically audit the blind spots of static text search:
-1. **Pinned Dependency Reality**: Inspect the pinned versions, transitive lockfiles, and local vendor patches of imported libraries. Verify exact behavior against library source code rather than assumptions.
-2. **Lifecycle & Concurrency Realities**: Check when callbacks execute (microtasks vs. macrotasks, unmount hooks, transaction commit hooks). Does teardown cancel pending asynchronous tasks?
-3. **Cross-Boundary Schemas**: Follow data across processes—JSON APIs, IPC messages, database columns, Kafka/RabbitMQ events, and configuration files read by other services.
+1. **Pinned Dependency & Matrix Floor Reality**: Inspect both lockfiles and the *minimum supported* runtime, framework, and database engine versions in `pyproject.toml`, `package.json`, `tox.ini`, and CI container images. Verify behavior and parameter ceilings (such as legacy SQLite bound-variable limits or framework APIs absent on the floor version) against library source code rather than modern local defaults.
+2. **Lifecycle, Wrapper & Concurrency Realities**: Check when callbacks execute (microtasks vs. macrotasks, unmount hooks, transaction commit hooks) and whether teardown cancels pending asynchronous tasks. When hooking router, middleware, or global app callbacks (`router.beforeEach`, `router.afterEach`, store plugins), open the mounted root or layout component (`RootVue`, app shell, auth wrapper) to verify execution order relative to session checks, redirects, and conditional `<router-view v-if="...">` rendering.
+3. **Cross-Boundary Schemas & Sibling-Repo Consumers**: Follow data across processes: JSON APIs, IPC messages, database columns, Kafka/RabbitMQ events, and configuration files read by other services. For upstream libraries in a multi-repo organization, also audit sibling-repo consumers importing semi-private `_`-prefixed helpers, keyword arguments, or logger names.
 4. **Feature Flags & State Combinations**: Identify what happens if this code runs with feature flag X disabled, or while a migration is halfway applied.
 5. **Duplicated Rules, Test Fixtures & Stale Agent Prompts**: Secondary config files, hardcoded fallback defaults, test fixtures encoding the old payload shape, and agent instruction files (`AGENTS.md`, `CLAUDE.md`, `SKILL.md`, runbooks) that restate the old rule in prose.
 6. **Rollout Skew & Multi-Version Coexistence**: Can an old worker, cron job, or mobile/web client run concurrently alongside the new server code against shared database/queue state during a rolling deploy?

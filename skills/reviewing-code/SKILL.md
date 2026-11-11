@@ -14,7 +14,7 @@ allowed-tools:
   - task
 metadata:
   author: Blaine Jester
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Reviewing Code (Local Review)
@@ -76,6 +76,7 @@ Identify the target of the review:
   3. *What compatibility or rollout constraints apply?*
 - **Triage Depth by Risk Surface, Never by Line Count**: A 3-line diff touching authentication, permissions, cryptography, concurrency, serialization, or removing a validation guard requires full adversarial scrutiny.
 - **Blame Deleted or Weakened Guards (`-` Lines)**: Reviewers naturally focus on `+` lines. Whenever a diff removes or relaxes a validation check, permission guard, timeout, lock, or error handler (`-` lines), run `git log -S` / `git blame` on the removed code (or invoke `investigating-code-lineage`) to verify it was not introduced by a past bugfix or security commit.
+- **Batch-to-Stream & Deleted-Algorithm Equivalence**: When `-` lines replace a legacy batch loop or SQL query with a streaming pipeline, chunked processor, or Python-side filter, compare outer/inner loop nesting order (`for model_in_fk_order -> all partitions` vs. `for partition -> for model_in_fk_order`), transaction commit boundaries, and `WHERE ... IN (...)` bound-parameter counts against the minimum supported database engine ceiling.
 
 ### Step 2: Conduct Multi-Scale Analysis
 
@@ -103,7 +104,7 @@ Run the repository's verification tools to gather hard evidence before finalizin
    - `💡 Tactical Suggestion (Optional)`
    - `✅ Positive Highlights`
 3. Clearly cite exact file paths and line ranges (`path/to/file#L10-L25`).
-4. Provide concrete code diffs or refactoring recipes for all blockers and design issues.
+4. Provide concrete, verified code diffs or refactoring recipes for all blockers and design issues (holding proposed remedies to the same verification bar as bug claims; see Operational Directives).
 5. Offer to assist the developer in interactively applying the recommended fixes.
 
 ---
@@ -148,14 +149,14 @@ Consult the `engineering-software` skill for full definitions of foundational in
 - [ ] **Resource Lifecycle & Leaks**: Are sockets, file handles, DB connections, and locks strictly cleaned up via RAII, `defer`, or `try-with-resources`?
 - [ ] **Concurrency & Race Hazards**: Is shared mutable state eliminated? Are race conditions, lost updates, or deadlock hazards prevented via transactions, atomic types, or optimistic locking?
 - [ ] **No Silent Error Suppression**: Are catch blocks catching specific exceptions rather than generic `Exception`? Do fallbacks emit structured telemetry/metrics?
-- [ ] **Evidence-Grounded Performance Only**: Flag concrete algorithmic bottlenecks ($O(N^2)$ over unbounded input), N+1 queries/I/O inside loops, or missing pagination; never post data-free performance speculation (*"this loop might be slow"*).
+- [ ] **Evidence-Grounded Performance & Engine Ceilings**: Flag concrete algorithmic bottlenecks ($O(N^2)$ over unbounded input), N+1 queries/I/O inside loops, missing pagination, or unbounded `IN (...)` parameter lists exceeding minimum supported database engine limits; never post data-free performance speculation (*"this loop might be slow"*).
 
 ### Scale 2: Strategic Architecture & Domain Boundaries
 - [ ] **Inward Dependency Rule**: Does core domain logic remain pure and isolated from frameworks, databases, HTTP protocols, UI, and external SDKs?
 - [ ] **Archetype Fit**: Is the logic organized appropriately for its complexity (Transaction Script for simple CRUD vs. Rich Domain Model / Aggregates for complex business rules)?
 - [ ] **Ubiquitous Language**: Does naming reflect clear, precise domain terms rather than vague generic terms (`Manager`, `Helper`, `Processor`, `Data`, `Info`)?
 - [ ] **Context Mapping & Anti-Corruption**: Are external upstream payloads translated via an Anti-Corruption Layer (ACL) rather than leaking raw third-party schemas directly into core domain entities?
-- [ ] **Repository Conformity (No Second Parallel Mechanism)**: Does the diff reuse the repository's canonical helpers, validation library, error envelope, and config pattern rather than introducing a second parallel way to solve the same problem?
+- [ ] **Repository Conformity & Neighbor Idioms**: Does the diff reuse the repository's canonical helpers, validation library, error envelope, and config pattern rather than introducing a parallel mechanism? Read 2 to 3 sibling modules before proposing tactical idioms (`Object.freeze`, custom wrapper types), and omit idioms absent from neighboring files unless concrete runtime mutation or safety risk exists.
 
 ### Scale 3: Modularity & Depth Design
 - [ ] **Deep Modules**: Do new classes, modules, or services provide significant functionality behind a small, simple, stable interface? Or are they "shallow wrappers" that add cognitive overhead without doing real work?
@@ -165,6 +166,7 @@ Consult the `engineering-software` skill for full definitions of foundational in
 - [ ] **The Concept-Count Test (Reducing vs. Relocating Complexity)**: Does a refactor reduce the number of concepts a reader must hold in working memory (making branches, modes, or layers disappear), or merely relocate the same complexity into new wrappers/files?
 - [ ] **Semantic DRY (Same Concept vs. Same Syntax)**: Only recommend consolidating duplicated code when the copies share the same domain owner, invariant, and reason to change.
 - [ ] **Resulting File Health ("Decompose, Then Add")**: Even if a diff is small, check whether it pushes an already-bloated module past a healthy boundary or bolts a feature-specific conditional onto an unrelated shared flow.
+- [ ] **Config Glob & Manifest Cross-Check**: When a diff modifies package or path allowlists, excludes, or globs (`pnpm-workspace.yaml`, `dependabot.yml`, CI path filters, `Dockerfile` `COPY`, `.gitignore`), cross-check every pattern against `package.json`, lockfiles, `pyproject.toml`, and the directory tree (verifying `"foo-*"` does not omit bare `"foo"` or transitive `"foo-*"` packages).
 
 ### Scale 4: Micro-Craftsmanship, Routine Construction & Code Smells
 - [ ] **Single Level of Abstraction (SLAP)**: Does each function maintain a uniform level of abstraction, or does it mix high-level business orchestration with low-level string manipulation or raw byte juggling?
@@ -172,11 +174,11 @@ Consult the `engineering-software` skill for full definitions of foundational in
 - [ ] **Parameter & Argument Discipline**: Are functions limited to 0–2 parameters (3+ bundled into Parameter Objects)? Are boolean flag arguments avoided in favor of explicit, intention-revealing methods?
 - [ ] **Primitive Obsession**: Are domain concepts with validation/invariants (e.g., `EmailAddress`, `Money`, `OrderId`) encapsulated into Value Objects instead of raw strings/integers?
 - [ ] **Defensive Contracts**: Are preconditions validated at public system barricades? Are internal invariants asserted rather than silently patched with fake fallback values?
-- [ ] **Strict Comment Hygiene (Anti-Comment Discipline)**:
-  - Are comments reserved exclusively for *non-obvious, unchangeable external constraints* (vendor bugs, hardware quirks, wire protocol peculiarities)?
-  - Are narrative comments (`// Step 1: fetch user`, `// check if valid`) eradicated in favor of self-documenting method names and SLAP?
-  - Are workaround sermons (`// sorry about this hack, fine for now`) rejected in favor of root-cause refactoring or structural type constraints?
-  - Is commented-out dead code completely deleted?
+- [ ] **Manual Type-Annotation Consistency**: When a repository runs no static type checker (`mypy`, `pyright`, `tsc`) in CI, manually verify new type annotations (`Dict[str, int]` vs. `Dict[EnumType, int]`) against actual runtime key/value assignments and callers.
+- [ ] **Calibrated Comment & Documentation Hygiene**:
+  - *Preserve*: Comments recording external SDK/browser/OS/DB quirks (with upstream issue links), required execution-order invariants, empirical benchmark findings preventing regressions, immutable external schema warnings, and `:param:` / `:type:` docstrings on public or delegating entry points.
+  - *Flag for Removal*: Comments restating code conditions or unit tests (`// Step 1: fetch user`, `// check if valid`), PR/commit history narration, workaround apologies (`// sorry about this hack`), commented-out dead code, multi-paragraph prose duplicated across `.rst`/`README.md`/docstrings, and volatile code-owned facts or ephemeral WIP narration in `README.md`/docs (exact version pins, supported runtime matrices, or *"not implemented yet"* paragraphs that duplicate `pyproject.toml`, `package.json`, or CI workflows).
+- [ ] **Optional: Prompts, Rubrics & Translations (Domain-Specific)**: Only when a diff modifies LLM system/user prompts, grading rubrics, or translated prompt modules, optionally audit them as classifier logic rather than passive prose (checking for false friends or semantic narrowing that alter classifier boundaries, technical domain calques, and compound binary gate questions lacking an explicit boolean conjunction rule).
 - [ ] **Code Smell Detection**: Are classic smells present (Bloaters, Object-Orientation Abusers, Change Preventers, Dispensables, Couplers)? Are standard refactoring recipes applied?
 - [ ] **Orphaned Dead Code & Redundant Derived State**: Did the change leave behind newly orphaned helpers, imports, or constants, or store derived state that should be computed on the fly?
 - [ ] **Observable Text & Error Contract Preservation**: Did the change alter error message strings, CLI output, or structured log/event keys that callers, tests, or monitors depend on (Hyrum's Law)?
@@ -184,10 +186,13 @@ Consult the `engineering-software` skill for full definitions of foundational in
 ### Scale 5: Verification, Seams & Test Value Lens
 - [ ] **Blast Radius & Non-Grep Risks**: Does the change introduce hidden runtime breakages that symbol search (`grep`) misses (lifecycle mismatches, wire format shifts, external DB column reads)? Consult the `analyzing-blast-radius` skill for the 5-level certainty ladder.
 - [ ] **F.I.R.S.T. Properties**: Are tests fast, independent, repeatable, self-validating, and timely?
-- [ ] **Test Value & Behavior Focus**:
-  - Does the test assert observable public behavior rather than asserting framework plumbing, input fixtures, or trivial declarations?
-  - Does the test assert outcomes rather than merely asserting mocks (`assert_called_with` without checking results)?
-  - Does the test avoid pinning private implementation details that would shatter on safe internal refactorings?
+- [ ] **Counterfactual Test Mutation & Test Value (Two-Edit Mental Test)**:
+  - Mentally negate each production requirement or contract value and confirm at least one test fails.
+  - Do tests guarding immutable external values (analytics event names, wire enums, API keys) assert against independent literal tables rather than importing the constant module under test as expected values?
+  - Do temporal-capture or ordering tests vary *every* asserted field (`pathname`, `href`, `timestamp`, partition order) across calls so lazy flush-time reads or unordered `set()` checks fail?
+  - Do tests for security/disable flags trigger the code path that would fail when flipped, and preserve exact `toEqual` contracts rather than loosening to `expect.objectContaining`?
+  - Do tests of deferred database constraints (`DEFERRABLE INITIALLY DEFERRED`) run in committing test classes (`TransactionTestCase` rather than rolled-back `TestCase`)? Are brittle `dict.__repr__` log assertions avoided when structured outputs are already tested, and do tests characterizing *known limitations* state so in their docstring?
+  - Do tests assert observable public behavior rather than framework plumbing, trivial declarations, or private collaborator mocks?
 - [ ] **Legacy Seam Discipline**: When modifying legacy code (code lacking test coverage), are changes protected by characterization tests and clean seams (*Sprout Method*, *Wrap Method*, *Extract and Override*)?
 - [ ] **Two Hats Discipline**: Are refactoring changes kept distinct from behavioral/feature additions?
 
@@ -335,22 +340,26 @@ You are a Software Engineering Code Reviewer. Your task is to perform a rigorous
 When reviewing high-risk diffs, core protocol changes, or contested architecture:
 
 1. **Model Diversity Over Personas**: Rather than prompting a single model to roleplay artificial personas, dispatch the review prompt to 2 or more distinct LLM families simultaneously (e.g., Claude, Gemini, Grok). Authentic adversarial signal emerges from model diversity.
-2. **Construct the Agreement Map**:
+2. **Same-Model Generator-Reviewer Trigger**: Inspect commit trailers (`Co-Authored-By`) and PR `AI usage` notes. When the code, prompts, translations, or test suite were generated by the same model family running the review, treat cross-family interrogation (when multi-model tools are available) as required rather than optional, prompting the peer model to hunt for shared priors, calques, and unexamined assumptions.
+3. **Construct the Agreement Map**:
    - Compare returned findings across the independent reviewer runs.
    - **Consensus Findings**: When two or more models independently identify the exact same invariant breach or failure mode, treat it as a **high-confidence blocker** (signal is near 100%).
    - **Divergence / Disagreement**: When one model flags an issue that another explicitly approves, treat the disagreement as a genuine architectural trade-off for human consideration.
-3. **Lead Judgment Triage**:
+4. **Lead Judgment Triage**:
    Operate as an opinionated senior lead reviewer, not a neutral aggregator. Classify every finding into:
    - **Act On**: Real issues affecting correctness, security, or production stability that must block a PR.
    - **Consider**: Legitimate trade-offs where cost and benefit must be weighed.
    - **Noted**: Technically valid but low impact or premature at this stage.
    - **Dismissed**: False alarms, nitpicks, or findings resulting from missed context.
-4. **Central Reproduction & Root-Cause Deduplication**: Treat subagent and multi-model findings as leads; centrally verify and reproduce every high-severity finding against the codebase before reporting, and deduplicate by underlying root cause rather than surface wording.
+5. **Central Reproduction & Root-Cause Deduplication**: Treat subagent and multi-model findings as leads; centrally verify and reproduce every high-severity finding against the codebase before reporting, and deduplicate by underlying root cause rather than surface wording.
 
 ---
 
 ## Operational Directives for the Agent
 
 1. **Evidence-Based Findings**: Base feedback on observable code paths and empirical test/linter runs.
-2. **Actionable Suggestions**: Never point out an issue without explaining *why* it matters and demonstrating a concrete alternative.
+2. **Actionable & Verified Remediations**: Never point out an issue without explaining *why* it matters and demonstrating a concrete alternative, and hold every proposed snippet or fix to three checks before emitting it:
+   - *Trace All Callers*: Grep and inspect every caller of any modified helper to confirm preconditions and idempotency hold across all paths.
+   - *Verify Issue Contracts, Engine Rules & Packaging Standards*: Confirm the proposed fix satisfies all linked issue acceptance criteria, database engine rules (for example, PostgreSQL/SQLite indexes, including expression and partial indexes, can only reference columns of a single table, never joined tables), and current packaging standards (such as PEP 639 `license = "MIT"` forbidding legacy `License ::` classifiers).
+   - *Rename-Over-Comment*: Apply self-documenting code rules to your own suggestions. When a function, field, or variable name obscures `None`/fallback semantics or collides with a related model's field, propose renaming the identifier rather than adding explanatory prose comments or docstrings.
 3. **Check Compilability First**: Always run tests before reviewing to verify whether the baseline is working or already broken.

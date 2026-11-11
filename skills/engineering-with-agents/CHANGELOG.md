@@ -2,6 +2,23 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Reviewer Anchoring & Same-Model Blind Spot Guardrails
+
+### 1. Base State (A)
+- Section 4 (`Verification & Truth Disciplines`) enforced primary artifact verification and the Two-Edit Mental Test for authors, but lacked countermeasures for LLM-on-LLM code review pathologies (anchoring on fluent PR descriptions and correlated errors when a model reviews its own family's output).
+
+### 2. Curated Changes Applied (A -> B)
+- **Section 4 (Verification & Truth Disciplines)**:
+  - Added `### 3. Reviewer & Cross-Agent Verification Pathologies` covering *PR-Description Anchoring & Sycophantic Highlight Inflation* and *Correlated Generator-Reviewer Blind Spots*.
+- **Summary Checklist**:
+  - Added `Reviewer Independence Preserved` verification item.
+- Bumped version metadata to `1.2`.
+
+### 3. Resulting State (B)
+- Hardens agent-driven code and PR reviews against sycophantic echoing of author rationalizations and shared generator-reviewer priors.
+
+---
+
 ## [2026-10-24] - Empirical AI Anti-Pathologies, Pre-Write Algorithmic Rituals & Subagent Isolation
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills.git`
