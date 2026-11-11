@@ -2,11 +2,12 @@
 name: learning-equality
 description: |
   Engineering guidelines and conventions for Learning Equality repositories
-  (Kolibri, Studio, KDS, ricecooker, kolibri-data-portal, le-utils), including
-  Django ValuesViewset, KolibriAuth declarative permissions, le-utils constants,
-  KDS component reuse, Vue Composition API, WCAG 2.2 AA accessibility, and
-  RTLCSS rules. Activate when designing, developing, testing, or reviewing code
-  in Learning Equality repositories.
+  (Kolibri, Studio, KDS, morango, ricecooker, kolibri-data-portal, le-utils,
+  nutritionfacts), including Django ValuesViewset, KolibriAuth declarative
+  permissions, multi-DB sync, le-utils constants, KDS component reuse, Vue
+  Composition API, WCAG 2.2 AA accessibility, RTLCSS, and workspace packaging
+  rules. Activate when designing, developing, testing, or reviewing code in
+  Learning Equality repositories.
 license: MIT - https://github.com/bjester/skills/blob/main/LICENSE
 user-invocable: true
 compatibility: Learning Equality repositories (github.com/learningequality/*)
@@ -17,12 +18,12 @@ allowed-tools:
   - find_by_name
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Learning Equality Engineering Guidelines
 
-Standards, architectural patterns, and review conventions for repositories under the **Learning Equality** organization (https://github.com/learningequality/).
+Purpose: Provide architectural standards, review checks, and on-demand ecosystem references for repositories under the **Learning Equality** organization (https://github.com/learningequality/).
 
 ## Organization Detection
 
@@ -33,7 +34,16 @@ When working on or reviewing a repository, determine if these guidelines apply b
 git remote -v | grep -i 'learningequality'
 ```
 
-If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, ricecooker, kolibri-data-portal, le-utils), apply these conventions alongside the `engineering-software` and `reviewing-code` skills, as well as the repository's own `AGENTS.md`.
+If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri Studio, kolibri-design-system, morango, ricecooker, kolibri-data-portal, le-utils, nutritionfacts), apply these conventions alongside the `engineering-software` and `reviewing-code` skills, as well as the repository's own `AGENTS.md`.
+
+## On-Demand Architectural References
+
+Load the matching reference file below **only** when your task touches its architectural layer; skip reading unrelated reference files to preserve context budget:
+
+| Reference File | Load When Task Touches |
+| :--- | :--- |
+| `references/sync-and-databases.md` | `morango`, sync pipelines, Django database routers or backends, multi-DB queries, bulk ORM/SQL batching (`id__in`, `bulk_create`), legacy Python/Django compatibility floors, or upstream Python library APIs consumed by sibling LE repos |
+| `references/frontend-and-packaging.md` | Vue Router hooks (`afterEach`/`beforeEach`), multi-bundle `RootVue` session/auth redirects, frontend constant maps or mutating SDK options, analytics/consent hooks, `pnpm-workspace.yaml` / `.github/dependabot.yml` globs, or Python wheel packaging |
 
 ---
 
@@ -55,7 +65,7 @@ If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri S
 - **Field Types**: Check for repo-specific field types (e.g., `DateTimeTzField`, syncable `UUIDField` primary keys).
 
 ### Background Tasks & Shared Constants
-- **Task Framework**: Asynchronous jobs must route through the repo's task system—permission-checked at enqueue, inputs validated, and kept off high-priority user paths.
+- **Task Framework**: Asynchronous jobs must route through the repo's task system: permission-checked at enqueue, inputs validated, and kept off high-priority user paths.
 - **Shared Content Constants (`le-utils`)**: In content-ecosystem repos (Kolibri, Studio, ricecooker), content kinds, licenses, languages, and file formats must be imported from `le_utils.constants` (`file_formats`, `format_presets`, `content_kinds`, `licenses`) rather than hardcoded.
 
 ### Internationalization (Backend)
@@ -82,7 +92,7 @@ If the remote matches `github.com[:/]learningequality/` (e.g. Kolibri, Kolibri S
 
 ### Accessibility (WCAG 2.2 AA)
 - **Accessible Names**: Every interactive element (buttons, links, inputs) must have a visible label or `aria-label`/`aria-labelledby`.
-- **Semantic Elements**: Never attach click handlers to generic `<div>` or `<span>` tags—use native `<button>` or `<a>`.
+- **Semantic Elements**: Never attach click handlers to generic `<div>` or `<span>` tags; use native `<button>` or `<a>`.
 - **Keyboard Navigation**: Ensure Tab navigation order is logical and modal dialogs/drawers manage and restore focus.
 - **Form Controls**: All inputs must have associated `<label for="...">` or wrapping labels, with help/error text linked via `aria-describedby`.
 - **Target Size & Focus Visibility**: Interactive pointer targets must meet WCAG 2.2 SC 2.5.8 minimum target size (`24×24` CSS px minimum, `44×44` px preferred for touch) and maintain visible `:focus-visible` outlines.
