@@ -26,7 +26,8 @@ Mode: procedural, with the 20-word limit enforced hard. An on-call runbook is a 
 
 Mode: descriptive for system overviews (25-word limit), procedural for setup steps (20-word limit).
 
-- Verify every command, script, environment variable, and default against `Makefile`, `package.json`, `pyproject.toml`, or `.env.example`—never invent flags or commands.
+- Verify every command, script, environment variable, and default against `Makefile`, `package.json`, `pyproject.toml`, or `.env.example`. Never invent flags or commands.
+- State durable architectural intent and point to authoritative manifests rather than hardcoding volatile version pins or temporary *"not implemented yet"* status notes.
 - State prerequisites, required runtimes, and credential configurations before the first installation command.
 - Keep setup steps linear, copy-pasteable, and deterministic.
 
@@ -36,7 +37,7 @@ Mode: descriptive.
 
 - Structure records into 5 standard sections: `Status`, `Context`, `Decision`, `Alternatives Considered`, and `Consequences`.
 - Apply the 25-word limit to context and rationale sentences.
-- Never delete superseded ADRs—update status and mark `Superseded by ADR-NNN`.
+- Never delete superseded ADRs. Update status and mark `Superseded by ADR-NNN`.
 
 ## Incident reports and postmortems
 
@@ -49,7 +50,11 @@ STE bans hedges such as "may have impacted". The report states what is known and
 
 ## Commit messages and PR descriptions
 
-Mode: imperative subject line, descriptive body. The convention already matches STE. Apply the word swaps and the 25-word limit to the body. Delete "this PR aims to".
+Mode: imperative subject line (`<= 72` chars), conversational Plain body. Apply `references/word-swaps.md` and the 25-word descriptive limit (counting backticked paths/commands as one word). Delete `"this PR aims to"`, em-dashes, and file-by-file diff regurgitation. When authoring or editing a GitHub PR, use the `writing-github-prs` skill for template discovery, author identity checks, and DEEP AI disclosure.
+
+## GitHub issues and code review comments
+
+Mode: Plain descriptive/behavioral for issues (`writing-github-issues-for-bugs`, `writing-github-issues-for-features`) and conversational Plain for code reviews (`reviewing-github-prs`). Lead review comments with the concrete defect or question in the first sentence, use schema-defined severity badges only where specified, allow natural contractions in review prose, and eliminate em-dashes, negative parallelisms, and sycophantic filler.
 
 ## API changelogs and release notes
 

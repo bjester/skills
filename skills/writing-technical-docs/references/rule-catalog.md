@@ -153,7 +153,7 @@ AI text drifts in known directions (Wikipedia "Signs of AI writing"). The rules 
 - Restating summaries: no "in conclusion" paragraphs.
 - Editorializing asides: no "it is important to note".
 - Collaborative leftovers: no "I hope this helps", no "Let me know".
-- Formatting habits: no bold as decoration, no bold lead-ins, no emoji as structure, no heading for two sentences.
+- Formatting habits: no bold mid-sentence as decoration (in Plain mode, `- **Label**:` list-item prefixes and repository template headings are permitted; in Strict mode `(S)`, no bold lead-ins or emojis), no heading for two sentences outside repository templates.
 
 For the specific overused words, `references/word-swaps.md` maps each one to a plain replacement. If a word carries no fact, delete it instead.
 
@@ -161,7 +161,7 @@ For the specific overused words, `references/word-swaps.md` maps each one to a p
 
 One word, one meaning, one part of speech, for the whole document (Rules 1.11, 9.4).
 
-- The settings file is `configuration`, never config, settings, or options in the same document.
-- The verify concept is `make sure that`, never check, verify, confirm, validate, or ensure as verbs. Strict mode routes the rest with `references/strict-vocabulary.md`.
-- Common swaps: however → but, therefore → as a result, since (= because) → because, perform → do, avoid → prevent, repeat → do again, acceptable → permitted, now → delete it.
+- Pick one term per concept for the whole document: do not mix `config`, `settings`, and `options` in the same document (in Strict mode `(S)`, use `configuration` only).
+- In Plain mode, standard engineering verbs (`verify`, `check`, `confirm`, `validate`) are permitted while `ensure` is replaced via `references/word-swaps.md`. In Strict mode `(S)`, route all verify verbs to `make sure that` using `references/strict-vocabulary.md`.
+- Common swaps: however -> but, therefore -> as a result, since (= because) -> because, perform -> do, avoid -> prevent, repeat -> do again, acceptable -> permitted, now -> delete it.
 

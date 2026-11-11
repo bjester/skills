@@ -2,6 +2,24 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Surgical Plain-Mode Calibration for Developer Artifacts & Standard Frontmatter
+
+### 1. Motivation
+- Plain mode's concrete, verifiable rules prevent verbose AI slop, yet three aerospace-manual restrictions (`make sure that` replacing `verify`/`check`, banning `- **Label**:` list lead-ins and short template headings, and banning contractions in chat/reviews/PRs) made developer prose overly stiff and clashed with standard GitHub PR, issue, and review templates.
+
+### 2. Curated Changes Applied
+- **`SKILL.md` (`2.3.0-curated` -> `2.4.0-curated`)**:
+  - Standardized YAML frontmatter (`license`, `user-invocable: true`, `allowed-tools`, `metadata.author`) and broadened `description` triggers to include PR descriptions, GitHub issues, and code review comments.
+  - Surfaced ASD-STE100 Rule 8.6 inline in Rule 1 (backticked commands/paths/identifiers, hyphenated units, and parentheticals count as 1 word each) while keeping the 20/25-word ceilings.
+  - Added the durable-intent rule to Rule 2 (reference manifests rather than hardcoding volatile version pins or temporary *"not implemented yet"* status notes in `README`s and architecture docs).
+  - Calibrated Rule 8 (`verify`, `check`, `confirm`, `validate`, and single-term `config` permitted in Plain mode; `make sure that` / `configuration` reserved for Strict mode; `ensure` still replaced via `word-swaps.md`).
+  - Calibrated Rule 11 (`- **Label**:` list lead-ins, repository template headings, and schema-defined status emojis permitted in Plain mode; mid-sentence bold emphasis remains banned).
+  - Renamed conversational section to `## Chat Explanations, Code Reviews & PR Discussions`, permitting natural contractions (`don't`, `doesn't`, `isn't`, `won't`, `can't`) in conversational developer registers while keeping deterministic anti-slop checks in `## Self-Check Before You Deliver`.
+- **`references/rule-catalog.md` & `references/use-cases.md`**:
+  - Marked strict `configuration` / `make sure that` locks `(S)` in `rule-catalog.md` and added PR description, GitHub issue, and code review guidance to `use-cases.md`.
+
+---
+
 ## [2026-10-24] - Technical Precision, Runbook Guardrails, README & ADR Patterns
 
 - **Upstream Sources**: Curated from `tech-writing-proofread`, `runbook-creation`, `readme`, and `documentation-and-adrs`.
