@@ -14,7 +14,7 @@ allowed-tools:
   - ask_user_question
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Engineering with Agents: Disciplines for Autonomous and Paired LLM Development
@@ -152,6 +152,12 @@ Audit every test against two hypothetical changes:
 > [!IMPORTANT]
 > Keep tests that fail on Edit 1 and pass on Edit 2. Rewrite or delete the rest. Assert on observable return values, persisted states, or payloads sent to true external architectural boundaries.
 
+### 3. Reviewer & Cross-Agent Verification Pathologies
+When an agent reviews code, specifications, or pull requests (especially artifacts produced by another LLM), guard against two recurring failure modes:
+
+- **PR-Description Anchoring & Sycophantic Highlight Inflation**: Reviewing models naturally treat fluent PR descriptions and `"Reviewer guidance"` sections as ground truth, turning admitted shortcuts or `"later issue"` deferrals into praise. Inspect the linked issue requirements and test assertions *before* reading author rationalizations, and verify every admitted shortcut or deferral against contract requirements and downstream data irreversibility.
+- **Correlated Generator-Reviewer Blind Spots**: When the same model family generates and reviews an artifact (particularly natural-language prompts, translations, documentation, or test suites), shared token priors hide mechanical calques, semantic narrowing, and tautological assertions. Check `Co-Authored-By` trailers and `AI usage` notes; when model families match, route verification through a distinct model family or deterministic parity checks.
+
 ---
 
 ## Section 5: Meta-Engineering & System Evolution
@@ -181,4 +187,5 @@ Before submitting work, verify adherence to these agentic disciplines:
 - [ ] **Migrations Clean**: Internal changes migrated in one wave; zero zombie adapters or deprecated wrappers left behind.
 - [ ] **Real Artifacts Verified**: Verified the primary runtime output directly with a rerunnable command (not just linter/compiler).
 - [ ] **Tests Contract-Driven**: Every test passes the Two-Edit Mental Test (survives internal restructuring, fails on broken behavior).
+- [ ] **Reviewer Independence Preserved**: Author rationalizations were verified against issue contracts rather than echoed, and same-model blind spots were cross-checked.
 - [ ] **Corrections Encoded**: Recurring guidance has been codified into tests, lints, or scripts rather than ephemeral chat text.
