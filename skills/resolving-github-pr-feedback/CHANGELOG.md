@@ -2,6 +2,24 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Pre-Flight Author Identity Gate
+
+### 1. Base State (A)
+- Phase 1 checked `gh auth status` without verifying that the active GitHub user matched `pr.author.login`, allowing an active reviewer bot token (`GH_TOKEN`) to post author replies and resolve threads on a human author's PR.
+
+### 2. Curated Changes Applied (A -> B)
+- **Phase 1 (Authentication, Author Identity Gate & Thread Enumeration)**:
+  - Added `gh api user -q .login` and `author` to `gh pr view --json`.
+  - Added a hard-fail **Author Identity Gate** aborting execution whenever `gh_user != pr.author.login` (unless the user explicitly authorizes cross-author maintainer resolution in the session).
+- **Anti-Patterns**:
+  - Added *Wrong-Account Replies*.
+- Bumped version metadata to `1.1`.
+
+### 3. Resulting State (B)
+- Prevents cross-account identity collisions before any local commits, pushes, replies, or thread resolutions occur.
+
+---
+
 ## [2026-10-24] - Synthesis & Curation from agentic-awesome-skills (v20.0.0)
 
 - **Upstream Repository**: `https://github.com/sickn33/agentic-awesome-skills`

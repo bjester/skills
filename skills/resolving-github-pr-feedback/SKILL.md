@@ -13,7 +13,7 @@ allowed-tools:
   - ask_user_question
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Resolving GitHub PR Feedback: Review Thread Resolution and Verification
@@ -53,21 +53,24 @@ Purpose: Systematically address, verify, and resolve reviewer comments and inlin
 
 ## Execution Phases
 
-### Phase 1: Authentication & Thread Enumeration
+### Phase 1: Authentication, Author Identity Gate & Thread Enumeration
 
-1. Verify GitHub CLI authentication:
+1. Verify GitHub CLI authentication and query the active GitHub login:
    ```bash
    gh auth status
+   gh api user -q .login
    ```
-2. Inspect PR branch metadata:
+2. Inspect PR branch metadata and author login:
    ```bash
-   gh pr view --json number,title,baseRefName,headRefName,headRefOid
+   gh pr view --json number,title,baseRefName,headRefName,headRefOid,author
    ```
 
-> [!WARNING]
-> `gh pr view --comments` only outputs top-level issue conversation comments. It completely omits inline diff review threads. You must query inline review threads explicitly.
+> [!IMPORTANT]
+> **Author Identity Gate (Hard Fail on Mismatch)**: Compare the active `gh` login (`gh api user -q .login`) against `pr.author.login`. If they do not match (for example, `gh` is authenticated as a reviewer bot via `GH_TOKEN` while resolving a human author's PR), **stop immediately with a hard failure** before committing, pushing, replying, or resolving threads:
+> `Active gh account '<gh_user>' does not match PR author '<pr.author.login>'. Authenticate gh as '<pr.author.login>' (or unset a bot GH_TOKEN override) before resolving feedback.`
+> Proceed across mismatched logins **only** when the user explicitly instructs you in the current session to resolve feedback on another author's PR as a co-maintainer. Never echo token values.
 
-3. Enumerate all active review threads using the GitHub GraphQL API:
+3. Enumerate all active review threads using the GitHub GraphQL API (`gh pr view --comments` only returns top-level conversation comments and omits inline diff threads):
    ```bash
    gh api graphql -f query='
      query($owner: String!, $repo: String!, $pr: Int!) {
@@ -193,3 +196,4 @@ Present the triage summary to the user before touching code:
 - **Phantom Resolution**: Resolving review threads to clear the UI checklist without actually committing code or running verification.
 - **Drive-By Scope Creep**: Using review feedback as an excuse to rewrite unrelated modules or alter project dependencies.
 - **Resolving Before Pushing**: Marking threads resolved before the fix is pushed to the remote repository, leaving reviewers unable to verify the commit.
+- **Wrong-Account Replies**: Replying to or resolving review threads while `gh` is authenticated as a reviewer or bot account rather than the PR author.
