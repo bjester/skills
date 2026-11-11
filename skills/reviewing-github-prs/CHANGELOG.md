@@ -2,6 +2,31 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-11] - Reviewer Identity Gate, Strict Approval Gate, Rebase-Safe Deltas & Distinct Inline Badges
+
+### 1. Base State (A)
+- Did not check `gh api user -q .login` against `pr.author.login` prior to staging or publishing GitHub reviews.
+- Allowed `APPROVE` without gating on unexecuted manual/browser QA or governance/supply-chain file modifications, and allowed `✅ Positive Highlight` inline diff comments that left open threads on PRs.
+- Lacked a rebase-aware delta review recipe (`git range-diff`) to exclude upstream target-branch advances after force-pushes.
+
+### 2. Curated Changes Applied (A -> B)
+- **Step 1 (Verify Identity, PR Context, Scope & Linked Issues)**:
+  - Added hard-fail **Reviewer Identity Gate** aborting GitHub review submission whenever `gh api user -q .login == pr.author.login`.
+  - Added `pulls/<pr>/reviews` fetching and stack-aware anti-repetition guidance.
+  - Added **Commit-by-Commit Scope & Stacked-Base Check** classifying out-of-scope edits and flaky-CI workarounds in unrelated modules as `🚨 Blocker (Must-Fix)`.
+  - Added **Adversarial PR-Body & Issue Contract Audit** against linked issue deliverables and irreversible data writes.
+  - Added **Rebase-Safe Delta Reviews** (`merge-base --is-ancestor`, `git range-diff` across advanced bases, `CHANGELOG.md` migration checks, and manual verification sign-off table checks).
+- **Step 3 (Local Checkout & Empirical Verification)**:
+  - Added **Conditional Manual & Browser QA Gate** with graceful non-blocking fallback (`COMMENT` + disclosure in `Verification Status` when live QA cannot execute).
+- **Step 4, Step 5 & Etiquette**:
+  - Defined five distinct inline emoji badges (`🚨`, `⚠️`, `💡`, `❓`, `🧹`), moved `✅ Positive Highlights` exclusively to the summary body, stopped repeating non-blocking inline findings item-by-item in the summary body (reporting key blockers if any plus non-zero category counts), and added the **Strict Approval Gate**.
+- Bumped version metadata to `1.5`.
+
+### 3. Resulting State (B)
+- Enforces clean account separation, high-signal inline threads, calibrated `COMMENT` vs. `APPROVE` verdicts, and noise-free delta reviews across rebased PR stacks.
+
+---
+
 ## [2026-10-24] - Inline Thread Fetching, CI Inspection, Untrusted PR Safety & Deterministic Commit Binding
 
 - **Integrated Sources**:
