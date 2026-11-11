@@ -29,7 +29,11 @@ Tracks upstream sources, imported commit revisions, and curated repository modif
 ### 3. Resulting State (B)
 - Self-contained, profile-isolated live browser verification skill (`v1.0`) usable standalone by authors or invoked conditionally by `reviewing-github-prs` without risking personal browser profiles or stalling static code reviews.
 
-### 4. Re-sync / Update Recipe
+### 4. Known Upstream Behaviors (Preserved for Byte Parity)
+- **Unpinned `axe-core@latest` CDN fetch and cache (`scripts/drive-browser.py:668-669`, `:825-840`)**: `cmd_a11y` loads `axe-core@latest` from jsDelivr on unrestricted pages and caches `~/.drive-browser/axe-core.min.js` without invalidation on CSP-restricted pages, so `a11y` results can drift across machines or dates. Tracked upstream in [`learningequality/le-skills#145`](https://github.com/learningequality/le-skills/issues/145).
+- **CLI `auth` credential flags (`scripts/drive-browser.py:1346-1347`)**: `auth` accepts `--username` and `--password` as CLI arguments (briefly visible in local process listings). `SKILL.md` restricts `auth` flags to non-sensitive local test/fixture credentials.
+
+### 5. Re-sync / Update Recipe
 ```bash
 git -C sources/le-skills fetch origin
 git -C sources/le-skills log -p 9dc3e40713b25f74509e01847cf80e6582421d70..origin/main -- \

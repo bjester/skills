@@ -4,7 +4,7 @@ Purpose: Audit a reviewer account's multi-reviewer GitHub Pull Request history a
 
 ## When to Run
 
-Run this playbook inside `/home/bjester/Projects/skills` when you want to evaluate how an AI reviewer account (such as `bjesterbot`) performed on real pull requests and harden the skills in this repository from empirical peer-review outcomes.
+Run this playbook from the root of this repository's working copy (`git rev-parse --show-toplevel`) when you want to evaluate how an AI reviewer account (such as `bjesterbot`) performed on real pull requests and harden the skills in this repository from empirical peer-review outcomes.
 
 > [!NOTE]
 > This runbook is a repository-local maintenance guide. Keep it in `docs/` rather than `skills/` so `make build` does not package it into `output/skills/` or load discovery metadata into unrelated coding sessions.

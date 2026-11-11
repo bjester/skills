@@ -119,6 +119,7 @@ Purpose: Verify frontend, routing, accessibility, and client-side telemetry beha
        uv run --script scripts/drive-browser.py js --session pr-123 "window.location.pathname"
        uv run --script scripts/drive-browser.py stop --session pr-123
        ```
+     - Pass only non-sensitive local fixture or dummy credentials to `scripts/drive-browser.py auth` (`--username` and `--password` appear briefly in local process listings). Never pass real user or shared staging passwords.
    - **Transport B: Chrome DevTools MCP (Secondary Option)**:
      - Use when `chrome-devtools-mcp` tools are active and fine-grained outbound request inspection (`list_network_requests`) is needed or `uv`/Playwright cannot run.
      - Always call `list_pages` first to confirm the MCP browser is an isolated automation instance (`about:blank` or `localhost` tabs only). If personal tabs are open, **do not interact with that browser**; switch to Transport A or return `SKIPPED_UNAVAILABLE`.
@@ -146,7 +147,7 @@ Run the probes relevant to the PR's changed files:
 3. **Probe 3: Multimodal Visual, Responsive/RTL & `a11y` Audit**:
    - **Read Every Screenshot Multimodally**: Taking a screenshot without reading it with `read_file` is not verification. Snapshots confirm DOM structure; reading the `.png` confirms visual layout, contrast, clipping, overlapping columns, and alignment against any linked issue mockups.
    - When layout, responsive styles, or directional rules changed, verify narrow viewports (`resize --width 412 --height 915`) and switch to an RTL locale (such as Arabic) to verify icon/layout mirroring.
-   - Run `scripts/drive-browser.py a11y --level AA` (axe-core WCAG AA) or inspect `take_snapshot` + `list_console_messages` (`types: ["issue"]`) on every affected route, checking accessible names, heading hierarchy, and keyboard focus management.
+   - Run `scripts/drive-browser.py a11y --level AA` (axe-core WCAG AA) or inspect `take_snapshot` + `list_console_messages` (`types: ["issue"]`) on every affected route, checking accessible names, heading hierarchy, and keyboard focus management. Note that bundled `scripts/drive-browser.py` fetches `axe-core@latest` and caches `~/.drive-browser/axe-core.min.js` without invalidation, so delete that cached file if local rules appear stale.
 
 4. **Probe 4: Console Diagnostics & PR Attribution Check**:
    - Inspect the drained `console` JSON array returned by every `scripts/drive-browser.py screenshot` call (or `list_console_messages` in MCP). Do not dismiss errors without evidence.
