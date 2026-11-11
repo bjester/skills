@@ -52,6 +52,7 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches across 4 architectural scales with counterfactual test mutation, caller-verified remediations (`Rename-Over-Comment`), calibrated comment/doc hygiene, and multi-model adversarial review. |
 | **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) with pre-flight reviewer identity checks, commit/stack scope gates, strict approval gates, and rebase-safe delta diffing (`git range-diff`) to submit structured PR reviews via the GitHub API. |
+| **[`verifying-prs-in-browser`](skills/verifying-prs-in-browser/)** | Live Browser PR Verification | Conditional, profile-isolated browser and devserver verification using bundled `drive-browser.py` (standalone Playwright + axe-core WCAG AA) or Chrome DevTools MCP, with multimodal screenshot inspection, PR defect attribution, and non-blocking graceful fallback. |
 | **[`resolving-github-pr-feedback`](skills/resolving-github-pr-feedback/)** | GitHub PR Review Resolution | Author-side PR resolution workflow: enforces pre-flight author identity matching, fetches unresolved inline review threads via GraphQL, classifies items (`fix-now`, `clarify`, `defer`), verifies against `HEAD`, and replies with commit/test evidence. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
@@ -205,6 +206,11 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   │   ├── SKILL.md
 │   │   ├── mocking-guidelines.md
 │   │   └── testing-anti-patterns.md
+│   ├── verifying-prs-in-browser/
+│   │   ├── CHANGELOG.md
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       └── drive-browser.py
 │   ├── writing-github-issues-for-bugs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
