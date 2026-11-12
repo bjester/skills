@@ -18,10 +18,10 @@ SHINYSKILLS_VERSION := 0.2.0
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
-REFERENCE_SKILLS := writing-github-issues-for-features writing-github-issues-for-bugs writing-github-prs writing-technical-docs pairing-with-adhd executing-plans
-writing-github-issues-for-features_REFERENCES := github-issue-guidelines.md word-swaps.md
-writing-github-issues-for-bugs_REFERENCES := github-issue-guidelines.md word-swaps.md
-writing-github-prs_REFERENCES := word-swaps.md
+REFERENCE_SKILLS := writing-issues-for-features writing-issues-for-bugs writing-prs writing-technical-docs pairing-with-adhd executing-plans
+writing-issues-for-features_REFERENCES := forge-cli.md issue-guidelines.md word-swaps.md
+writing-issues-for-bugs_REFERENCES := forge-cli.md issue-guidelines.md word-swaps.md
+writing-prs_REFERENCES := forge-cli.md word-swaps.md
 writing-technical-docs_REFERENCES := word-swaps.md
 pairing-with-adhd_REFERENCES := word-swaps.md
 executing-plans_REFERENCES := decision-log-template.tsv
