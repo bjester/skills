@@ -2,6 +2,21 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-12] - Gitea Actions Workflow Protection
+
+### 1. Base State (A)
+- `Protected Paths & Secret Exclusion` under `Prerequisites & Operating Posture` listed `.github/workflows/` for CI/CD pipeline confirmation gates, omitting Gitea Actions workflow directories.
+
+### 2. Curated Changes Applied (A -> B)
+- **Prerequisites & Operating Posture**:
+  - Updated `Protected Paths & Secret Exclusion` to require explicit user confirmation before modifying `.gitea/workflows/` alongside `.github/workflows/`.
+- Bumped version metadata from `1.2` to `1.3`.
+
+### 3. Resulting State (B)
+- Extends CI/CD pipeline modification safeguards across both GitHub Actions and Gitea Actions repositories.
+
+---
+
 ## [2026-11-11] - Reviewer Anchoring & Same-Model Blind Spot Guardrails
 
 ### 1. Base State (A)

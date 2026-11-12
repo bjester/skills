@@ -13,7 +13,7 @@ allowed-tools:
   - invoke_subagent
 metadata:
   author: Blaine Jester
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Investigating Code Lineage: Historical Archaeology & Intent Discovery
@@ -25,7 +25,7 @@ Purpose: Reconstruct the authentic business, architectural, and operational forc
 │                   CODE LINEAGE INVESTIGATION HARNESS                   │
 └────────────────────────────────────────────────────────────────────────┘
 
-  1. CODE ANCHORING       ──► Blame, patch history, PR extraction (`gh pr view`)
+  1. CODE ANCHORING       ──► Blame, patch history, PR extraction (`gh` / `gt` PR lookup)
              │
              ▼
   2. SOURCE DISCOVERY     ──► Discover available tools across 7 evidence categories
@@ -61,8 +61,8 @@ Dynamically inspect the environment and available MCP tools. Query across these 
 
 | Category | Primary Sources & Tools | Archetype of "Why" Uncovered |
 |---|---|---|
-| **1. Source Control** | `git blame`, `git log -p`, `gh pr view`, code comments | Implementation-time rationale captured during code review. |
-| **2. Issue Trackers** | Linear, Jira, GitHub Issues, Plane | The product, customer, or business forcing function. |
+| **1. Source Control** | `git blame`, `git log -p`, `gh pr view`, `gt pr view`, `gt commit pr`, code comments | Implementation-time rationale captured during code review. |
+| **2. Issue Trackers** | Linear, Jira, GitHub Issues, Gitea Issues, Plane | The product, customer, or business forcing function. |
 | **3. Long-Form Docs** | Notion, Confluence, Google Docs, RFC directories | Architecture Design Records (ADRs) and pre-implementation trade-offs. |
 | **4. Team Communications** | Slack, Discord, PR review threads | Real-time emergency deliberation that never made it into official docs. |
 | **5. Observability** | Datadog, Grafana, Honeycomb, Prometheus | Infrastructure reality (latency spikes, thread pool exhaustion, 429s). |
@@ -84,14 +84,21 @@ Before querying external sources, build an unambiguous anchor from git history:
 4. **Copy/Move & Whitespace-Piercing Blame**: Use `git blame -w -C -C -C -L <start>,<end> <file>` to see through formatting sweeps, indentation refactors, and file extractions to find the true original commit.
 5. **Pickaxe Search Across File Moves/Deletions (`-S` / `-G`)**: When `git log -L` stops at a file split or move, run `git log -S "<symbol_or_constant>" -p` (or `-G "<regex>"`) across the repository to locate the true origin commit where the guard or constant first appeared.
 6. Extract PR numbers from merge commit subjects (`(#1234)`) and commit messages.
-7. If GitHub CLI (`gh`) is available, fetch the full PR body and review discussion:
-   ```bash
-   gh pr view <pr-number> --json title,body,author,createdAt,mergedAt,comments,reviews
-   ```
+7. Fetch the PR body, reviews, and comments with the repository forge CLI (`gh` or `gt`):
+   - **GitHub (`gh`)**:
+     ```bash
+     gh pr view <pr-number> --json title,body,author,createdAt,mergedAt,comments,reviews
+     ```
+   - **Gitea (`gt`)** (resolve the PR number from `<sha>` first when commit subjects omit `(#1234)`):
+     ```bash
+     gt commit pr <sha> --no-input --json number,title
+     gt pr view <pr-number> --no-input --json title,body,author,created_at,merged_at,reviews
+     gt pr comment list <pr-number> -L 100 --no-input --json author,body,created_at
+     ```
 
 ### Phase 2: Tool & Environment Discovery
 Inspect available environment tools and MCP servers to identify which evidence categories can be queried:
-- Source control is always available via `git` and `gh`.
+- Source control is always available via `git` and the repository forge CLI (`gh` or `gt`).
 - Check for connected MCP tools (issue trackers, document search, error logs).
 - Note any unavailable categories as documented search gaps rather than skipping silently.
 

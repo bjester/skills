@@ -18,10 +18,12 @@ SHINYSKILLS_VERSION := 0.2.0
 
 # Declare only the shared references each skill needs.  Paths are relative to
 # the top-level references/ directory and are preserved in the packaged skill.
-REFERENCE_SKILLS := writing-github-issues-for-features writing-github-issues-for-bugs writing-github-prs writing-technical-docs pairing-with-adhd executing-plans
-writing-github-issues-for-features_REFERENCES := github-issue-guidelines.md word-swaps.md
-writing-github-issues-for-bugs_REFERENCES := github-issue-guidelines.md word-swaps.md
-writing-github-prs_REFERENCES := word-swaps.md
+REFERENCE_SKILLS := writing-issues-for-features writing-issues-for-bugs writing-prs reviewing-prs resolving-pr-feedback writing-technical-docs pairing-with-adhd executing-plans
+writing-issues-for-features_REFERENCES := forge-cli.md issue-guidelines.md word-swaps.md
+writing-issues-for-bugs_REFERENCES := forge-cli.md issue-guidelines.md word-swaps.md
+writing-prs_REFERENCES := forge-cli.md word-swaps.md
+reviewing-prs_REFERENCES := forge-cli.md
+resolving-pr-feedback_REFERENCES := forge-cli.md
 writing-technical-docs_REFERENCES := word-swaps.md
 pairing-with-adhd_REFERENCES := word-swaps.md
 executing-plans_REFERENCES := decision-log-template.tsv
@@ -30,6 +32,8 @@ REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skil
 
 # Globs (relative to each skill) left out of distributable packages.
 PACKAGE_EXCLUDES := CHANGELOG.md README.md LICENSE* *.test.*
+
+PROVENANCE_MARKER := https://github.com/bjester/skills/blob/main/LICENSE
 
 clean:
 	rm -rf output
@@ -44,7 +48,21 @@ build: clean
 install: build
 	set -e; \
 	for install_dir in $(INSTALL_DIRS); do \
-		rsync --progress -ah output/ "$$install_dir"; \
+		mkdir -p "$$install_dir/skills"; \
+		for skill_path in output/skills/*/; do \
+			skill_name="$$(basename "$$skill_path")"; \
+			rsync --progress -ah --delete "$$skill_path" "$$install_dir/skills/$$skill_name/"; \
+		done; \
+		for skill_md in "$$install_dir"/skills/*/SKILL.md; do \
+			[ -f "$$skill_md" ] || continue; \
+			skill_dir="$$(dirname "$$skill_md")"; \
+			skill_name="$$(basename "$$skill_dir")"; \
+			if [ ! -d "output/skills/$$skill_name" ] && \
+				awk 'NR==1 && !/^---$$/{exit} NR>1 && /^---$$/{exit} NR>1' "$$skill_md" | grep -qxF 'license: MIT - $(PROVENANCE_MARKER)'; then \
+				echo "Removed retired skill: $$skill_dir"; \
+				rm -rf "$$skill_dir"; \
+			fi; \
+		done; \
 	done
 
 install-shinyskills:
@@ -68,6 +86,7 @@ sources:
 		sources/agentic-awesome-skills \
 		sources/cursor-plugins \
 		sources/google-skills \
+		sources/gt-cli \
 		sources/i-have-adhd \
 		sources/le-skills \
 		sources/mattpocock-skills \
@@ -90,6 +109,9 @@ sources/cursor-plugins:
 
 sources/google-skills:
 	git clone git@github.com:google/skills.git $@
+
+sources/gt-cli:
+	git clone https://gitea.com/gitea/cli.git $@
 
 sources/i-have-adhd:
 	git clone git@github.com:ayghri/i-have-adhd.git $@

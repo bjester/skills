@@ -1,6 +1,15 @@
-# Changelog & Provenance: writing-github-issues-for-bugs
+# Changelog & Provenance: writing-issues-for-bugs
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
+
+## [2026-11-12] - Forge-Neutral Rename & Dual-Forge (gh / gt) Support
+
+### 1. Curated Changes Applied
+- **Skill Rename (`1.2` -> `2.0`)**: Moved `skills/writing-github-issues-for-bugs/` to `skills/writing-issues-for-bugs/` and updated `# Writing Issues: Bugs`, CSO `description`, `compatibility`, and `Purpose:` to cover both GitHub (`gh`) and Gitea (`gt`).
+- **Workflow & Shared Reference Wiring**: Added the 4-step ASCII workflow diagram (`SELECT FORGE & SEARCH DUPLICATES -> DRAFT BUG CONTRACT -> DE-SLOP SCAN -> SAFE --body-file SUBMIT`) and linked `references/forge-cli.md`, `references/issue-guidelines.md` (replacing `references/github-issue-guidelines.md`), and `references/word-swaps.md`.
+- **Dual-Forge CLI & Cross-Reference Updates**: Updated feature cross-reference to `writing-issues-for-features` and expanded duplicate search and `--body-file` submission gates to cover `gh issue list --search` / `gh issue create --body-file` and `gt issue list -S --no-input` / `gt issue create --no-input --body-file`.
+
+---
 
 ## [2026-11-11] - Plain Technical Prose & De-Slop Routing (`writing-technical-docs`)
 

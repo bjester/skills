@@ -1,6 +1,28 @@
-# Changelog & Provenance: reviewing-github-prs
+# Changelog & Provenance: reviewing-prs
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
+
+## [2026-11-12] - Forge-Neutral Rename, Level 3 Forge Adapters & Gitea (`gt`) Support
+
+### 1. Base State (A)
+- Coupled to GitHub under `skills/reviewing-github-prs/` (`version: "1.6"`), hardcoding `gh` CLI queries, `POST repos/{owner}/{repo}/pulls/<pr>/reviews` payloads, and `.github/workflows/`-only CI protections inline inside `SKILL.md`.
+- Could not trigger on or execute structured pull request reviews against Gitea repositories using the official `gt` CLI.
+
+### 2. Curated Changes Applied (A -> B)
+- **Renamed & Generalized (`1.6` -> `2.0`)**:
+  - Moved `skills/reviewing-github-prs/` to `skills/reviewing-prs/`, updated `compatibility` to `Git repositories hosted on GitHub (gh) or Gitea (gt)`, and wrote a Context-Search-Optimized `description` covering both `gh` and `gt` pull request review workflows.
+  - Wired shared `[references/forge-cli.md](references/forge-cli.md)` in Prerequisites and Step 1 to enforce the deterministic `Forge Selection Gate` and case-insensitive `Reviewer Identity Gate` across GitHub (`pr.author.login`) and Gitea (flat `author` string).
+- **Extracted Level 3 Forge Adapters**:
+  - Created `skills/reviewing-prs/references/github-gh.md` encapsulating all GitHub `gh` CLI queries, hunk side rules (`side: "RIGHT" | "LEFT"`, multi-line `start_line`/`start_side`), `commit_id` REST payload drafting, Mode A Pending vs. Mode B Published submission, and HTTP 422 outside-diff recovery.
+  - Created `skills/reviewing-prs/references/gitea-gt.md` defining verified non-interactive `gt --no-input` review mechanics: `gt api user --jq .login --no-input`, `gt pr view` flat string schema (`author`, `base`, `head`, and absence of `commits`), `--paginate` on the `pulls/<num>/commits` fallback, `gt pr comment list -L 100`, `gt pr review list -L 100` (including the pre-submission `PENDING` fold hazard check), `gt pr review comments -L 1000` (`resolver == ""` and `old_line`), XOR `new_position` / `old_position` inline comment JSON files, and Mode A (`--pending`) vs. Mode B (`--request-changes|--comment|--approve`) submission with pre-submit `head_sha` verification and `--commit` omitted so `gt` validates diff membership before submitting.
+- **Expanded Multi-Forge Security & Governance Gates**:
+  - Updated Step 3 **Untrusted PR Checkout Safety** and Step 4 **Strict Approval Gate** condition 2 to inspect and gate on `.gitea/workflows/` alongside `.github/workflows/`.
+  - Preserved 100% of existing 4-scale review criteria, rebase-safe `git range-diff` delta review rules, `writing-technical-docs` Plain register discipline, 5-badge inline partitioning, summary non-duplication, and remote AI generation disclosure rules across both forges.
+
+### 3. Resulting State (B)
+- A compact (<230 lines), forge-neutral PR review skill supporting both GitHub (`gh`) and Gitea (`gt`) with zero inactive CLI bloat and identical architectural rigor, identity safety, and diff-verified inline review quality.
+
+---
 
 ## [2026-11-11] - Plain Prose & De-Slop Register Routing (`writing-technical-docs`)
 
@@ -171,10 +193,11 @@ When upstream `sources/le-skills` is updated:
    git -C sources/le-skills diff 9dc3e40713b25f74509e01847cf80e6582421d70..HEAD -- skills/github-pr-review/
    ```
 3. Evaluate updates to GitHub API review payloads, delta review logic, or diff handling.
-4. Port improvements into `skills/reviewing-github-prs/` while preserving:
-   - The skill name `reviewing-github-prs` and repository frontmatter.
-   - The 4-scale software engineering review integration and 4-tier finding taxonomy.
+4. Port improvements into `skills/reviewing-prs/` (and `skills/reviewing-prs/references/github-gh.md` for GitHub-specific mechanics) while preserving:
+   - The skill name `reviewing-prs` and repository frontmatter.
+   - Dual-forge `Forge Selection Gate` and `Reviewer Identity Gate` wiring (`references/forge-cli.md` and `references/gitea-gt.md`).
+   - The 4-scale software engineering review integration and 5-badge inline finding taxonomy.
    - Cross-skill wiring with `reviewing-code`, `engineering-software`, and `learning-equality`.
-   - The trailing AI generation disclosure requirement on GitHub review submission.
-5. Run `make build` to verify output packaging.
+   - The trailing AI generation disclosure requirement on remote review submission.
+5. Run `make build` and `make validate` to verify output packaging.
 6. Record the new upstream commit hash, date, and changes in this changelog.

@@ -1,6 +1,15 @@
-# Changelog & Provenance: writing-github-issues-for-features
+# Changelog & Provenance: writing-issues-for-features
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
+
+## [2026-11-12] - Forge-Neutral Rename & Dual-Forge (gh / gt) Support
+
+### 1. Curated Changes Applied
+- **Skill Rename (`1.2` -> `2.0`)**: Moved `skills/writing-github-issues-for-features/` to `skills/writing-issues-for-features/` and updated `# Writing Issues: Features`, CSO `description`, `compatibility`, and `Purpose:` to cover both GitHub (`gh`) and Gitea (`gt`).
+- **Workflow & Shared Reference Wiring**: Added the 4-step ASCII workflow diagram (`SELECT FORGE & SLICE SCOPE -> DRAFT FEATURE CONTRACT -> DE-SLOP SCAN -> SAFE --body-file SUBMIT`) and linked `references/forge-cli.md`, `references/issue-guidelines.md` (replacing `references/github-issue-guidelines.md`), and `references/word-swaps.md`.
+- **Dual-Forge Epic Slicing & Checklist Updates**: Updated bug cross-reference to `writing-issues-for-bugs` and generalized `Decomposing a Spec or Epic into Multiple Issues (Vertical Slicing)` and `Self-Review Checklist Before Submitting` for dual `gh issue list --search` / `gh issue create --body-file` and `gt issue list -S --no-input` / `gt issue create --no-input --body-file` dependency-ordered submission.
+
+---
 
 ## [2026-11-11] - Plain Technical Prose & De-Slop Routing (`writing-technical-docs`)
 

@@ -1,6 +1,15 @@
-# Changelog & Provenance: writing-github-prs
+# Changelog & Provenance: writing-prs
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
+
+## [2026-11-12] - Forge-Neutral Rename & Dual-Forge (gh / gt) PR Authoring
+
+### 1. Curated Changes Applied
+- **Skill Rename & Frontmatter (`1.0` -> `2.0`)**: Renamed `writing-github-prs` to `writing-prs` and generalized frontmatter (`compatibility: Git repositories hosted on GitHub (gh) or Gitea (gt)`) and CSO `description` across both GitHub (`gh`) and Gitea (`gt`).
+- **Phase 1 (Forge Selection, Author Identity Gate & Template Discovery)**: Wired shared `references/forge-cli.md` for pre-flight forge selection and author identity checks (`gh api user -q .login` and `gt api user --jq .login --no-input`), added `gt issue view <num> --no-input --json number,title,body,labels` alongside `gh issue view <num>`, and expanded PR template discovery to `.gitea/pull_request_template.md` and `.gitea/PULL_REQUEST_TEMPLATE/*.md`.
+- **Phase 2 & Phase 4 (Forge-Neutral Diff Framing & Dual-Forge `--body-file` Submission)**: Generalized diff framing and added Gitea `gt pr view --no-input`, `gt pr create --no-input`, and `gt pr edit --no-input` commands alongside `gh`, documenting Gitea unpushed-branch exit `2` / `--yes` confirmation safeguards and `--draft` `WIP: ` title prefix behavior.
+
+---
 
 ## [2026-11-11] - Initial Release: Template-First, Slop-Free GitHub PR Authoring
 

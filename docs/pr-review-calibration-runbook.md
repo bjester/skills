@@ -107,7 +107,7 @@ Run this playbook from the root of this repository's working copy (`git rev-pars
    | :--- | :--- |
    | `skills/engineering-software/` | Timeless computer science, architecture, concurrency, data-integrity, and refactoring invariants that apply equally to human and AI engineers. |
    | `skills/engineering-with-agents/` | LLM-specific behavioral guardrails countering autoregressive pathologies (anchoring on PR prose, same-model blind spots, hallucinated praise, proxy checks). |
-   | Workflow & capability skills (`reviewing-code`, `reviewing-github-prs`, `verifying-prs-in-browser`, `resolving-github-pr-feedback`, `analyzing-blast-radius`, `writing-github-prs`, `writing-technical-docs`) | Phased procedural gates, pre-flight CLI identity checks, rebase-safe delta diffing, prose hygiene, and isolated browser verification steps. |
+   | Workflow & capability skills (`reviewing-code`, `reviewing-prs`, `verifying-prs-in-browser`, `resolving-pr-feedback`, `analyzing-blast-radius`, `writing-prs`, `writing-technical-docs`, `using-gitea-cli`) | Phased procedural gates, pre-flight CLI identity checks, rebase-safe delta diffing, prose hygiene, and isolated browser verification steps. |
    | Organization / ecosystem skills (`skills/learning-equality/`, etc.) | Organization-specific framework conventions, database floors, KDS rules, and workspace packaging globs (split into on-demand `references/*.md` files when detailed). |
    | Out-of-repo harness / bot config | Bot-specific GitHub webhooks, `GH_TOKEN` credential wrappers, cron triggers, and account personas. Keep these out of `skills/`. |
 

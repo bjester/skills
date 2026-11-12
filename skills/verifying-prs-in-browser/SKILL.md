@@ -33,7 +33,7 @@ allowed-tools:
   - list_network_requests
 metadata:
   author: Blaine Jester
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Verifying Pull Requests in Browser
@@ -127,7 +127,7 @@ Purpose: Verify frontend, routing, accessibility, and client-side telemetry beha
 3. **Non-Blocking Fallback Invariant (`SKIPPED_UNAVAILABLE`)**:
    - > [!NOTE]
      > Keep setup strictly bounded. Do **not** spend review turns provisioning Docker daemons, external databases, unseeded fixtures, missing OAuth/API keys, or debugging sandbox port/browser restrictions, and never treat missing local infrastructure or absent image-upload keys as a PR defect.
-   - If the devserver or browser transport cannot run due to environment constraints rather than a bug introduced by the PR, execute Phase 4 teardown immediately and return `SKIPPED_UNAVAILABLE: <one-line reason>` so `reviewing-github-prs` completes static review normally (`COMMENT` + `Verification Status` note).
+   - If the devserver or browser transport cannot run due to environment constraints rather than a bug introduced by the PR, execute Phase 4 teardown immediately and return `SKIPPED_UNAVAILABLE: <one-line reason>` so `reviewing-prs` completes static review normally (`COMMENT` + `Verification Status` note).
 
 ---
 
@@ -167,7 +167,7 @@ Run the probes relevant to the PR's changed files:
    - Stop the browser session (`uv run --script scripts/drive-browser.py stop --session <id>` or `close_page`).
    - Terminate any devserver or watcher spawned during this session by process group (`kill -- -<PGID>` or `manage_task kill`) and confirm the port is released so zero orphan daemons leak across reviews. Keep captured proof screenshots in `/tmp` or scratch if referenced.
 
-2. **Structured Output for `reviewing-github-prs` or Standalone Use**:
+2. **Structured Output for `reviewing-prs` or Standalone Use**:
    - Report concise Plain English (`writing-technical-docs` compliant, zero em-dashes) with one of five statuses:
      - `PASSED`: List exact routes/scenarios verified, multimodal visual & `a11y` AA check status, and console/network cleanliness.
      - `FAILED`: List each `Attributable to PR` defect with exact reproduction steps, console/network/a11y evidence, and mapped `file:line` pointers.

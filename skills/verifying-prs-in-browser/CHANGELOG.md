@@ -2,6 +2,13 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-12] - Forge-Neutral PR Review Skill Routing (`reviewing-prs`)
+
+### 1. Curated Changes Applied
+- **`SKILL.md` (`1.0` -> `1.1`)**: Updated caller cross-references in Phase 2 (`SKIPPED_UNAVAILABLE`) and Phase 4 (`Structured Output`) from `reviewing-github-prs` to the forge-neutral `reviewing-prs` skill.
+
+---
+
 ## [2026-11-11] - Initial Curation: Conditional Live Browser PR Verification & Standalone Session Driver
 
 - **Upstream Repository**: `https://github.com/learningequality/le-skills`

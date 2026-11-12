@@ -2,7 +2,7 @@
 name: writing-technical-docs
 description: |
   Write or rewrite technical documentation, pull request (PR) descriptions,
-  GitHub issues, code review comments, READMEs, runbooks, procedures, error
+  GitHub and Gitea issues, code review comments, READMEs, runbooks, procedures, error
   messages, release notes, incident reports, ADRs, API guides, and specifications
   in plain, layman-readable English in the spirit of ASD-STE100 Simplified
   Technical English: short sentences, active voice, simple tenses, one word one
@@ -22,13 +22,13 @@ allowed-tools:
   - find_by_name
 metadata:
   author: Blaine Jester
-  version: "2.4.0-curated"
+  version: "2.4.1-curated"
   standard: ASD-STE100 Issue 9 (2025-01-15)
 ---
 
 # Writing Technical Documentation
 
-Purpose: Write clear, verifiable Plain English across technical documentation, specifications, READMEs, GitHub issues, pull requests, and code reviews with zero AI slop.
+Purpose: Write clear, verifiable Plain English across technical documentation, specifications, READMEs, issues, pull requests, and code reviews with zero AI slop.
 
 Write plain English that a smart reader outside your field understands on one read. The rules come from ASD-STE100, the controlled language aerospace uses so a tired mechanic cannot misread an instruction. Two registers exist: formal documents and conversational developer prose (chat replies, code reviews, and PR discussions). Each has its own rule set below.
 
@@ -46,10 +46,10 @@ When writing or rewriting documentation, specifications, READMEs, ADRs, issues, 
 8. **One word, one meaning, for the whole document.** Do not alternate between `config`, `settings`, and `options` for the same file in one document. Standard engineering verbs (`verify`, `check`, `confirm`, `validate`) are permitted in Plain mode; replace `ensure` per `references/word-swaps.md` (`verify`, `check`, or `make sure that`), and reserve mandatory `"make sure that"` / `"configuration"` vocabulary locks for Strict mode. Break noun chains over three words with a preposition ("the timeout value for the connection pool").
 9. **State what the reader needs before you name the action.** Define a concept term at its first use, under ten words, one per sentence. Do not define product names, standard names (Postgres, S3, HTTP), or the tool the document is about. Name the host, the flag, or the prior step that a command depends on: "Restart the `sync` service on the host that runs the job."
 10. **State the fact, not its importance.** Delete words that carry no fact: simply, seamlessly, robust, powerful, comprehensive, leverage, crucial, "in order to", "it is worth noting", "this PR aims to". No "not just X, it is Y". No decorative triplets. No "in conclusion".
-11. **Format for the eye, not for decoration.** Use numbered or bulleted vertical lists for sequences, options, or three or more parallel items: colon on the lead-in, uppercase start, one instruction per item. Bold lead-in labels on list items (`- **Timeout**: 30 seconds.`) are permitted for parallel named properties; never bold words mid-sentence for dramatic emphasis. Omit emojis unless required by a structured workflow schema (such as `reviewing-github-prs` severity badges). Outside repository templates (PRs, issues, ADRs), every heading must cover at least three sentences or a structured list/table.
+11. **Format for the eye, not for decoration.** Use numbered or bulleted vertical lists for sequences, options, or three or more parallel items: colon on the lead-in, uppercase start, one instruction per item. Bold lead-in labels on list items (`- **Timeout**: 30 seconds.`) are permitted for parallel named properties; never bold words mid-sentence for dramatic emphasis. Omit emojis unless required by a structured workflow schema (such as `reviewing-prs` severity badges). Outside repository templates (PRs, issues, ADRs), every heading must cover at least three sentences or a structured list/table.
 12. **Warnings: command or condition first, then the risk.** "Do not run this against production. The command deletes rows."
 
-Use American spelling. `references/word-swaps.md` maps overused AI words to plain ones. For an error message, runbook, incident report, release note, commit message, PR description, GitHub issue, or UI copy, read `references/use-cases.md` first.
+Use American spelling. `references/word-swaps.md` maps overused AI words to plain ones. For an error message, runbook, incident report, release note, commit message, PR description, issue, or UI copy, read `references/use-cases.md` first.
 
 **Before (real AI output):**
 

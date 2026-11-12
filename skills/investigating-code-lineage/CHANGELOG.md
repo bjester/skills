@@ -2,6 +2,25 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-12] - Dual-Forge (gh / gt) PR & Commit Lineage Support
+
+### 1. Base State (A)
+- PR and issue archaeology steps assumed GitHub (`gh pr view` and GitHub Issues), omitting Gitea (`gt`) commit-to-PR lookup, PR metadata and comment retrieval, and Gitea Issues.
+
+### 2. Curated Changes Applied (A -> B)
+- **Workflow Diagram & Evidence Categories**:
+  - Generalized Step 1 diagram label from `gh pr view` to `gh` / `gt` PR lookup.
+  - Added `gt pr view` and `gt commit pr` to `1. Source Control` and `Gitea Issues` to `2. Issue Trackers`.
+- **Phase 1 & Phase 2**:
+  - Expanded Phase 1 Step 7 with non-interactive Gitea CLI commands (`gt commit pr <sha> --no-input`, `gt pr view <pr-number> --no-input`, and `gt pr comment list <pr-number> -L 100 --no-input`) alongside `gh pr view`.
+  - Updated Phase 2 source control discovery to reference `git` and the repository forge CLI (`gh` or `gt`).
+- Bumped version metadata from `1.1` to `1.2`.
+
+### 3. Resulting State (B)
+- Supports historical PR, commit, review, and issue lineage discovery across both GitHub and Gitea repositories.
+
+---
+
 ## [2026-10-24] - Archaeology Deepening: Pickaxe, Whitespace-Piercing Blame, Wire Compatibility & Lock-In
 
 - **Sources Integrated**: `what-could-break`, `differential-review`, `variant-analysis`, `improve-codebase-architecture`, and `production-code-audit`.
