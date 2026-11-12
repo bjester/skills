@@ -33,6 +33,8 @@ REFERENCE_OUTPUTS := $(foreach skill,$(REFERENCE_SKILLS),$(addprefix output/skil
 # Globs (relative to each skill) left out of distributable packages.
 PACKAGE_EXCLUDES := CHANGELOG.md README.md LICENSE* *.test.*
 
+PROVENANCE_MARKER := https://github.com/bjester/skills/blob/main/LICENSE
+
 clean:
 	rm -rf output
 
@@ -46,7 +48,21 @@ build: clean
 install: build
 	set -e; \
 	for install_dir in $(INSTALL_DIRS); do \
-		rsync --progress -ah output/ "$$install_dir"; \
+		mkdir -p "$$install_dir/skills"; \
+		for skill_path in output/skills/*/; do \
+			skill_name="$$(basename "$$skill_path")"; \
+			rsync --progress -ah --delete "$$skill_path" "$$install_dir/skills/$$skill_name/"; \
+		done; \
+		for skill_md in "$$install_dir"/skills/*/SKILL.md; do \
+			[ -f "$$skill_md" ] || continue; \
+			skill_dir="$$(dirname "$$skill_md")"; \
+			skill_name="$$(basename "$$skill_dir")"; \
+			if [ ! -d "output/skills/$$skill_name" ] && \
+				awk 'NR==1 && !/^---$$/{exit} NR>1 && /^---$$/{exit} NR>1' "$$skill_md" | grep -qxF 'license: MIT - $(PROVENANCE_MARKER)'; then \
+				echo "Removed retired skill: $$skill_dir"; \
+				rm -rf "$$skill_dir"; \
+			fi; \
+		done; \
 	done
 
 install-shinyskills:
