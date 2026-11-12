@@ -14,7 +14,7 @@ allowed-tools:
   - ask_user_question
 metadata:
   author: Blaine Jester
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Engineering with Agents: Disciplines for Autonomous and Paired LLM Development
@@ -54,7 +54,7 @@ When operating as an agent or pair-programming with an agent, adopt this default
   - *Always Pause*: Dropping databases, running destructive migrations, force-pushing shared branches, publishing packages, or sending external communications are irreversible. Always require explicit human confirmation.
 - **Evidence-Labeled Communication**: Label claims within the same sentence as *[Measured]*, *[Inferred]*, or *[Guessed]*. Never report an inference as a fact or hand an operator a verification check you could have run yourself.
 - **Surface Assumptions & Competing Interpretations Upfront**: When a request has unstated requirements or multiple valid interpretations, state your assumptions explicitly and present the trade-offs before writing code—never pick silently and build on a guess.
-- **Protected Paths & Secret Exclusion**: Never read, echo, or stage `.env*` secrets, private keys (`*.pem`, `*.key`), or credential stores; require explicit user confirmation before modifying CI/CD pipelines (`.github/workflows/`) or deployment infrastructure.
+- **Protected Paths & Secret Exclusion**: Never read, echo, or stage `.env*` secrets, private keys (`*.pem`, `*.key`), or credential stores; require explicit user confirmation before modifying CI/CD pipelines (`.github/workflows/`, `.gitea/workflows/`) or deployment infrastructure.
 
 ---
 
