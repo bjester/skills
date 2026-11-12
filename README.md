@@ -52,16 +52,17 @@ The repository currently provides curated skills across the software lifecycle:
 | **[`diagnosing-bugs`](skills/diagnosing-bugs/)** | Systematic Debugging & Diagnostics | 6-phase hypothesis-driven diagnosis loop, tight automated feedback loops, load-bearing minimization, root-cause tracing, 4-layer defense in depth, and secret redaction. |
 | **[`test-driven-development`](skills/test-driven-development/)** | Test-Driven Development (TDD) | Strict red-green-refactor discipline, public seam testing, vertical tracer bullets, and testing anti-pattern prevention before writing production code. |
 | **[`reviewing-code`](skills/reviewing-code/)** | Local Code Review | Analyzes git diffs, working tree changes, and branches across 4 architectural scales with counterfactual test mutation, caller-verified remediations (`Rename-Over-Comment`), calibrated comment/doc hygiene, and multi-model adversarial review. |
-| **[`reviewing-github-prs`](skills/reviewing-github-prs/)** | GitHub PR Review | Uses GitHub CLI (`gh`) with pre-flight reviewer identity checks, commit/stack scope gates, strict approval gates, and rebase-safe delta diffing (`git range-diff`) to submit structured PR reviews via the GitHub API. |
+| **[`reviewing-prs`](skills/reviewing-prs/)** | Pull Request Review (`gh` & `gt`) | Uses GitHub (`gh`) or Gitea (`gt`) CLI with pre-flight forge/reviewer identity gates, commit/stack scope checks, strict approval gates, and rebase-safe delta diffing (`git range-diff`) to stage or submit diff-verified inline reviews. |
 | **[`verifying-prs-in-browser`](skills/verifying-prs-in-browser/)** | Live Browser PR Verification | Conditional, profile-isolated browser and devserver verification using bundled `drive-browser.py` (standalone Playwright + axe-core WCAG AA) or Chrome DevTools MCP, with multimodal screenshot inspection, PR defect attribution, and non-blocking graceful fallback. |
-| **[`resolving-github-pr-feedback`](skills/resolving-github-pr-feedback/)** | GitHub PR Review Resolution | Author-side PR resolution workflow: enforces pre-flight author identity matching, fetches unresolved inline review threads via GraphQL, classifies items (`fix-now`, `clarify`, `defer`), verifies against `HEAD`, and replies with commit/test evidence. |
+| **[`resolving-pr-feedback`](skills/resolving-pr-feedback/)** | PR Review Feedback Resolution (`gh` & `gt`) | Author-side PR resolution workflow across GitHub (`gh`) and Gitea (`gt`): enforces pre-flight author identity matching, fetches unresolved inline review threads, classifies items (`fix-now`, `clarify`, `defer`), verifies against `HEAD`, and replies with commit/test evidence. |
+| **[`using-gitea-cli`](skills/using-gitea-cli/)** | Gitea CLI (`gt`) Operations & Workflows | Non-interactive Gitea 28+ CLI (`gt --no-input`) operations covering target/auth checks, JSON output (`--json`/`--jq`), Gitea Actions runs/logs/workflows (`.gitea/workflows`), releases, wikis, search, and `gt api` escapes. |
 | **[`composing-commit-history`](skills/composing-commit-history/)** | Git Commit Curation | Uses `git reset --soft` and selective staging to transform messy working trees or WIP commits into clean, atomic, review-ready git history. |
 | **[`replaying-file-revisions`](skills/replaying-file-revisions/)** | Revision Sequence Replay | Reconstructs and replays chronological iterations of specific files (e.g., prompt iterations, algorithm tuning, database migrations) into cohesive history. |
 | **[`retrieving-developer-knowledge`](skills/retrieving-developer-knowledge/)** | Google Developer Knowledge Retrieval | Searches, retrieves, and synthesizes official Google documentation across Google Cloud, Gemini/AI, Android, Web, Go, and Firebase via MCP tools or REST API fallback. |
-| **[`writing-github-issues-for-bugs`](skills/writing-github-issues-for-bugs/)** | Bug Report Issue Authoring | Authors reproducible, non-prescriptive GitHub bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, root-cause pointers, and anti-slop Plain prose. |
-| **[`writing-github-issues-for-features`](skills/writing-github-issues-for-features/)** | Feature Issue Authoring | Authors clear, non-prescriptive GitHub feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes, boundaries, and anti-slop Plain prose. |
-| **[`writing-github-prs`](skills/writing-github-prs/)** | GitHub PR Description Authoring | Authors template-first, slop-free GitHub PR titles and descriptions grounded in diffs and linked issues, enforcing pre-flight `gh` author identity checks, DEEP AI disclosure, and `--body-file` submission. |
-| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces verifiable Plain English and optional Strict ASD-STE100 rules across documentation, PR descriptions, GitHub issues, code reviews, specifications, runbooks, READMEs, ADRs, and release notes. |
+| **[`writing-issues-for-bugs`](skills/writing-issues-for-bugs/)** | Bug Report Issue Authoring (`gh` & `gt`) | Authors reproducible, non-prescriptive GitHub and Gitea bug reports with observed vs. expected behavior, uncertainty markers, severity criteria, root-cause pointers, and anti-slop Plain prose. |
+| **[`writing-issues-for-features`](skills/writing-issues-for-features/)** | Feature Issue Authoring (`gh` & `gt`) | Authors clear, non-prescriptive GitHub and Gitea feature requests and decomposes specs into vertically sliced issues focusing on observable outcomes, boundaries, and anti-slop Plain prose. |
+| **[`writing-prs`](skills/writing-prs/)** | Pull Request Description Authoring (`gh` & `gt`) | Authors template-first, slop-free GitHub and Gitea PR titles and descriptions grounded in diffs and linked issues, enforcing pre-flight `gh`/`gt` author identity checks, DEEP AI disclosure, and `--body-file` submission. |
+| **[`writing-technical-docs`](skills/writing-technical-docs/)** | Technical Documentation & ASD-STE100 | Enforces verifiable Plain English and optional Strict ASD-STE100 rules across documentation, PR descriptions, issues, code reviews, specifications, runbooks, READMEs, ADRs, and release notes. |
 | **[`authoring-skills`](skills/authoring-skills/)** | Agent Skill Authoring & Auditing | Guides authoring, refactoring, packaging, and capability-to-purpose security auditing of `SKILL.md` packages with 3-level progressive disclosure and routing hygiene. |
 | **[`handing-off-sessions`](skills/handing-off-sessions/)** | Cross-Session State Handoff & Restore | Snapshots and restores verified state across `/compact`, `/clear`, or multi-day boundaries with dead-end tracking, `[Unverified]` markers, and `HEAD` SHA reconciliation. |
 | **[`analyzing-agent-sessions`](skills/analyzing-agent-sessions/)** | Post-Mortem Agent Session Analysis | Forensically analyzes agent transcripts and artifacts to classify rework shapes, scope drift, and root causes (`SPEC_AMBIGUITY`, `REPO_FRAGILITY`, `AGENT_ARCHITECTURAL_ERROR`, `VERIFICATION_CHURN`). |
@@ -75,7 +76,8 @@ The repository currently provides curated skills across the software lifecycle:
 Shared references located in `references/` provide deep domain context and cross-cutting standards:
 
 - **[`references/decision-log-template.tsv`](references/decision-log-template.tsv)**: Append-only decision ledger schema (`ts`, `phase`, `decision`, `why`, `evidence`, `result`) for multi-phase and unattended agent plan execution.
-- **[`references/github-issue-guidelines.md`](references/github-issue-guidelines.md)**: Quality standards, DOs/DON'Ts, and the DEEP AI disclosure framework for issue authoring.
+- **[`references/forge-cli.md`](references/forge-cli.md)**: Deterministic `Forge Selection Gate` (`gh` vs. `gt`), active CLI login checks, fork `-R` overrides, and pre-flight `Author` and `Reviewer Identity Gates`.
+- **[`references/issue-guidelines.md`](references/issue-guidelines.md)**: Forge-neutral quality standards, DOs/DON'Ts, duplicate search, safe `--body-file` submission, and the DEEP AI disclosure framework for issue authoring.
 - **[`references/word-swaps.md`](references/word-swaps.md)**: Slop-to-plain word mappings and syntactic AI tell eradication rules shared across documentation, PR/issue authoring, and communication skills.
 
 ---
@@ -90,7 +92,7 @@ The repository uses GNU `make` to manage packaging, dependency injection, and in
 | :--- | :--- |
 | `make build` | Cleans `output/`, copies skills to `output/skills/` via `rsync` minus `PACKAGE_EXCLUDES` (`CHANGELOG.md`, `README.md`, `LICENSE*`, `*.test.*` are left out of packages), and packages declared shared references into each skill's `references/` directory. |
 | `make copy-references` | Resolves and copies shared references declared in `Makefile` into the packaged skill folders. |
-| `make install` | Builds the distribution packages and synchronizes them via `rsync` to every directory in `$(INSTALL_DIRS)` (`~/.claude/`, `~/.codex/`, `~/.gemini/antigravity-cli/`, and `~/.vibe/` by default). |
+| `make install` | Builds the distribution packages, synchronizes each skill via `rsync --delete` to every directory in `$(INSTALL_DIRS)` (`~/.claude/`, `~/.codex/`, `~/.gemini/antigravity-cli/`, and `~/.vibe/` by default), and prunes retired repository-owned skills while preserving third-party/ad-hoc skills. |
 | `make validate` | Builds the packages, checks that the installed `shinyskills` binary matches the pinned `SHINYSKILLS_VERSION`, and validates every packaged skill. Must exit 0. |
 | `make install-shinyskills` | Installs the pinned `shinyskills` version with `cargo install --git … --tag`. |
 | `make clean` | Removes generated files in `output/`. |
@@ -102,7 +104,7 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 
 - **File System**: `read_file` / `view_file`, `write_file` / `replace_file_content`.
 - **Search & Inspection**: `grep` / `grep_search`, `find_by_name`, `list_dir`.
-- **Execution & Version Control**: `run_command` (powers `git`, `gh` CLI, test runners like `pytest`/`jest`, linters).
+- **Execution & Version Control**: `run_command` (powers `git`, `gh` and `gt` CLIs, test runners like `pytest`/`jest`, linters).
 - **Coordination & Subagents**: `invoke_subagent`, `task` / `manage_task`, `ask_user_question`.
 
 ---
@@ -122,7 +124,8 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   └── pr-review-calibration-runbook.md
 ├── references/                # Canonical shared engineering references
 │   ├── decision-log-template.tsv
-│   ├── github-issue-guidelines.md
+│   ├── forge-cli.md
+│   ├── issue-guidelines.md
 │   └── word-swaps.md
 ├── skills/                    # Canonical source definitions for each skill
 │   ├── analyzing-agent-sessions/
@@ -188,12 +191,15 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── replaying-file-revisions/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
-│   ├── resolving-github-pr-feedback/
+│   ├── resolving-pr-feedback/
 │   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── gitea-gt.md
+│   │       └── github-gh.md
 │   ├── retrieving-developer-knowledge/
 │   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
 │   │   └── references/
 │   │       ├── api-fallback.md
 │   │       ├── mcp-usage.md
@@ -201,29 +207,43 @@ Skills declare tool dependencies in their frontmatter (`allowed-tools`). The fol
 │   ├── reviewing-code/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
-│   ├── reviewing-github-prs/
+│   ├── reviewing-prs/
 │   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── gitea-gt.md
+│   │       └── github-gh.md
 │   ├── test-driven-development/
 │   │   ├── CHANGELOG.md
 │   │   ├── SKILL.md
 │   │   ├── mocking-guidelines.md
 │   │   └── testing-anti-patterns.md
+│   ├── using-gitea-cli/
+│   │   ├── CHANGELOG.md
+│   │   ├── NOTICE.md
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── api.md
+│   │       ├── automation.md
+│   │       ├── monitoring.md
+│   │       ├── resources.md
+│   │       ├── search.md
+│   │       └── workflow-authoring.md
 │   ├── verifying-prs-in-browser/
 │   │   ├── CHANGELOG.md
 │   │   ├── SKILL.md
 │   │   └── scripts/
 │   │       └── drive-browser.py
-│   ├── writing-github-issues-for-bugs/
+│   ├── writing-issues-for-bugs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
-│   ├── writing-github-issues-for-features/
-│   │   ├── CHANGELOG.md
-│   │   └── SKILL.md
-│   ├── writing-github-prs/
+│   ├── writing-issues-for-features/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-plans/
+│   │   ├── CHANGELOG.md
+│   │   └── SKILL.md
+│   ├── writing-prs/
 │   │   ├── CHANGELOG.md
 │   │   └── SKILL.md
 │   ├── writing-specs/
