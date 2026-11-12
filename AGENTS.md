@@ -50,6 +50,15 @@ the repository-owned content here; generated packages are disposable.
   declare it in the `Makefile` using that skill's `<skill-name>_REFERENCES` variable
   and add the skill name to `REFERENCE_SKILLS`. Reference paths are relative to
   `references/` and are preserved in the built skill package.
+- **Skill-Root-Relative Path References (`shinyskills`)**: Reference packaged files
+  using paths relative to the skill root (`references/foo.md`, `scripts/bar.py`),
+  including from inside nested `references/*.md` files. Because `shinyskills`
+  validates every occurrence of a packaged filename against its skill-root-relative
+  path, do not use a bare filename as a Markdown link label (for example,
+  `[foo.md](references/foo.md)` fails validation). Instead, either:
+  - Use plain descriptive link text (`[the forge CLI guide](references/forge-cli.md)`),
+  - Repeat the skill-root-relative path (`[references/forge-cli.md](references/forge-cli.md)`), or
+  - List the reference path plainly without a Markdown link (`` `references/forge-cli.md` ``).
 - **`engineering-software` vs. `engineering-with-agents` Boundary**:
   - `engineering-software` captures timeless, human-relatable software engineering
     principles, architectural invariants, Design by Contract, and refactoring
