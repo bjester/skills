@@ -2,6 +2,20 @@
 
 Tracks upstream sources, imported commit revisions, and curated repository modifications.
 
+## [2026-11-12] - Forge-Neutral Skill Cross-References (2.4.1-curated)
+
+### 1. Motivation
+- Issue authoring, pull request authoring, and pull request review workflows now support both GitHub (`gh`) and Gitea (`gt`) under forge-neutral skill names (`writing-issues-for-bugs`, `writing-issues-for-features`, `writing-prs`, and `reviewing-prs`).
+
+### 2. Curated Changes Applied
+- **`SKILL.md` (`2.4.0-curated` -> `2.4.1-curated`)**:
+  - Broadened `GitHub issues` in `description`, `Purpose:`, and the `references/use-cases.md` pointer to cover GitHub and Gitea issues while keeping `GitHub` intact in Rule 2's proper-noun casing list.
+  - Updated Rule 11's severity-badge workflow reference from `reviewing-github-prs` to `reviewing-prs`.
+- **`references/use-cases.md`**:
+  - Generalized `## GitHub issues and code review comments` to `## Issues and code review comments` and updated workflow skill references to `writing-prs`, `writing-issues-for-bugs`, `writing-issues-for-features`, and `reviewing-prs`.
+
+---
+
 ## [2026-11-11] - Surgical Plain-Mode Calibration for Developer Artifacts & Standard Frontmatter
 
 ### 1. Motivation

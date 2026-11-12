@@ -50,11 +50,11 @@ STE bans hedges such as "may have impacted". The report states what is known and
 
 ## Commit messages and PR descriptions
 
-Mode: imperative subject line (`<= 72` chars), conversational Plain body. Apply `references/word-swaps.md` and the 25-word descriptive limit (counting backticked paths/commands as one word). Delete `"this PR aims to"`, em-dashes, and file-by-file diff regurgitation. When authoring or editing a GitHub PR, use the `writing-github-prs` skill for template discovery, author identity checks, and DEEP AI disclosure.
+Mode: imperative subject line (`<= 72` chars), conversational Plain body. Apply `references/word-swaps.md` and the 25-word descriptive limit (counting backticked paths/commands as one word). Delete `"this PR aims to"`, em-dashes, and file-by-file diff regurgitation. When authoring or editing a pull request, use the `writing-prs` skill for template discovery, identity checks, and DEEP AI disclosure.
 
-## GitHub issues and code review comments
+## Issues and code review comments
 
-Mode: Plain descriptive/behavioral for issues (`writing-github-issues-for-bugs`, `writing-github-issues-for-features`) and conversational Plain for code reviews (`reviewing-github-prs`). Lead review comments with the concrete defect or question in the first sentence, use schema-defined severity badges only where specified, allow natural contractions in review prose, and eliminate em-dashes, negative parallelisms, and sycophantic filler.
+Mode: Plain descriptive/behavioral for issues (`writing-issues-for-bugs`, `writing-issues-for-features`) and conversational Plain for code reviews (`reviewing-prs`). Lead review comments with the concrete defect or question first, and use schema-defined severity badges only where specified. Allow natural contractions in review prose, and eliminate em-dashes, negative parallelisms, and sycophantic filler.
 
 ## API changelogs and release notes
 
