@@ -68,6 +68,7 @@ sources:
 		sources/agentic-awesome-skills \
 		sources/cursor-plugins \
 		sources/google-skills \
+		sources/gt-cli \
 		sources/i-have-adhd \
 		sources/le-skills \
 		sources/mattpocock-skills \
@@ -90,6 +91,9 @@ sources/cursor-plugins:
 
 sources/google-skills:
 	git clone git@github.com:google/skills.git $@
+
+sources/gt-cli:
+	git clone https://gitea.com/gitea/cli.git $@
 
 sources/i-have-adhd:
 	git clone git@github.com:ayghri/i-have-adhd.git $@
